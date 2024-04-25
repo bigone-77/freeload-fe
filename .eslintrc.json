@@ -5,12 +5,6 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-one-expression-per-line": "off",
-    "react/require-default-props": [
-      "error",
-      { "ignoreFunctionalComponents": true }
-    ],
-    "import/prefer-default-export": "off",
-    "react/jsx-no-useless-fragment": "off"
+    "react/jsx-one-expression-per-line": "off"
   }
 }
