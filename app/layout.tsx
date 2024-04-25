@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_KR } from 'next/font/google';
 import './globals.css';
+import AppRegistry from '@/app';
 
-const inter = Inter({ subsets: ['latin'] });
+const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 
 export const viewport = {
-  themeColor: '#04C1AA',
+  themeColor: '#158EFF',
 };
 
 export const metadata: Metadata = {
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
       rel: 'apple-touch-startup-image',
     },
   ],
-  themeColor: '#04C1AA',
+  themeColor: '#158EFF',
 };
 
 export default function RootLayout({
@@ -42,7 +43,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={notoSansKr.className}>
+        <AppRegistry>{children}</AppRegistry>
+      </body>
     </html>
   );
 }
