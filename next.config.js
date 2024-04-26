@@ -8,6 +8,9 @@ const nextConfig = {
     skipWaiting: true,
     runtimeCaching: require('next-pwa/cache'),
   }),
+  images: {
+    domains: ['res.cloudinary.com'],
+  },
 };
 
 module.exports = nextConfig;
