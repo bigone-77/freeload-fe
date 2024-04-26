@@ -7,6 +7,8 @@
     "react/react-in-jsx-scope": "off",
     "react/jsx-one-expression-per-line": "off",
     "react/require-default-props": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "import/prefer-default-export": "off",
+    "react/no-array-index-key": "off"
   }
 }

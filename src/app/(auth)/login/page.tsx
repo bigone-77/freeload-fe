@@ -1,25 +1,11 @@
 'use client';
 
 import LoginButton from '@/components/LoginButton';
-import {
-  KAKAO_API_KEY,
-  KAKAO_REDIRECT_URI,
-  NAVER_CLIENT_ID,
-  NAVER_REDIRECT_URI,
-  STATE,
-} from '@/constants/SocialConst';
+import { KAKAO_URI, NAVER_URI } from '@/constants/SocialConst';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const router = useRouter();
-
-  const naverLoginHandler = () => {
-    window.location.href = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&state=${STATE}&redirect_uri=${NAVER_REDIRECT_URI}`;
-  };
-
-  const kakaoLoginHandler = () => {
-    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
-  };
 
   const goHomeHandler = () => {
     router.replace('/');
@@ -41,13 +27,17 @@ export default function LoginPage() {
         <div className="flex items-center justify-center flex-col gap-5 mt-20">
           <LoginButton
             label="네이버 로그인"
-            onClick={naverLoginHandler}
+            onClick={() => {
+              window.location.href = NAVER_URI;
+            }}
             theme="naver"
             social="naver"
           />
           <LoginButton
             label="카카오 로그인"
-            onClick={kakaoLoginHandler}
+            onClick={() => {
+              window.location.href = KAKAO_URI;
+            }}
             theme="kakao"
             social="kakao"
           />

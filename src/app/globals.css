@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+select {
+  /* 드롭다운 화살표 크기를 조정 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* 드롭다운 화살표 위치를 조정 */
+  padding-right: 100px; /* 원하는 만큼의 오른쪽 padding 값을 지정 */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9l-7 7-7-7"></path></svg>'); /* 드롭다운 화살표 아이콘 */
+  background-repeat: no-repeat;
+  background-position: right 5px top 50%; /* 아이콘 위치 */
+  /* 다른 스타일을 필요에 따라 추가 */
+}
