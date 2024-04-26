@@ -58,7 +58,7 @@ export default function SecondJoin() {
       <p className="font-regular text-text400 mt-10 mb-20">
         +81 01099128103 로 확인코드를 보냈습니다
       </p>
-      <PrimaryButton passed={passed} onClick={nextHandler} />
+      <PrimaryButton label="다음" passed={passed} onClick={nextHandler} />
       <Timer />
     </main>
   );

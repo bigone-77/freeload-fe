@@ -7,6 +7,7 @@ export default function Home() {
         프로젝트 너무 재미있어요 !
       </h1>
       <Link href="/login">로그인 화면 확인하기</Link>
+      <Link href="/join/1">join 화면 확인하기</Link>
     </main>
   );
 }

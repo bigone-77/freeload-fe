@@ -1,9 +1,14 @@
 interface INextButtonProps {
+  label: string;
   passed: boolean;
   onClick: () => void;
 }
 
-export default function NextButton({ passed, onClick }: INextButtonProps) {
+export default function NextButton({
+  label,
+  passed,
+  onClick,
+}: INextButtonProps) {
   return (
     <button
       type="button"
@@ -11,7 +16,7 @@ export default function NextButton({ passed, onClick }: INextButtonProps) {
       disabled={!passed}
       onClick={onClick}
     >
-      <p className="text-white text-lg font-semibold">다음</p>
+      <p className="text-white text-lg font-semibold">{label}</p>
     </button>
   );
 }

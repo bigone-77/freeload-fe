@@ -32,7 +32,7 @@ export default function FirstJoin() {
       <p className="font-regular text-text400 mt-10 mb-20">
         번호 확인을 위해 SMS 코드를 전송합니다
       </p>
-      <PrimaryButton passed={passed} onClick={nextHandler} />
+      <PrimaryButton label="다음" passed={passed} onClick={nextHandler} />
     </main>
   );
 }
