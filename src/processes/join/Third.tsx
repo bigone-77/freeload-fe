@@ -82,7 +82,7 @@ export default function ThirdJoin() {
           <option value="female">여성</option>
         </select>
       </div>
-      <PrimaryButton label="홈으로" passed={passed} onClick={nextHandler} />
+      <PrimaryButton label="완료" passed={passed} onClick={nextHandler} />
     </main>
   );
 }

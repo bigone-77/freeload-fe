@@ -3,9 +3,14 @@ import { useRouter } from 'next/navigation';
 
 import PrimaryButton from '@/components/NextButton';
 import { Timer } from '@/components/Timer';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
 
 export default function SecondJoin() {
   const router = useRouter();
+  const userPhoneNum = useSelector(
+    (state: RootState) => state.joinUser.phoneNum,
+  );
 
   const [authNums, setAuthNums] = useState<string[]>(['', '', '', '']);
   const [passed, setPassed] = useState(false);
@@ -56,7 +61,7 @@ export default function SecondJoin() {
         ))}
       </div>
       <p className="font-regular text-text400 mt-10 mb-20">
-        +81 01099128103 로 확인코드를 보냈습니다
+        +81 {userPhoneNum} 로 확인코드를 보냈습니다
       </p>
       <PrimaryButton label="다음" passed={passed} onClick={nextHandler} />
       <Timer />

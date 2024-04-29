@@ -9,6 +9,9 @@
     "react/require-default-props": "off",
     "operator-linebreak": "off",
     "import/prefer-default-export": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "object-curly-newline": "off",
+    "implicit-arrow-linebreak": "off",
+    "react/jsx-curly-newline": "off"
   }
 }
