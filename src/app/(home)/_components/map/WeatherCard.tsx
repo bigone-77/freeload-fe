@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import Image from 'next/image';
-import { getWeatherType, useFetchWeather } from '../_api/useFetchWeather';
+import { getWeatherType, useFetchWeather } from '../../_api/useFetchWeather';
 
 export default function WeatherCard({ latitude, longitude }: Coordinates) {
   const weatherData = useSelector((state: RootState) => state.getWeather);

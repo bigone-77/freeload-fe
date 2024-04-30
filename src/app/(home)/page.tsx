@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { setCurrentLocation } from '@/store/slices/getCurrentLocationSlice';
-import MapContainer from './_components/MapContainer';
+import MapContainer from './_components/map/MapContainer';
 
 export default function Home() {
   const dispatch = useDispatch();

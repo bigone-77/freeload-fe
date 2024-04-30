@@ -2,21 +2,21 @@
 
 import { useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import { Coordinates } from '@/models/location';
-import { GiHamburgerMenu } from 'react-icons/gi';
+import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
+import BottomTab from '@/widgets/home/BottomTab';
 import WeatherCard from './WeatherCard';
-import BottomModal from './BottomTab';
 
 export default function MapContainer({
   latitude: curLat,
   longitude: curLng,
 }: Coordinates) {
-  const router = useRouter();
   const mapRef = useRef<kakao.maps.Map>(null);
   const [weatherOn, setWeatherOn] = useState(true);
+  const [level, setLevel] = useState(DEFAULT_MAP_LEVEL);
+  const [isPanto, setIsPanto] = useState(false);
   const [location, setLocation] = useState<Coordinates>({
     latitude: curLat,
     longitude: curLng,
@@ -44,10 +44,12 @@ export default function MapContainer({
 
   const backOriginCenterHandler = () => {
     // 본래 좌표로 돌아가기
+    setIsPanto(true);
     setLocation({
       latitude: curLat,
       longitude: curLng,
     });
+    setLevel(1);
   };
 
   return (
@@ -56,7 +58,8 @@ export default function MapContainer({
         className="w-full h-screen"
         ref={mapRef}
         center={{ lat: location.latitude!, lng: location.longitude! }}
-        level={3}
+        isPanto={isPanto}
+        level={level}
         onZoomChanged={(map) => mapZoomChangeHandler(map)}
         onDragEnd={(map) => mapDragHandler(map)}
       >
@@ -68,14 +71,6 @@ export default function MapContainer({
           position={{ lat: curLat!, lng: curLng! }}
         />
       </Map>
-      <div className="absolute top-12 z-10 w-4/5 flex gap-4 items-center justify-center">
-        <GiHamburgerMenu size={50} color="skyblue" />
-        <input
-          className="border-4 rounded-lg w-full p-2 outline-none font-bold text-xl border-primary focus:border-primary"
-          placeholder="어디로 갈까요?"
-          onSelect={() => router.push('/search')}
-        />
-      </div>
       <div className="absolute flex flex-col gap-1 items-center justify-center bottom-28 left-6 z-10">
         {weatherOn && (
           <WeatherCard
@@ -93,10 +88,7 @@ export default function MapContainer({
           />
         </button>
       </div>
-      <BottomModal
-        latitude={location.latitude}
-        longitude={location.longitude}
-      />
+      <BottomTab latitude={location.latitude} longitude={location.longitude} />
     </>
   );
 }
