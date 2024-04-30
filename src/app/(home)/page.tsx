@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { useDispatch } from 'react-redux';
+
+import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { setCurrentLocation } from '@/store/slices/getCurrentLocationSlice';
 import MapContainer from './_components/MapContainer';
 

@@ -1,10 +1,8 @@
+import { Coordinates } from '@/models/location';
 import { useState, useEffect } from 'react';
 
 export const useGetCurrentLocation = () => {
-  const [currentPosition, setCurrentPosition] = useState<{
-    latitude: number | null;
-    longitude: number | null;
-  }>({
+  const [currentPosition, setCurrentPosition] = useState<Coordinates>({
     latitude: null,
     longitude: null,
   });

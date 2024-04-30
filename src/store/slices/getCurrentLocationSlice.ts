@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import { Coordinates } from '@/models/location';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
