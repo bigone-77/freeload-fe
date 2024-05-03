@@ -5,9 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        mobile: '412px',
-        tablet: '1024px',
-        desktop: '1440px',
+        mini: '370px',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

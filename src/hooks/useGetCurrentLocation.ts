@@ -2,6 +2,7 @@ import { Coordinates } from '@/models/location';
 import { useState, useEffect } from 'react';
 
 export const useGetCurrentLocation = () => {
+  // 현재 유저의 위치 반환 string
   const [currentPosition, setCurrentPosition] = useState<Coordinates>({
     latitude: null,
     longitude: null,

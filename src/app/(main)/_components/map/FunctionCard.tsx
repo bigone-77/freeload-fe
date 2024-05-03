@@ -1,3 +1,5 @@
+'use client';
+
 interface IFunctionCardProps {
   title: string;
   description: string;

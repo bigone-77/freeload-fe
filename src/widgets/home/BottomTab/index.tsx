@@ -5,8 +5,8 @@ import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 
 import { useAddressFromLatLng } from '@/hooks/useLocation';
 import { Coordinates } from '@/models/location';
-import AddressCard from '@/app/(home)/_components/map/AddressCard';
-import FunctionCard from '@/app/(home)/_components/map/FunctionCard';
+import AddressCard from '@/app/(main)/_components/map/AddressCard';
+import FunctionCard from '@/app/(main)/_components/map/FunctionCard';
 import FirstFunctionTab from './FirstFunctionTab';
 import SecondFunctionTab from './SecondFunctionTab';
 import ThirdFunctionTab from './ThirdFunctionTab';
@@ -15,14 +15,19 @@ export default function BottomTab({ latitude, longitude }: Coordinates) {
   const [goUp, setGoUp] = useState(false);
   const [showTabNum, setShowTabNum] = useState(0);
 
-  let address = useAddressFromLatLng(latitude!, longitude!); // 현재 지도 중심이 가리키는 주소
+  let address = useAddressFromLatLng(latitude!, longitude!); // 현재 사용자가 위치한 위도, 경도
 
   if (address.includes('undefined')) {
     address = '위치 정보 없음';
   }
 
   const upDownHandler = () => {
-    setGoUp(!goUp);
+    if (goUp) {
+      setGoUp(false);
+      setShowTabNum(0);
+    } else {
+      setGoUp(true);
+    }
   };
 
   let content;
@@ -33,7 +38,7 @@ export default function BottomTab({ latitude, longitude }: Coordinates) {
         <AddressCard location={address} />
         <hr className={`${goUp && 'mb-5'}`} />
         {goUp && (
-          <div className="flex flex-col gap-8 w-full items-center justify-center">
+          <div className="flex flex-col gap-2 mini:gap-6 w-full items-center justify-center">
             <FunctionCard
               title="주변 휴게소 검색"
               description="현재 위치에서 가까운 휴게소 검색하기"
@@ -56,7 +61,13 @@ export default function BottomTab({ latitude, longitude }: Coordinates) {
   } else if (showTabNum === 1) {
     content = <FirstFunctionTab />;
   } else if (showTabNum === 2) {
-    content = <SecondFunctionTab />;
+    content = (
+      <SecondFunctionTab
+        currentLocation={address}
+        currentLat={latitude!}
+        currentLng={longitude!}
+      />
+    );
   } else {
     content = <ThirdFunctionTab />;
   }

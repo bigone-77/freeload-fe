@@ -3,21 +3,26 @@
 import { useRef, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import Image from 'next/image';
+import { useDispatch } from 'react-redux';
 
 import { Coordinates } from '@/models/location';
 import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
-import BottomTab from '@/widgets/home/BottomTab';
+import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
 import WeatherCard from './WeatherCard';
 
+// 현재 유저가 있는 위치를 prop으로 전달받는다.
 export default function MapContainer({
   latitude: curLat,
   longitude: curLng,
 }: Coordinates) {
+  const dispatch = useDispatch();
   const mapRef = useRef<kakao.maps.Map>(null);
-  const [weatherOn, setWeatherOn] = useState(true);
-  const [level, setLevel] = useState(DEFAULT_MAP_LEVEL);
-  const [isPanto, setIsPanto] = useState(false);
+
+  const [weatherOn, setWeatherOn] = useState(true); // 지도에 날씨 띄울지 말지
+  const [level, setLevel] = useState(DEFAULT_MAP_LEVEL); // 지도의 줌 레벨
+  const [isPanto, setIsPanto] = useState(false); // 지도 부드럽게 이동
   const [location, setLocation] = useState<Coordinates>({
+    // 현재 지도의 중심좌표
     latitude: curLat,
     longitude: curLng,
   });
@@ -35,6 +40,12 @@ export default function MapContainer({
       latitude: map.getCenter().getLat(),
       longitude: map.getCenter().getLng(),
     });
+    dispatch(
+      setMapCenterLocation({
+        latitude: map.getCenter().getLat(),
+        longitude: map.getCenter().getLng(),
+      }),
+    );
     if (map.getLevel() > 3) {
       setWeatherOn(false);
     } else {
@@ -49,6 +60,12 @@ export default function MapContainer({
       latitude: curLat,
       longitude: curLng,
     });
+    dispatch(
+      setMapCenterLocation({
+        latitude: curLat,
+        longitude: curLng,
+      }),
+    );
     setLevel(1);
   };
 
@@ -74,8 +91,8 @@ export default function MapContainer({
       <div className="absolute flex flex-col gap-1 items-center justify-center bottom-28 left-6 z-10">
         {weatherOn && (
           <WeatherCard
-            latitude={location.latitude}
-            longitude={location.longitude}
+            latitude={location.latitude!}
+            longitude={location.longitude!}
           />
         )}
         <button type="button" onClick={backOriginCenterHandler}>
@@ -88,7 +105,6 @@ export default function MapContainer({
           />
         </button>
       </div>
-      <BottomTab latitude={location.latitude} longitude={location.longitude} />
     </>
   );
 }

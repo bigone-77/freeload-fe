@@ -7,17 +7,17 @@ const initialState = {
   longitude: null,
 } as Coordinates;
 
-const getCurrentLocationSlice = createSlice({
-  name: 'currentLocation',
+const getMapCenterSlice = createSlice({
+  name: 'mapCenter',
   initialState,
   reducers: {
-    setCurrentUserLocation: (state, action: PayloadAction<Coordinates>) => {
+    setMapCenterLocation: (state, action: PayloadAction<Coordinates>) => {
       state.latitude = action.payload.latitude;
       state.longitude = action.payload.longitude;
     },
   },
 });
 
-export const { setCurrentUserLocation } = getCurrentLocationSlice.actions;
+export const { setMapCenterLocation } = getMapCenterSlice.actions;
 
-export default getCurrentLocationSlice.reducer;
+export default getMapCenterSlice.reducer;
