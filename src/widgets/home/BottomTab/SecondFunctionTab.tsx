@@ -29,6 +29,7 @@ export default function SecondFunctionTab({
     latitude: 0,
     longitude: 0,
   });
+  console.log(startArea, endArea);
 
   const [showStartModal, setShowStartModal] = useState(false);
   const [showEndModal, setShowEndModal] = useState(false);

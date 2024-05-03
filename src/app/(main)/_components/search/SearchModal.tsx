@@ -10,7 +10,7 @@ import { TargetPlace } from '@/models/targetPlace';
 
 interface ISearchModalProps {
   value: string;
-  setValue: (value: TargetPlace) => void;
+  setValue: React.Dispatch<React.SetStateAction<TargetPlace>>;
   exitModal: () => void;
 }
 
@@ -25,8 +25,8 @@ export default function SearchModal({
   const addressList = useKeywordSearchList(value); // 키워드를 통해 얻은 주소목록
 
   const selectAddressHandler = (addr: string, x: number, y: number) => {
-    setValue((prev: TargetPlace) => ({
-      ...prev,
+    setValue((prevState: TargetPlace) => ({
+      ...prevState,
       name: addr,
       latitude: Number(y),
       longitude: Number(x),
