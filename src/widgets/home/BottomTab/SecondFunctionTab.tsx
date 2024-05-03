@@ -1,12 +1,14 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import Loader from '@/components/Loader';
 import GoToSearchInput from '@/components/GoToSearchInput';
 import SearchModal from '@/app/(main)/_components/search/SearchModal';
 import { TargetPlace } from '@/models/targetPlace';
+import NextButton from '@/components/NextButton';
 
 interface ISecondTabProps {
   currentLocation: string;
@@ -19,6 +21,7 @@ export default function SecondFunctionTab({
   currentLat,
   currentLng,
 }: ISecondTabProps) {
+  const router = useRouter();
   const [startArea, setStartArea] = useState<TargetPlace>({
     name: `내위치: ${currentLocation}`,
     latitude: currentLat,
@@ -29,7 +32,15 @@ export default function SecondFunctionTab({
     latitude: 0,
     longitude: 0,
   });
-  console.log(startArea, endArea);
+  const [passed, setPassed] = useState(false);
+
+  useEffect(() => {
+    if (startArea.name && endArea.name) {
+      setPassed(true);
+    } else {
+      setPassed(false);
+    }
+  }, [startArea, endArea, setPassed]);
 
   const [showStartModal, setShowStartModal] = useState(false);
   const [showEndModal, setShowEndModal] = useState(false);
@@ -39,13 +50,21 @@ export default function SecondFunctionTab({
     setEndArea(startArea);
   };
 
+  const searchPathHandler = () => {
+    const originLatLng = `${String(startArea.longitude)},${String(startArea.latitude)}`;
+    const destLatLng = `${String(endArea.longitude)},${String(endArea.latitude)}`;
+    router.push(
+      `/search?originLatLng=${originLatLng}&destLatLng=${destLatLng}`,
+    );
+  };
+
   let content;
 
   if (currentLocation === '') {
     content = <Loader />;
   } else {
     content = (
-      <div className="flex flex-col gap-3 relative">
+      <div className="flex flex-col gap-3">
         <GoToSearchInput
           name="start_area"
           label="출발지"
@@ -53,7 +72,7 @@ export default function SecondFunctionTab({
           placeholder="출발지를 입력해주세요"
           onFocus={() => setShowStartModal(true)}
         />
-        <div className="px-[30%]">
+        <div className="flex justify-end pr-6">
           <Image
             src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714473871/toggle-area.svg"
             alt="toggle-area"
@@ -74,8 +93,8 @@ export default function SecondFunctionTab({
   }
 
   return (
-    <>
-      <div className="flex items-center justify-center gap-2 w-full mini:px-[10%] px-0 mt-12">
+    <div className="w-full mini:px-[10%] px-0 mt-12">
+      <div className="flex items-center justify-center gap-2">
         <div className="flex flex-col items-center justify-center">
           <Image
             src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/start-area.svg"
@@ -98,6 +117,13 @@ export default function SecondFunctionTab({
         </div>
         {content}
       </div>
+      <section className="mt-12 px-10">
+        <NextButton
+          label="경로 찾기"
+          passed={passed}
+          onClick={searchPathHandler}
+        />
+      </section>
       {showStartModal && (
         <SearchModal
           value={startArea.name}
@@ -112,6 +138,6 @@ export default function SecondFunctionTab({
           exitModal={() => setShowEndModal(false)}
         />
       )}
-    </>
+    </div>
   );
 }

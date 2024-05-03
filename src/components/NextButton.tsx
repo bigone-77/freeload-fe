@@ -12,7 +12,7 @@ export default function NextButton({
   return (
     <button
       type="button"
-      className={`h-[57px] rounded-lg transition-all hover:opacity-80 bg-primary w-full ${!passed && 'opacity-50'}`}
+      className={`h-[57px] rounded-lg transition-all bg-primary w-full ${!passed && 'opacity-50'}`}
       disabled={!passed}
       onClick={onClick}
     >

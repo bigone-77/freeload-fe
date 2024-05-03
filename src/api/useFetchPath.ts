@@ -11,6 +11,7 @@ export const useFetchPath = () => {
   }: {
     originLatLng: string;
     destLatLng: string;
+    // eslint-disable-next-line consistent-return
   }) => {
     try {
       const response = await axios.get(MOBILITY_URL, {
@@ -19,8 +20,11 @@ export const useFetchPath = () => {
           destination: destLatLng,
           priority: 'RECOMMEND',
         },
+        headers: {
+          Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY}`,
+        },
       });
-      console.log(response);
+      return response.data;
     } catch (error) {
       console.log(error);
     }

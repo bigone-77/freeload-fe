@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Coordinates } from '@/models/location';
 import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
 import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
+import Loader from '@/components/Loader';
 import WeatherCard from './WeatherCard';
 
 // 현재 유저가 있는 위치를 prop으로 전달받는다.
@@ -89,11 +90,13 @@ export default function MapContainer({
         />
       </Map>
       <div className="absolute flex flex-col gap-1 items-center justify-center bottom-28 left-6 z-10">
-        {weatherOn && (
+        {weatherOn ? (
           <WeatherCard
             latitude={location.latitude!}
             longitude={location.longitude!}
           />
+        ) : (
+          <Loader />
         )}
         <button type="button" onClick={backOriginCenterHandler}>
           <Image
