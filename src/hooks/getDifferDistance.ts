@@ -30,3 +30,13 @@ export const getDifferDistance = (
   }
   return `${Math.round(difDistance * 1000)}m`;
 };
+
+export const extractNumbersFromString = (str: string) => {
+  const numbers = str.match(/\d+/g);
+
+  if (numbers === null) {
+    return [];
+  }
+
+  return numbers;
+};
