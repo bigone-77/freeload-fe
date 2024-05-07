@@ -3,7 +3,7 @@
 import { useSearchParams } from 'next/navigation';
 
 import Loader from '@/components/Loader';
-import { getDifferDistance } from '@/hooks/getDifferDistance';
+import { getDifferDistance } from '@/utils/getDifferDistance';
 import DrawPath from './_component/DrawPath';
 
 export default function SearchPage() {
@@ -19,15 +19,17 @@ export default function SearchPage() {
     const endLng = Number(destLatLng.split(',')[0]);
     const diffDist = getDifferDistance(startLat, startLng, endLat, endLng);
     return (
-      <DrawPath
-        originLatLng={originLatLng}
-        destLatLng={destLatLng}
-        startLat={startLat}
-        startLng={startLng}
-        endLat={endLat}
-        endLng={endLng}
-        diffDist={diffDist}
-      />
+      <main className="flex w-full h-full flex-col items-center justify-between">
+        <DrawPath
+          originLatLng={originLatLng}
+          destLatLng={destLatLng}
+          startLat={startLat}
+          startLng={startLng}
+          endLat={endLat}
+          endLng={endLng}
+          diffDist={diffDist}
+        />
+      </main>
     );
   }
 

@@ -4,7 +4,7 @@ import { RootState } from '@/store/store';
 
 import EnteredInput from '@/components/EnteredInput';
 import PrimaryButton from '@/components/NextButton';
-import getYears from '@/hooks/getYears';
+import getYears from '@/utils/getYears';
 import { useRouter } from 'next/navigation';
 
 export default function ThirdJoin() {

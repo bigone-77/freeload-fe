@@ -6,9 +6,11 @@ import { useRouter } from 'next/navigation';
 
 import Loader from '@/components/Loader';
 import GoToSearchInput from '@/components/GoToSearchInput';
-import SearchModal from '@/app/(main)/_components/search/SearchModal';
 import { TargetPlace } from '@/models/targetPlace';
 import NextButton from '@/components/NextButton';
+import SearchModal from '@/app/(main)/_components/search/SearchModal';
+import { toast } from 'react-toastify';
+import StartEndBar from '@/app/(main)/search/_component/StartEndBar';
 
 interface ISecondTabProps {
   currentLocation: string;
@@ -40,6 +42,20 @@ export default function SecondFunctionTab({
     } else {
       setPassed(false);
     }
+    if (startArea.name !== '' && startArea.name === endArea.name) {
+      setPassed(false);
+      toast.warn('출발지, 도착지 지역이 같습니다. 다시 확인해주세요!');
+      setStartArea({
+        name: '',
+        latitude: 0,
+        longitude: 0,
+      });
+      setEndArea({
+        name: '',
+        latitude: 0,
+        longitude: 0,
+      });
+    }
   }, [startArea, endArea, setPassed]);
 
   const [showStartModal, setShowStartModal] = useState(false);
@@ -54,7 +70,7 @@ export default function SecondFunctionTab({
     const originLatLng = `${String(startArea.longitude)},${String(startArea.latitude)}`;
     const destLatLng = `${String(endArea.longitude)},${String(endArea.latitude)}`;
     router.push(
-      `/search?originLatLng=${originLatLng}&destLatLng=${destLatLng}`,
+      `/search?originLatLng=${originLatLng}&originAddr=${startArea.name}&destLatLng=${destLatLng}&destAddr=${endArea.name}`,
     );
   };
 
@@ -95,26 +111,7 @@ export default function SecondFunctionTab({
   return (
     <div className="w-full mini:px-[10%] px-0 mt-12">
       <div className="flex items-center justify-center gap-2">
-        <div className="flex flex-col items-center justify-center">
-          <Image
-            src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/start-area.svg"
-            alt="start-svg"
-            width={12}
-            height={12}
-          />
-          <Image
-            src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/start-end-link.svg"
-            alt="link-svg"
-            width={1}
-            height={63}
-          />
-          <Image
-            src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/end-area.svg"
-            alt="link-svg"
-            width={14}
-            height={18}
-          />
-        </div>
+        <StartEndBar />
         {content}
       </div>
       <section className="mt-12 px-10">

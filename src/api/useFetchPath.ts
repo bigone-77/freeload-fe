@@ -6,17 +6,6 @@ import { Highway } from '@/models/highway';
 
 const MOBILITY_URL = 'https://apis-navi.kakaomobility.com/v1/directions';
 
-const removeDuplicates = (arr: Highway[]): Highway[] => {
-  const uniqueNames = new Set<string>();
-  return arr.filter((item) => {
-    if (uniqueNames.has(item.name)) {
-      return false; // 이미 존재하는 이름인 경우 필터링
-    }
-    uniqueNames.add(item.name);
-    return true; // 처음 나타난 이름인 경우 유지
-  });
-};
-
 export const useFetchPath = () => {
   const getPath = async ({
     originLatLng,
@@ -38,6 +27,7 @@ export const useFetchPath = () => {
         },
       });
 
+      // TODO: 경로 그리기 위함 -> 위도, 경도 path쌍 구하기
       const latArray: number[] = [];
       const lngArray: number[] = [];
       response.data.routes[0].sections[0].roads.forEach((route: any) =>
@@ -49,18 +39,40 @@ export const useFetchPath = () => {
           }
         }),
       );
-      const highway: Highway[] = [];
+
+      const path: any[] = [];
+      for (let i = 0; i < latArray.length; i += 1) {
+        path.push({ lat: latArray[i], lng: lngArray[i] });
+      }
+
+      // TODO: 너무 짧은 고속도로 제외 (기준 30km 이상)
+      const mergedDist: { [key: string]: number } = {};
       response.data.routes[0].sections[0].roads.forEach((road: any) => {
         if (road.name.includes('고속도로')) {
-          highway.push({
-            name: road.name,
-            latitude: road.vertexes[1],
-            longitude: road.vertexes[0],
+          if (mergedDist[road.name]) {
+            mergedDist[road.name] += road.distance;
+          } else {
+            mergedDist[road.name] = road.distance;
+          }
+        }
+      });
+
+      const uniqueHighway: Highway[] = [];
+      Object.keys(mergedDist).forEach((name) => {
+        if (mergedDist[name] >= 15000) {
+          uniqueHighway.push({
+            name,
+            latitude: response.data.routes[0].sections[0].roads.find(
+              (road: any) => road.name === name,
+            ).vertexes[1],
+            longitude: response.data.routes[0].sections[0].roads.find(
+              (road: any) => road.name === name,
+            ).vertexes[0],
           });
         }
       });
-      const uniqueHighway = removeDuplicates(highway);
-      return { latArray, lngArray, uniqueHighway };
+
+      return { path, uniqueHighway };
     } catch (error) {
       console.log(error);
     }

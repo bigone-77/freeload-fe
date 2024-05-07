@@ -1,12 +1,19 @@
+/* eslint-disable react/jsx-no-useless-fragment */
+import { useDispatch, useSelector } from 'react-redux';
 import { IoChevronBack } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
-
 import { FaLocationDot } from 'react-icons/fa6';
+import { IoIosClose } from 'react-icons/io';
+
 import SearchInput from '@/components/SearchInput';
 import useKeywordSearchList from '@/hooks/useKeywordSearchList';
 import { RootState } from '@/store/store';
-import { getDifferDistance } from '@/hooks/getDifferDistance';
+import { getDifferDistance } from '@/utils/getDifferDistance';
 import { TargetPlace } from '@/models/targetPlace';
+import {
+  removeTarget,
+  setRecentTarget,
+} from '@/store/slices/recentTargetSlice';
+import { formatTime } from '@/utils/getTime';
 
 interface ISearchModalProps {
   value: string;
@@ -19,6 +26,8 @@ export default function SearchModal({
   setValue,
   exitModal,
 }: ISearchModalProps) {
+  const dispatch = useDispatch();
+  const recentKeywords = useSelector((state: RootState) => state.recentTarget);
   const currentLatLng = useSelector(
     (state: RootState) => state.currentLocation,
   );
@@ -31,7 +40,23 @@ export default function SearchModal({
       latitude: Number(y),
       longitude: Number(x),
     }));
+    dispatch(
+      setRecentTarget({
+        name: addr,
+        latitude: Number(y),
+        longitude: Number(x),
+        date: formatTime(new Date()),
+      }),
+    );
     exitModal();
+  };
+
+  const deleteRecentTargetHandler = (
+    name: string,
+    e: React.MouseEvent<SVGElement>,
+  ) => {
+    e.stopPropagation(); // 부모 element까지의 이벤트 전파 차단(이벤트 버블링 차단)
+    dispatch(removeTarget({ name }));
   };
 
   let content;
@@ -70,8 +95,41 @@ export default function SearchModal({
         ))}
       </>
     );
+  } else if (recentKeywords.length > 0) {
+    content = (
+      <>
+        {recentKeywords?.map((keyword, index) => (
+          <li
+            onClick={() =>
+              selectAddressHandler(
+                keyword.name,
+                keyword.longitude,
+                keyword.latitude,
+              )
+            }
+            key={index}
+            className="w-full my-4 border-b-2 pb-3"
+          >
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-2">
+                <FaLocationDot size={20} color="lightgray" />
+                <p className="font-bold">{keyword.name}</p>
+              </span>
+              <span className="flex items-center gap-2">
+                <p className="text-text400 text-xs">{keyword.date}</p>
+                <IoIosClose
+                  size={25}
+                  color="lightgray"
+                  onClick={(e) => deleteRecentTargetHandler(keyword.name, e)}
+                />
+              </span>
+            </div>
+          </li>
+        ))}
+      </>
+    );
   } else {
-    content = <p>최근 검색한 장소 나타낼겁니다</p>;
+    content = <p>최근 검색 기록이 없습니다.</p>;
   }
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;

@@ -6,10 +6,10 @@ import {
   Polyline,
 } from 'react-kakao-maps-sdk';
 import { useFetchPath } from '@/api/useFetchPath';
-import { extractNumbersFromString } from '@/hooks/getDifferDistance';
+import { extractNumbersFromString } from '@/utils/getDifferDistance';
 import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
 import { Highway } from '@/models/highway';
-import { getUpDown } from '@/hooks/getUpDown';
+// import { getUpDown } from '@/utils/getUpDown';
 
 interface IDrawPathProps {
   originLatLng: string;
@@ -31,10 +31,11 @@ export default function DrawPath({
   diffDist,
 }: IDrawPathProps) {
   const getPathData = useFetchPath(); // 경로 길찾기 Api 호출
+
   const [level, setLevel] = useState(DEFAULT_MAP_LEVEL);
-  const [pathLat, setPathLat] = useState<number[]>([]);
-  const [pathLng, setPathLng] = useState<number[]>([]);
   const [highwayInfo, setHighwayInfo] = useState<Highway[]>([]);
+  const [path, setPath] = useState<any[]>([]);
+
   const diffNum = Number(extractNumbersFromString(diffDist)[0]);
 
   useEffect(() => {
@@ -53,55 +54,18 @@ export default function DrawPath({
   }, [diffNum]);
 
   useEffect(() => {
-    getPathData({ originLatLng, destLatLng })
-      .then((data) => {
-        if (data) {
-          setPathLat(data.latArray);
-          setPathLng(data.lngArray);
-          setHighwayInfo(data.uniqueHighway);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching path data:', error);
-      });
+    getPathData({ originLatLng, destLatLng }).then((data) => {
+      if (data) {
+        // data.uniqueHighway.map((highway) =>
+        //   console.log(highway.name.replace('고속도로', '선')),
+        // );
+        console.log(data.uniqueHighway);
+
+        setPath(data.path);
+        setHighwayInfo(data.uniqueHighway);
+      }
+    });
   }, []);
-  console.log(highwayInfo);
-
-  let content;
-  if (pathLat.length > 0) {
-    const path: any[] = [];
-    for (let i = 0; i < pathLat.length; i += 1) {
-      path.push({ lat: pathLat[i], lng: pathLng[i] });
-    }
-
-    content = (
-      <>
-        <Polyline
-          path={[path]}
-          strokeWeight={5}
-          strokeColor="#158EFF"
-          strokeOpacity={0.7}
-          strokeStyle="solid"
-        />
-        {highwayInfo.map((highway, index) => (
-          <CustomOverlayMap
-            key={index}
-            position={{
-              lat: highway.latitude,
-              lng: highway.longitude,
-            }}
-          >
-            <div className="border rounded-lg bg-text700 p-2">
-              <p className="text-xs text-text50">{highway.name}</p>
-            </div>
-          </CustomOverlayMap>
-        ))}
-        <p>{getUpDown(startLat, startLng, endLat, endLng)}</p>
-      </>
-    );
-  } else {
-    content = <p>준비중</p>;
-  }
 
   return (
     <Map
@@ -109,7 +73,7 @@ export default function DrawPath({
         lat: Number(((startLat + endLat) / 2).toFixed(7)),
         lng: Number(((startLng + endLng) / 2).toFixed(7)),
       }}
-      style={{ width: '100%', height: '360px' }}
+      className="w-full h-screen"
       level={level}
     >
       <MapMarker position={{ lat: startLat, lng: startLng }} />
@@ -123,7 +87,31 @@ export default function DrawPath({
           },
         }}
       />
-      {content}
+      {path && (
+        <>
+          <Polyline
+            path={[path]}
+            strokeWeight={5}
+            strokeColor="#158EFF"
+            strokeOpacity={0.7}
+            strokeStyle="solid"
+          />
+          {highwayInfo.map((highway, index) => (
+            <CustomOverlayMap
+              key={index}
+              position={{
+                lat: highway.latitude,
+                lng: highway.longitude,
+              }}
+            >
+              <div className="border rounded-lg bg-text700 p-2">
+                <p className="text-xs text-text50">{highway.name}</p>
+              </div>
+            </CustomOverlayMap>
+          ))}
+        </>
+      )}
+      {/* <p>{getUpDown(startLat, endLat)}</p> */}
     </Map>
   );
 }
