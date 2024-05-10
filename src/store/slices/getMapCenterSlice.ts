@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Coordinates } from '@/models/location';
+import { Coordinates } from '@/models/Location';
 
 const initialState = {
   latitude: null,

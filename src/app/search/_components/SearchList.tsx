@@ -5,7 +5,7 @@ import { formatTime } from '@/utils/getTime';
 import { FaLocationDot } from 'react-icons/fa6';
 import { getDifferDistance } from '@/utils/getDifferDistance';
 import { RootState } from '@/store';
-import { TargetPlace } from '@/models/targetPlace';
+import { TargetPlace } from '@/models/TargetPlace';
 
 interface ISearchListProps {
   address: any;

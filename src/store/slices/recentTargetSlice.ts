@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { TargetPlace } from '@/models/targetPlace';
+import { TargetPlace } from '@/models/TargetPlace';
 
 interface IRecnetTargetSliceProps extends TargetPlace {
   date: string;
