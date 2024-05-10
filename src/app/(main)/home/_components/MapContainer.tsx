@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux';
 
 import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
 import { SlTarget } from '@/constants/Icons';
-import { Coordinates } from '@/models/Location';
 
 // 여기서는 Props로 현재 사용자의 위도, 경도를 받는다.
 export default function MapContainer({
@@ -18,7 +17,7 @@ export default function MapContainer({
 }) {
   const dispatch = useDispatch();
 
-  const [location, setLocation] = useState<Coordinates>({
+  const [location, setLocation] = useState({
     // 현재 지도의 중심좌표(현재 유저의 위치 아님!!)
     latitude: curLat,
     longitude: curLng,
