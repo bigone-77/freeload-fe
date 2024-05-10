@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { Highway } from '@/models/Highway';
+import { Highway } from '@/models/highway';
 
 const MOBILITY_URL = 'https://apis-navi.kakaomobility.com/v1/directions';
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useFetchPath } from '@/hooks/useFetchPath';
-import { Highway } from '@/models/Highway';
+import { Highway } from '@/models/highway';
 import DrawPath from './DrawPath';
 
 interface IPathMapProps {
