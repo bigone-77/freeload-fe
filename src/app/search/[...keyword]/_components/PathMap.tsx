@@ -79,7 +79,6 @@ export default function PathMap({
         }}
       />
       {path && <DrawPath path={path} highwayInfo={highwayInfo} />}
-      {/* <p>{getUpDown(startLat, endLat)}</p> */}
     </Map>
   );
 }
