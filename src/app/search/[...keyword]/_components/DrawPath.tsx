@@ -1,5 +1,5 @@
 import { CustomOverlayMap, Polyline } from 'react-kakao-maps-sdk';
-import { Highway } from '@/models/highway';
+import { Highway } from '@/models/Highway';
 
 interface IDrawPathProps {
   path: any[];
