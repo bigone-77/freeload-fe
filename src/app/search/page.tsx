@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import { TargetPlace } from '@/models/TargetPlace';
+import { TargetPlace } from '@/models/targetPlace';
 import useKeywordSearchList from '@/hooks/useKeywordSearchList';
 import { RootState } from '@/store';
 import { useAddressFromLatLng } from '@/hooks/useAddressFromLatLng';

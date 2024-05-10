@@ -2,7 +2,7 @@
 
 import { useDispatch } from 'react-redux';
 
-import { TargetPlace } from '@/models/TargetPlace';
+import { TargetPlace } from '@/models/targetPlace';
 import {
   removeTarget,
   setRecentTarget,
