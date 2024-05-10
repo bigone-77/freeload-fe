@@ -1,12 +1,10 @@
-import { Coordinates } from '@/models/location';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { setCurrentUserLocation } from '@/store/slices/getCurrentLocationSlice';
 
 export const useGetCurrentLocation = () => {
-  // 현재 유저의 위치 반환 string
-  const [currentPosition, setCurrentPosition] = useState<Coordinates>({
-    latitude: null,
-    longitude: null,
-  });
+  const dispatch = useDispatch();
   useEffect(() => {
     const getPosition = async () => {
       try {
@@ -20,7 +18,12 @@ export const useGetCurrentLocation = () => {
           latitude: pos.coords.latitude,
           longitude: pos.coords.longitude,
         };
-        setCurrentPosition(currentPos);
+        dispatch(
+          setCurrentUserLocation({
+            latitude: currentPos.latitude,
+            longitude: currentPos.longitude,
+          }),
+        );
       } catch (err) {
         console.log(err);
       }
@@ -28,6 +31,4 @@ export const useGetCurrentLocation = () => {
 
     getPosition();
   }, []); // 빈 배열은 한 번만 실행됨을 의미합니다.
-
-  return { currentPosition };
 };

@@ -9,7 +9,7 @@ interface IGetWeatherSliceProps {
 const initialState: IGetWeatherSliceProps = {
   iconCode: '01d',
   weatherDescId: 800,
-  temp: 273,
+  temp: 20,
 };
 
 const getWeatherSlice = createSlice({
