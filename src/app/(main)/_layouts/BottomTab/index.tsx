@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useSelectedLayoutSegment } from 'next/navigation';
+import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
@@ -14,6 +14,7 @@ import ProfileContent from './contents/ProfileContent';
 
 export default function BottomTab() {
   const segment = useSelectedLayoutSegment();
+  const params = useSearchParams();
 
   const currentLatLng = useSelector(
     (state: RootState) => state.currentLocation,
@@ -23,17 +24,18 @@ export default function BottomTab() {
   if (segment) {
     switch (segment) {
       case 'home':
-        content = currentLatLng.latitude ? (
-          <HomeContent
-            lat={currentLatLng.latitude!}
-            lng={currentLatLng.longitude!}
-          />
-        ) : (
-          <Loader />
-        );
-        break;
-      case 'like':
-        content = <LikeContent />;
+        if (params.get('like') !== 'true') {
+          content = currentLatLng.latitude ? (
+            <HomeContent
+              lat={currentLatLng.latitude!}
+              lng={currentLatLng.longitude!}
+            />
+          ) : (
+            <Loader />
+          );
+        } else {
+          content = <LikeContent />;
+        }
         break;
       case 'select':
         content = <SelectContent />;
