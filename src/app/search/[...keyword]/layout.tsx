@@ -1,4 +1,3 @@
-import BottomTab from './_layouts/BottomTab';
 import Header from './_layouts/Header';
 
 interface ISearchTargetLayoutProps {
@@ -20,7 +19,6 @@ export default function SearchTargetLayout({
     <>
       <Header originAddr={originAddr} destAddr={destAddr} />
       {children}
-      <BottomTab />
     </>
   );
 }

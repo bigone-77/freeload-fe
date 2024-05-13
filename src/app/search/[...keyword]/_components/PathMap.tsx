@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 import { DEFAULT_MAP_LEVEL } from '@/constants/Map';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
@@ -14,6 +14,9 @@ interface IPathMapProps {
   endLat: number;
   endLng: number;
   diffDist: number;
+  highwayInfo: Highway[];
+  setHighwayInfo: Dispatch<SetStateAction<Highway[]>>;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function PathMap({
@@ -24,11 +27,13 @@ export default function PathMap({
   endLat,
   endLng,
   diffDist,
+  highwayInfo,
+  setHighwayInfo,
+  setIsLoading,
 }: IPathMapProps) {
   const getPathData = useFetchPath(); // 경로 길찾기 Api 호출
 
   const [level, setLevel] = useState(DEFAULT_MAP_LEVEL);
-  const [highwayInfo, setHighwayInfo] = useState<Highway[]>([]);
   const [path, setPath] = useState<any[]>([]);
 
   useEffect(() => {
@@ -52,6 +57,7 @@ export default function PathMap({
         // data.uniqueHighway.map((highway) =>
         //   console.log(highway.name.replace('고속도로', '선')),
         // );
+        setIsLoading(true);
         setPath(data.path);
         setHighwayInfo(data.uniqueHighway);
       }

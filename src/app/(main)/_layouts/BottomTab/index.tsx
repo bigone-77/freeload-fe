@@ -57,7 +57,7 @@ export default function BottomTab() {
     <section
       className={`
     ${goUp ? 'h-[85%]' : 'h-32'}  
-      absolute flex flex-col items-center bottom-0 left-0 right-0 z-10 w-full py-3 bg-text50 rounded-tl-2xl rounded-tr-2xl opacity-95 transition-all transform duration-1000
+      absolute flex flex-col items-center bottom-0 left-0 right-0 z-10 w-full shadow-2xl py-3 bg-text50 rounded-tl-[20px] rounded-tr-[20px] opacity-95 transition-all transform duration-1000
     `}
     >
       {goUp ? (

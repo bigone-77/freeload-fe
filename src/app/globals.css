@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.tooltip {
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 90%;
+  width: max-content;
+}
+
 select {
   /* 드롭다운 화살표 크기를 조정 */
   appearance: none;

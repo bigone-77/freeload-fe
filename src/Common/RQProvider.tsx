@@ -13,7 +13,7 @@ function RQProvider({ children }: { children: React.ReactNode }) {
         queries: {
           refetchOnWindowFocus: false,
           retryOnMount: true,
-          refetchOnReconnect: false,
+          refetchOnReconnect: true,
           retry: false,
         },
       },

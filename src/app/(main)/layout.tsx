@@ -6,6 +6,7 @@ import Footer from '@/app/(main)/_layouts/Footer';
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import Loader from '@/Common/Loader';
 import { RootState } from '@/store';
+import { useSelectedLayoutSegment } from 'next/navigation';
 import BottomTab from './_layouts/BottomTab';
 import HomeHeader from './_layouts/header';
 
@@ -14,6 +15,7 @@ interface IHomeLayoutProps {
 }
 
 export default function HomeLayout({ children }: IHomeLayoutProps) {
+  const segment = useSelectedLayoutSegment();
   useGetCurrentLocation();
 
   const currentLocation = useSelector(
@@ -25,9 +27,9 @@ export default function HomeLayout({ children }: IHomeLayoutProps) {
   }
   return (
     <>
-      <HomeHeader />
+      {segment === 'home' && <HomeHeader />}
       {children}
-      <BottomTab />
+      {segment === 'home' && <BottomTab />}
       <Footer />
     </>
   );

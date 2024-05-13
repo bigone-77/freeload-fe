@@ -1,14 +1,19 @@
 'use client';
 
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import {
   extractNumbersFromString,
   getDifferDistance,
 } from '@/utils/getDifferDistance';
 import Loader from '@/Common/Loader';
+import { Highway } from '@/models/Highway';
 import PathMap from './_components/PathMap';
+import BottomTab from './_components/BottomTab';
 
 export default function Page() {
+  const [highwayInfo, setHighwayInfo] = useState<Highway[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const params = useSearchParams();
   const originLatLng = params.get('originLatLng');
   const destLatLng = params.get('destLatLng');
@@ -22,6 +27,7 @@ export default function Page() {
     const diffDist = extractNumbersFromString(
       getDifferDistance(startLat, startLng, endLat, endLng),
     );
+    const direction = startLng > endLng ? 'up' : 'down';
 
     return (
       <main className="absolute top-0 left-0 right-0 w-full h-full">
@@ -33,7 +39,13 @@ export default function Page() {
           endLat={endLat}
           endLng={endLng}
           diffDist={Number(diffDist[0])}
+          highwayInfo={highwayInfo}
+          setHighwayInfo={setHighwayInfo}
+          setIsLoading={setIsLoading}
         />
+        {isLoading && (
+          <BottomTab highwayInfo={highwayInfo} direction={direction} />
+        )}
       </main>
     );
   }

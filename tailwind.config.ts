@@ -72,6 +72,7 @@ const config: Config = {
       },
       colors: {
         primary: '#158EFF',
+        secondary: '#EC9D26',
         text50: '#FFFFFF',
         text75: '#F2F2F2',
         text100: '#E6E6E6',
