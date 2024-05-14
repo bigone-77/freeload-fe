@@ -1,3 +1,4 @@
+import { OilStation } from '@/models/OilStation';
 import { Rest } from '@/models/Rest';
 
 export const restData: Rest[] = [
@@ -18,7 +19,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '2',
-    restName: '충주(양평) 휴게소',
+    restName: '부산 휴게소',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -33,8 +34,8 @@ export const restData: Rest[] = [
   },
   {
     restId: '3',
-    restName: '충주(양평) 휴게소',
-    restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
+    restName: '노원 휴게소',
+    restAddr: '서울시 노원구 노원로 18길 19',
     restTelNum: '02-3296-0316',
     restGrade: 0,
     wifi: true,
@@ -103,5 +104,66 @@ export const roadData = [
   {
     roadId: 10,
     roadName: '서해안고속도로',
+  },
+];
+
+export const oilData: OilStation[] = [
+  {
+    oilName: '옥산(부산)주유소',
+    oilCompany: 'AD',
+    diselPrice: '1,508원',
+    gasolinePrice: '1,665원',
+    lpgPrice: '1,085원',
+    telNum: '043-269-0843',
+    electric: true,
+    hydrogen: true,
+  },
+  {
+    oilName: '추풍령(부산)주유소',
+    oilCompany: 'SK',
+    diselPrice: '1,730원',
+    gasolinePrice: '1,265원',
+    lpgPrice: '1,985원',
+    telNum: '043-321-2133',
+    electric: false,
+    hydrogen: true,
+  },
+  {
+    oilName: '곡성(순천)주유소',
+    oilCompany: 'AD',
+    diselPrice: '1,328원',
+    gasolinePrice: '1,461원',
+    telNum: '032-569-1243',
+    electric: true,
+    hydrogen: true,
+  },
+  {
+    oilName: '옥산(부산)주유소',
+    oilCompany: 'AD',
+    diselPrice: '1,508원',
+    gasolinePrice: '1,665원',
+    lpgPrice: '1,085원',
+    telNum: '043-269-0843',
+    electric: false,
+    hydrogen: true,
+  },
+  {
+    oilName: '여주(인천)주유소',
+    oilCompany: 'SK',
+    diselPrice: '1,302원',
+    gasolinePrice: '1,672원',
+    telNum: '032-859-0139',
+    electric: false,
+    hydrogen: false,
+  },
+  {
+    oilName: '옥산(부산)주유소',
+    oilCompany: 'AD',
+    diselPrice: '1,508원',
+    gasolinePrice: '1,665원',
+    lpgPrice: '1,085원',
+    telNum: '043-269-0843',
+    electric: true,
+    hydrogen: true,
   },
 ];

@@ -1,10 +1,10 @@
-export async function getCertainRestData({ queryKey }: any) {
+export async function getCertainOilData({ queryKey }: any) {
   const [roadName, direction] = queryKey;
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/rest/${roadName}/${direction}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/oil/${roadName}/${direction}`,
     {
       next: {
-        tags: ['rest'],
+        tags: ['oil'],
       },
       credentials: 'include',
       cache: 'no-store',

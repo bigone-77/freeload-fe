@@ -34,24 +34,28 @@ export default function ShowRest({
         </p>
       </div>
       <div className="flex overflow-x-auto gap-4">
-        {RestData?.map((rest) => (
-          <RestCard
-            gotoDetailHandler={gotoDetailHandler}
-            key={rest.restId}
-            id={rest.restId}
-            name={rest.restName}
-            addr={rest.restAddr}
-            grade={rest.restGrade}
-            wifi={rest.wifi}
-            repair={rest.repair}
-            electronic={rest.electronic}
-            shelter={rest.shelter}
-            nurse={rest.nurse}
-            pharmacy={rest.pharmacy}
-            pet={rest.pet}
-            disabled={rest.disabled}
-          />
-        ))}
+        {RestData ? (
+          RestData.map((rest) => (
+            <RestCard
+              gotoDetailHandler={gotoDetailHandler}
+              key={rest.restId}
+              id={rest.restId}
+              name={rest.restName}
+              addr={rest.restAddr}
+              grade={rest.restGrade}
+              wifi={rest.wifi}
+              repair={rest.repair}
+              electronic={rest.electronic}
+              shelter={rest.shelter}
+              nurse={rest.nurse}
+              pharmacy={rest.pharmacy}
+              pet={rest.pet}
+              disabled={rest.disabled}
+            />
+          ))
+        ) : (
+          <p>이용 가능한 휴게소가 없습니다.</p>
+        )}
       </div>
     </section>
   );

@@ -3,6 +3,8 @@ export type OilStation = {
   oilCompany: string;
   diselPrice: string;
   gasolinePrice: string;
-  lpgPrice: string;
   telNum: string;
+  electric: boolean;
+  hydrogen: boolean;
+  lpgPrice?: string;
 };
