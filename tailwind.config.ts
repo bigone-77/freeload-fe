@@ -5,7 +5,8 @@ const config: Config = {
   theme: {
     extend: {
       screens: {
-        mini: '370px',
+        mini: '450px',
+        tablet: '560px',
       },
       keyframes: {
         fadeIn: {

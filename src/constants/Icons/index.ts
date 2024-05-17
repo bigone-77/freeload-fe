@@ -17,6 +17,7 @@ import {
 } from 'react-icons/pi';
 import { CgClose } from 'react-icons/cg';
 import { VscDebugRestart } from 'react-icons/vsc';
+import { GrPhone, GrOverview } from 'react-icons/gr';
 
 export {
   RiMap2Line,
@@ -34,4 +35,6 @@ export {
   PiDotsThreeCircleDuotone,
   CgClose,
   VscDebugRestart,
+  GrPhone,
+  GrOverview,
 };

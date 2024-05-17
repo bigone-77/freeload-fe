@@ -2,7 +2,7 @@
 
 import { useSelector } from 'react-redux';
 
-import Footer from '@/app/(main)/_layouts/Footer';
+import Footer from '@/app/(mainPage)/_layouts/Footer';
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import Loader from '@/Common/Loader';
 import { RootState } from '@/store';

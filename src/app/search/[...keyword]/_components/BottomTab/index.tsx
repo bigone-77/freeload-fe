@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from '@/constants/Icons';
 import { Highway } from '@/models/Highway';
@@ -16,6 +17,7 @@ interface IBottomTabProps {
 }
 
 export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
+  const router = useRouter();
   const [goUp, setGoUp] = useState(false);
   const [selectedRoad, setSelectedRoad] = useState(1); // 휴게소 이름 인덱스로 정할것임
   const [showMoreRest, setShowMoreRest] = useState(false); // 휴게소 더보기 눌렀을 때
@@ -41,8 +43,8 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
   };
 
   // TODO: 해당 RestID에 맞는 정보를 보여주자
-  const gotoDetailHandler = (id: string) => {
-    console.log(id);
+  const gotoDetailHandler = (restId: string) => {
+    router.push(`/rest/${restId}`);
   };
 
   let content = (
