@@ -1,12 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import { OilStation } from '@/models/OilStation';
-import { IoChevronBack } from '@/constants/Icons';
+import { IoChevronBack, MdOutlineFilterAlt } from '@/constants/Icons';
 import { getCertainOilData } from '../../../_lib/getCertainOilData';
 import OilTable from './OilTable';
-import OilFilterBox from './OilFilterBox';
+import FilterModal from './FilterModal';
 
 interface IAllOilProps {
   roadName: string;
@@ -24,13 +25,14 @@ export default function AllOil({
     queryFn: getCertainOilData,
   });
 
+  const [showFilter, setShowFilter] = useState(false);
+
   return (
     <article className="h-full overflow-y-auto pb-6">
       <div className="flex items-center gap-4 mb-6">
         <IoChevronBack size={35} onClick={closeHandler} />
         <h1 className="font-semibold text-2xl">{roadName} 주유소</h1>
       </div>
-      <OilFilterBox />
       <div className="px-4 mt-6 h-full">
         <div className="flex flex-col gap-8">
           {OilData ? (
@@ -51,6 +53,16 @@ export default function AllOil({
           )}
         </div>
       </div>
+      <span className="absolute bottom-16 right-6 bg-primary rounded-full p-4">
+        <MdOutlineFilterAlt
+          size={40}
+          color="white"
+          onClick={() => setShowFilter(true)}
+        />
+      </span>
+      {showFilter && (
+        <FilterModal modalOpen={showFilter} setModalOpen={setShowFilter} />
+      )}
     </article>
   );
 }

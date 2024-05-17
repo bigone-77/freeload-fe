@@ -7,6 +7,32 @@ const config: Config = {
       screens: {
         mini: '370px',
       },
+      keyframes: {
+        fadeIn: {
+          from: {
+            opacity: '0',
+            transform: 'scale(0.5)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'scale(1.0)',
+          },
+        },
+        fadeOut: {
+          from: {
+            opacity: '0',
+            transform: 'translateX(-50%)',
+          },
+          to: {
+            opacity: '1',
+            transform: 'translateX(0)',
+          },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 400ms ease-in-out',
+        fadeOut: 'fadeOut 1000ms ease-in-out',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
@@ -19,12 +45,6 @@ const config: Config = {
         'wide-check-button': '16px',
         'search-input': '20px',
         'join-header': '28px',
-      },
-      fontWeight: {
-        regular: '400',
-        medium: '500',
-        semibold: '600',
-        bold: '700',
       },
       fontSize: {
         xs: [

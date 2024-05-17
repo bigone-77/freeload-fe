@@ -16,6 +16,7 @@ import {
   PiDotsThreeCircleDuotone,
 } from 'react-icons/pi';
 import { CgClose } from 'react-icons/cg';
+import { VscDebugRestart } from 'react-icons/vsc';
 
 export {
   RiMap2Line,
@@ -32,4 +33,5 @@ export {
   PiDotsThreeVerticalBold,
   PiDotsThreeCircleDuotone,
   CgClose,
+  VscDebugRestart,
 };

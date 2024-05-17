@@ -2,33 +2,43 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setCurrentUserLocation } from '@/store/slices/getCurrentLocationSlice';
+import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
 
 export const useGetCurrentLocation = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const getPosition = async () => {
-      try {
-        const pos = await new Promise<GeolocationPosition>(
-          (resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject);
-          },
-        );
 
-        const currentPos = {
-          latitude: pos.coords.latitude,
-          longitude: pos.coords.longitude,
-        };
-        dispatch(
-          setCurrentUserLocation({
-            latitude: currentPos.latitude,
-            longitude: currentPos.longitude,
-          }),
-        );
-      } catch (err) {
-        console.log(err);
-      }
+  useEffect(() => {
+    const watchPosition = async () => {
+      const watchId = navigator.geolocation.watchPosition(
+        (pos) => {
+          const currentPos = {
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude,
+          };
+
+          dispatch(
+            setCurrentUserLocation({
+              latitude: currentPos.latitude,
+              longitude: currentPos.longitude,
+            }),
+          );
+          dispatch(
+            setMapCenterLocation({
+              latitude: currentPos.latitude,
+              longitude: currentPos.longitude,
+            }),
+          );
+        },
+        (err) => {
+          console.log(err);
+        },
+      );
+
+      return () => {
+        navigator.geolocation.clearWatch(watchId);
+      };
     };
 
-    getPosition();
-  }, []); // 빈 배열은 한 번만 실행됨을 의미합니다.
+    watchPosition();
+  }, [dispatch]); // dispatch를 의존성 배열에 추가
 };

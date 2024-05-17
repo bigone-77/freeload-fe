@@ -30,6 +30,24 @@ select {
   /* 다른 스타일을 필요에 따라 추가 */
 }
 
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
 @layer base {
   hr {
     @apply w-[60%] h-[2px] bg-gray-300 mt-5;
