@@ -4,7 +4,7 @@ import { Rest } from '@/models/Rest';
 export const restData: Rest[] = [
   {
     restId: '1',
-    restName: '충주(양평) 휴게소',
+    restName: '정읍휴게소(순천 방향)',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -19,7 +19,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '2',
-    restName: '부산 휴게소',
+    restName: '백양사휴게소(순천 방향)',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -34,7 +34,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '3',
-    restName: '노원 휴게소',
+    restName: '장성휴게소(순천 방향)',
     restAddr: '서울시 노원구 노원로 18길 19',
     restTelNum: '02-3296-0316',
     restGrade: 0,
@@ -49,7 +49,22 @@ export const restData: Rest[] = [
   },
   {
     restId: '4',
-    restName: '충주(양평) 휴게소',
+    restName: '천안휴게소(순천 방향)',
+    restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
+    restTelNum: '02-3296-0316',
+    restGrade: 1,
+    wifi: true,
+    repair: true,
+    electronic: true,
+    shelter: true,
+    nurse: true,
+    pharmacy: true,
+    pet: true,
+    disabled: true,
+  },
+  {
+    restId: '5',
+    restName: '함평휴게소(순천 방향)',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -109,6 +124,7 @@ export const roadData = [
 
 export const oilData: OilStation[] = [
   {
+    oilId: '1',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
     diselPrice: '1,508원',
@@ -119,6 +135,7 @@ export const oilData: OilStation[] = [
     hydrogen: true,
   },
   {
+    oilId: '2',
     oilName: '추풍령(부산)주유소',
     oilCompany: 'SK',
     diselPrice: '1,730원',
@@ -129,6 +146,7 @@ export const oilData: OilStation[] = [
     hydrogen: true,
   },
   {
+    oilId: '3',
     oilName: '곡성(순천)주유소',
     oilCompany: 'AD',
     diselPrice: '1,328원',
@@ -138,6 +156,7 @@ export const oilData: OilStation[] = [
     hydrogen: true,
   },
   {
+    oilId: '4',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
     diselPrice: '1,508원',
@@ -148,6 +167,7 @@ export const oilData: OilStation[] = [
     hydrogen: true,
   },
   {
+    oilId: '5',
     oilName: '여주(인천)주유소',
     oilCompany: 'SK',
     diselPrice: '1,302원',
@@ -157,6 +177,7 @@ export const oilData: OilStation[] = [
     hydrogen: false,
   },
   {
+    oilId: '6',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
     diselPrice: '1,508원',

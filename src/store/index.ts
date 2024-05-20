@@ -10,6 +10,7 @@ import getCurrentLocationReducer from './slices/getCurrentLocationSlice';
 import getMapCenterReducer from './slices/getMapCenterSlice';
 import getWeatherReducer from './slices/getWeatherSlice';
 import recentTargetReducer from './slices/recentTargetSlice';
+import selectReducer from './slices/getUserSelectSlice';
 
 const rootReducer = combineReducers({
   joinUser: joinUserReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   mapCenter: getMapCenterReducer,
   getWeather: getWeatherReducer,
   recentTarget: recentTargetReducer,
+  select: selectReducer,
 });
 
 const createNoopStorage = () => ({

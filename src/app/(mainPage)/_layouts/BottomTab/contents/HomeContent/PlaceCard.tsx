@@ -1,9 +1,10 @@
 'use client';
 
-import { GrPhone, GrOverview } from '@/constants/Icons';
+import { useState } from 'react';
 
+import { GrPhone, GrOverview } from '@/constants/Icons';
 import { getFormattedDist } from '@/utils/getFormattedDist';
-import { Roadview } from 'react-kakao-maps-sdk';
+import PanoramaModal from './PanoramaModal';
 
 interface IPlaceCardProps {
   name: string;
@@ -22,11 +23,15 @@ export default function PlaceCard({
   lon,
   phone,
 }: IPlaceCardProps) {
+  const [showPanorama, setShowPanorama] = useState(false);
   return (
     <div className="border rounded-xl shadow-lg p-4 mx-4 relative">
       <section className="flex items-center justify-between">
         <h1>{name}</h1>
-        <span className="border flex items-center justify-center p-2 shadow-lg">
+        <span
+          className="border flex items-center justify-center p-2 shadow-lg"
+          onClick={() => setShowPanorama(true)}
+        >
           <GrOverview size={20} />
         </span>
       </section>
@@ -38,14 +43,14 @@ export default function PlaceCard({
           <h3>{phone}</h3>
         </div>
       </section>
-      <Roadview
-        position={{
-          lat: Number(lat),
-          lng: Number(lon),
-          radius: 50,
-        }}
-        className="w-full h-52"
-      />
+      {showPanorama && (
+        <PanoramaModal
+          latitude={Number(lat)}
+          longitude={Number(lon)}
+          modalOpen={showPanorama}
+          setModalOpen={setShowPanorama}
+        />
+      )}
     </div>
   );
 }

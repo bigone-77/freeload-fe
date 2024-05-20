@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { TargetPlace } from '@/models/targetPlace';
 import useKeywordSearchList from '@/hooks/useKeywordSearchList';
 import { RootState } from '@/store';
-import { useAddressFromLatLng } from '@/hooks/useAddressFromLatLng';
+import { useAddressFromLatLng } from '@/hooks/useGeocode';
 import SearchList from './_components/SearchList';
 import RecentSearchList from './_components/RecentSearchList';
 import SearchInput from './_components/SearchInput';

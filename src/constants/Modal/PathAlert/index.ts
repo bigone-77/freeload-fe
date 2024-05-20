@@ -1,9 +1,9 @@
-export const customModalStyles: ReactModal.Styles = {
+export const pathAlertModalStyles: ReactModal.Styles = {
   overlay: {
     backgroundColor: ' rgba(0, 0, 0, 0.4)',
     width: '100%',
     height: '100vh',
-    zIndex: '100',
+    zIndex: '10',
     position: 'absolute',
     display: 'flex',
     justifyContent: 'center',
@@ -11,7 +11,7 @@ export const customModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '80%',
-    height: '60%',
+    height: '30%',
     zIndex: '150',
     position: 'static',
     transform: 'translate(-50%, -50%)',

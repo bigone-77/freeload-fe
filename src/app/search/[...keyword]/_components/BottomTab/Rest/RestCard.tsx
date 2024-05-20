@@ -33,7 +33,7 @@ export default function RestCard({
 }: RestCardProps) {
   return (
     <div
-      className="border rounded-xl w-48 h-40 flex-shrink-0 p-4"
+      className="border rounded-xl w-52 h-44 flex-shrink-0 p-4"
       onClick={() => gotoDetailHandler(id)}
     >
       <div className="flex items-center justify-between">

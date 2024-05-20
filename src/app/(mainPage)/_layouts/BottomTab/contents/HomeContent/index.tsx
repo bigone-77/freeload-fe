@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import AddressCard from '@/app/(mainPage)/home/_components/AddressCard';
-import { useAddressFromLatLng } from '@/hooks/useAddressFromLatLng';
+import { useAddressFromLatLng } from '@/hooks/useGeocode';
 import useKeywordSearchList from '@/hooks/useKeywordSearchList';
 import Header from './Header';
 import PlaceCard from './PlaceCard';
@@ -24,8 +24,6 @@ export default function HomeContent({
   if (address.includes('undefined')) {
     address = '위치 정보 없음';
   }
-
-  console.log(tagDistData);
 
   return (
     <>

@@ -3,10 +3,12 @@ import { Highway } from '@/models/Highway';
 
 interface IDrawPathProps {
   path: any[];
-  highwayInfo: Highway[];
+  highwayInfo?: Highway[];
 }
 
 export default function DrawPath({ path, highwayInfo }: IDrawPathProps) {
+  console.log(path);
+
   return (
     <>
       <Polyline
@@ -16,7 +18,7 @@ export default function DrawPath({ path, highwayInfo }: IDrawPathProps) {
         strokeOpacity={0.7}
         strokeStyle="solid"
       />
-      {highwayInfo.map((highway, index) => (
+      {highwayInfo?.map((highway, index) => (
         <CustomOverlayMap
           key={index}
           position={{

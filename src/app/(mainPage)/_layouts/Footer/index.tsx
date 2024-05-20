@@ -41,7 +41,7 @@ export default function Footer() {
       <CategoryBox
         iconName={TbMapSearch}
         name="선택"
-        url="select"
+        url="select/road"
         selected={segment === 'select'}
       />
       <CategoryBox

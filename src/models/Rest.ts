@@ -4,6 +4,8 @@ export type Rest = {
   restAddr: string;
   restTelNum: string;
   restGrade: number;
+  latitude?: number;
+  longitude?: number;
   wifi: boolean;
   repair: boolean;
   electronic: boolean;

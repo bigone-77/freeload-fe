@@ -1,4 +1,5 @@
 export type OilStation = {
+  oilId?: string;
   oilName: string;
   oilCompany: string;
   diselPrice: string;
