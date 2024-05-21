@@ -37,7 +37,7 @@ export default function SelectDirection() {
         />
         <h1 className="font-bold text-2xl pt-10">방향 선택</h1>
       </Slide>
-      <Fade duration={7000}>
+      <Fade duration={5000}>
         <section className="flex items-center justify-center gap-16 mt-32 font-semibold text-lg">
           <p
             className={`px-10 py-6 border-4 border-primary rounded-2xl ${selectedDirection === '상행' ? 'bg-primary text-text50' : 'bg-transparent text-text500'}`}

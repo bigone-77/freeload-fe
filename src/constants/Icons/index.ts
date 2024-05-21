@@ -18,6 +18,7 @@ import {
 import { CgClose } from 'react-icons/cg';
 import { VscDebugRestart } from 'react-icons/vsc';
 import { GrPhone, GrOverview } from 'react-icons/gr';
+import { GiShare } from 'react-icons/gi';
 
 export {
   RiMap2Line,
@@ -37,4 +38,5 @@ export {
   VscDebugRestart,
   GrPhone,
   GrOverview,
+  GiShare,
 };

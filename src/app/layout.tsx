@@ -6,6 +6,7 @@ import './globals.css';
 import ReduxProvider from '@/store/provider';
 import { MSWComponent } from '@/Common/MSWComponent';
 import RQProvider from '@/Common/RQProvider';
+import ToastProvider from '@/Common/ToastProvider';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 
@@ -42,15 +43,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body className={notoSansKr.className}>
         <MSWComponent />
         <RQProvider>
-          <ReduxProvider>{children}</ReduxProvider>
+          <ReduxProvider>
+            <ToastProvider />
+            {children}
+            {modal}
+          </ReduxProvider>
         </RQProvider>
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&libraries=services,clusterer&autoload=false`}

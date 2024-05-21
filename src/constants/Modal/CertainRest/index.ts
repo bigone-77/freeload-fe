@@ -1,0 +1,26 @@
+export const certainRestModalStyles: ReactModal.Styles = {
+  overlay: {
+    backgroundColor: ' rgba(0, 0, 0, 0.4)',
+    width: '100%',
+    height: '100vh',
+    zIndex: '10',
+    position: 'absolute',
+  },
+  content: {
+    width: '100%',
+    height: '45%',
+    zIndex: '30',
+    position: 'absolute',
+    top: 'auto',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    transform: 'translate(-50%, -50%)',
+    borderRadius: '10px',
+    boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'white',
+    justifyContent: 'center',
+    overflow: 'auto',
+    animation: 'slideIn 0.75s forwards',
+  },
+};

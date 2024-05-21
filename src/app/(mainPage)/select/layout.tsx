@@ -2,11 +2,12 @@
 
 import { useSelectedLayoutSegment } from 'next/navigation';
 
-export default function SelectLayout({
-  children,
-}: {
+interface ISelectLayoutProps {
   children: React.ReactNode;
-}) {
+  modal: React.ReactNode;
+}
+
+export default function SelectLayout({ children, modal }: ISelectLayoutProps) {
   const segment = useSelectedLayoutSegment();
 
   if (segment === 'road' || segment === 'direction') {
@@ -21,5 +22,10 @@ export default function SelectLayout({
       </>
     );
   }
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      {modal}
+    </div>
+  );
 }

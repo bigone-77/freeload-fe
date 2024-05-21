@@ -38,8 +38,8 @@ export default function RestCard({
     >
       <div className="flex items-center justify-between">
         <h1 className="text-sm font-semibold">{name}</h1>
-        {grade && (
-          <p className="text-text50 bg-secondary rounded-full text-xs p-1">
+        {grade === 1 && (
+          <p className="text-text50 bg-secondary rounded-full text-xs p-1 text-center">
             우수
           </p>
         )}

@@ -22,11 +22,26 @@ export default function RoadPathDraw({
   const router = useRouter();
   const [selectedId, setSelectedId] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [markerName, setMarkerName] = useState('');
+  const [coords, setCoords] = useState<{
+    lat: number | undefined;
+    lng: number | undefined;
+  }>({ lat: undefined, lng: undefined });
 
-  const selectMarkerHandler = (id: string) => {
+  const selectMarkerHandler = ({ id, name }: { id: string; name: string }) => {
     router.push(`?restId=${id}`);
     setSelectedId(id);
+    setMarkerName(name);
     setShowModal(true);
+    setCoords({
+      lat: path[Number(selectedId)].lat,
+      lng: path[Number(selectedId)].lng,
+    });
+  };
+
+  const onRequestClose = () => {
+    setMarkerName('');
+    setShowModal(false);
   };
 
   return (
@@ -45,8 +60,8 @@ export default function RoadPathDraw({
       <main>
         <Map
           center={{
-            lat: path[0].lat,
-            lng: path[0].lng,
+            lat: path[path.length - 1].lat,
+            lng: path[path.length - 1].lng,
           }}
           className="w-full h-screen"
           level={12}
@@ -62,15 +77,25 @@ export default function RoadPathDraw({
                   height: 40,
                 },
               }}
-              onClick={() => selectMarkerHandler(p.restId)}
-            />
+              clickable
+              onClick={() =>
+                selectMarkerHandler({ id: p.restId, name: p.restName })
+              }
+            >
+              {markerName === p.restName && (
+                <div className="border rounded-lg bg-text700 p-2">
+                  <p className="text-xs text-text50">{p.restName}</p>
+                </div>
+              )}
+            </MapMarker>
           ))}
         </Map>
         {selectedId.length > 0 && showModal && (
           <BottomModal
             id={selectedId}
+            coords={coords}
             showModal={showModal}
-            setShowModal={setShowModal}
+            onRequestClose={onRequestClose}
           />
         )}
       </main>

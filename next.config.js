@@ -9,7 +9,7 @@ const nextConfig = {
     runtimeCaching: require('next-pwa/cache'),
   }),
   images: {
-    domains: ['res.cloudinary.com', 'openweathermap.org'],
+    domains: ['res.cloudinary.com', 'openweathermap.org', 'loremflickr.com'],
   },
 };
 
