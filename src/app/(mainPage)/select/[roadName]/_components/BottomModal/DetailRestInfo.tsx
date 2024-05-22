@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import { faker } from '@faker-js/faker';
 
 import { RestAndOil } from '@/models/RestAndOil';
 import Facilities from '@/app/search/[...keyword]/_components/BottomTab/Rest/Facilities';
 import { GrPhone } from '@/constants/Icons';
-import Link from 'next/link';
 import ButtonGroup from './ButtonGroup';
 
 interface IDetailRestInfoProps {

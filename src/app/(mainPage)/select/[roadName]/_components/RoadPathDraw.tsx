@@ -83,7 +83,7 @@ export default function RoadPathDraw({
               }
             >
               {markerName === p.restName && (
-                <div className="border rounded-lg bg-text700 p-2">
+                <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
                   <p className="text-xs text-text50">{p.restName}</p>
                 </div>
               )}
