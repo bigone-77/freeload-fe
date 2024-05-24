@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { IoChevronBack } from '@/constants/Icons';
 
 import { Rest } from '@/models/Rest';
+import { useState } from 'react';
 import { getCertainRestData } from '../../../_lib/getCertainRestData';
 import FacilityIcons from './FacilityIcons';
 import Facilities from './Facilities';
@@ -20,8 +21,9 @@ export default function AllRest({
   direction,
   closeHandler,
 }: IAllRestProps) {
+  const [sorted, setSorted] = useState('');
   const { data: RestData } = useQuery<Rest[]>({
-    queryKey: ['rest', roadName, direction],
+    queryKey: ['rest', roadName, direction, sorted],
     queryFn: getCertainRestData,
   });
 
@@ -29,10 +31,10 @@ export default function AllRest({
     <article>
       <div className="flex items-center gap-4">
         <IoChevronBack size={35} onClick={closeHandler} />
-        <h1 className="font-semibold text-2xl">{roadName} 휴게소</h1>
+        <h1 className="font-semibold text-2xl w-full">{roadName} 휴게소</h1>
       </div>
       <div className="px-8 mt-6">
-        <FacilityIcons />
+        <FacilityIcons sorted={sorted} setSorted={setSorted} />
         <div className="flex flex-col gap-4 mt-16">
           {RestData ? (
             RestData.map((rest, index) => (
@@ -42,6 +44,7 @@ export default function AllRest({
               >
                 <p>{rest.restName}</p>
                 <Facilities
+                  size={20}
                   wifi={rest.wifi}
                   repair={rest.repair}
                   electronic={rest.electronic}

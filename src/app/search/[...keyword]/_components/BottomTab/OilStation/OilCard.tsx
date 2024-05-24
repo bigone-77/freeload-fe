@@ -5,9 +5,9 @@ import { MdOutlineElectricBolt, GiH2O } from '@/constants/Icons/Rest';
 interface IOilCardProps {
   name: string;
   company: string;
-  disel: string;
-  gasoline: string;
-  lpg?: string;
+  gasoline: number;
+  disel: number;
+  lpg?: number;
   electric: boolean;
   hydrogen: boolean;
 }
@@ -44,20 +44,20 @@ export default function OilCard({
         <div className="flex items-center justify-between">
           <h3>휘발유</h3>
           <p className="text-sm rounded-xl border px-4 py-1 bg-error text-text50">
-            {gasoline}
+            {`${gasoline.toLocaleString()}원`}
           </p>
         </div>
         <div className="flex items-center justify-between">
           <h3>경유</h3>
           <p className="text-sm rounded-xl border px-4 py-1 bg-primary text-text50">
-            {disel}
+            {`${disel.toLocaleString()}원`}
           </p>
         </div>
         {lpg && (
           <div className="flex items-center justify-between">
             <h3>LPG</h3>
             <p className="text-sm rounded-xl border px-4 py-1 bg-success text-text50">
-              {lpg}
+              {`${lpg.toLocaleString()}원`}
             </p>
           </div>
         )}

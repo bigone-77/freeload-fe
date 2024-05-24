@@ -11,7 +11,7 @@ import { Food } from '@/models/Food';
 import Loader from '@/Common/Loader';
 import { FoodTag } from '@/models/FoodTag';
 import { useScroll } from '@/hooks/useScroll';
-import { getFoodData } from './_lib/getFoodData';
+import { getFoodData } from '../_lib/getFoodData';
 import Menubar from './_components/Menubar';
 import FoodCard from './_components/FoodCard';
 
@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { restId: string } }) {
   });
   const { ref, inView } = useInView({
     threshold: 0,
-    delay: 1000,
+    delay: 0,
   });
 
   useEffect(() => {

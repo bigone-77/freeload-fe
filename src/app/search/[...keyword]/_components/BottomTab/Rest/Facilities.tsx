@@ -35,7 +35,7 @@ export default function Facilities({
   disabled,
 }: IFacilitiesProps) {
   return (
-    <div className="flex gap-1 w-full">
+    <div className="flex justify-end gap-1 w-full">
       {wifi && (
         <MdOutlineWifi
           data-tooltip-id="facility"

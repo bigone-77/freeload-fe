@@ -5,9 +5,9 @@ import { MdOutlineElectricBolt, GiH2O } from '@/constants/Icons/Rest';
 interface IOilTableProps {
   name: string;
   company: string;
-  gasoline: string;
-  disel: string;
-  lpg?: string;
+  gasoline: number;
+  disel: number;
+  lpg?: number;
   electric: boolean;
   hydrogen: boolean;
 }
@@ -40,15 +40,15 @@ export default function OilTable({
         <div className="flex place-items-center justify-end gap-0 w-full text-center">
           <div className="bg-zinc-100 p-3 border-r ">
             <h4>휘발유</h4>
-            <p>{gasoline}</p>
+            <p>{`${gasoline.toLocaleString()}원`}</p>
           </div>
           <div className="bg-zinc-100 p-3 border-r">
             <h4>경유</h4>
-            <p>{disel}</p>
+            <p>{`${disel.toLocaleString()}원`}</p>
           </div>
           <div className="bg-zinc-100 p-3">
             <h4>LPG</h4>
-            <p>{lpg || 'X'}</p>
+            <p>{lpg ? `${lpg.toLocaleString()}원` : 'X'}</p>
           </div>
         </div>
       </div>

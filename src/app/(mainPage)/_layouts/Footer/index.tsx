@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation';
 
 import {
@@ -10,6 +9,7 @@ import {
   MdOutlinePersonOutline,
 } from '@/constants/Icons';
 import CategoryBox from './CategoryBox';
+import CameraButton from './CameraButton';
 
 export default function Footer() {
   const segment = useSelectedLayoutSegment();
@@ -29,15 +29,8 @@ export default function Footer() {
         url="home?like=true"
         selected={params.get('like') === 'true'}
       />
-      <div className="rounded-full bg-primary flex items-center justify-center -translate-y-6 w-16 h-16">
-        <Image
-          src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1715220807/scan.svg"
-          alt="qu-icon"
-          width={25}
-          height={24}
-          priority
-        />
-      </div>
+      <CameraButton />
+
       <CategoryBox
         iconName={TbMapSearch}
         name="선택"

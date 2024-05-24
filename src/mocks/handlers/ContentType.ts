@@ -128,9 +128,9 @@ export const oilData: OilStation[] = [
     oilId: '1',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
-    diselPrice: '1,508원',
-    gasolinePrice: '1,665원',
-    lpgPrice: '1,085원',
+    diselPrice: 1508,
+    gasolinePrice: 1665,
+    lpgPrice: 1085,
     telNum: '043-269-0843',
     electric: true,
     hydrogen: true,
@@ -139,9 +139,9 @@ export const oilData: OilStation[] = [
     oilId: '2',
     oilName: '추풍령(부산)주유소',
     oilCompany: 'SK',
-    diselPrice: '1,730원',
-    gasolinePrice: '1,265원',
-    lpgPrice: '1,985원',
+    diselPrice: 1730,
+    gasolinePrice: 1265,
+    lpgPrice: 1985,
     telNum: '043-321-2133',
     electric: false,
     hydrogen: true,
@@ -150,9 +150,9 @@ export const oilData: OilStation[] = [
     oilId: '3',
     oilName: '곡성(순천)주유소',
     oilCompany: 'AD',
-    diselPrice: '1,328원',
-    gasolinePrice: '1,461원',
-    telNum: '032-569-1243',
+    diselPrice: 1328,
+    gasolinePrice: 1461,
+    telNum: '032-569-1143',
     electric: true,
     hydrogen: true,
   },
@@ -160,9 +160,9 @@ export const oilData: OilStation[] = [
     oilId: '4',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
-    diselPrice: '1,508원',
-    gasolinePrice: '1,665원',
-    lpgPrice: '1,085원',
+    diselPrice: 1508,
+    gasolinePrice: 1665,
+    lpgPrice: 1085,
     telNum: '043-269-0843',
     electric: false,
     hydrogen: true,
@@ -171,9 +171,9 @@ export const oilData: OilStation[] = [
     oilId: '5',
     oilName: '여주(인천)주유소',
     oilCompany: 'SK',
-    diselPrice: '1,302원',
-    gasolinePrice: '1,672원',
-    telNum: '032-859-0139',
+    diselPrice: 1302,
+    gasolinePrice: 1672,
+    telNum: '032-859-2039',
     electric: false,
     hydrogen: false,
   },
@@ -181,9 +181,9 @@ export const oilData: OilStation[] = [
     oilId: '6',
     oilName: '옥산(부산)주유소',
     oilCompany: 'AD',
-    diselPrice: '1,508원',
-    gasolinePrice: '1,665원',
-    lpgPrice: '1,085원',
+    diselPrice: 1508,
+    gasolinePrice: 1665,
+    lpgPrice: 1085,
     telNum: '043-269-0843',
     electric: true,
     hydrogen: true,
@@ -791,14 +791,78 @@ export const foodData: Food[] = [
     recommend: 'N',
     seasonMenu: '4',
   },
-  {
-    foodId: 61,
-    bestFood: 'N',
-    foodCost: 10000,
-    foodName: '병천얼큰순대국',
-    updateDate: '2024.5.7',
-    premium: 'N',
-    recommend: 'N',
-    seasonMenu: '4',
-  },
 ];
+
+export function getFoodHandler(sorted: string) {
+  if (sorted === 'BEST') {
+    return foodData.filter((food) => food.bestFood === 'Y');
+  }
+  if (sorted === 'RECOMMEND') {
+    return foodData.filter((food) => food.recommend === 'Y');
+  }
+  if (sorted === 'SEASON') {
+    return foodData.filter((food) => food.seasonMenu !== '4');
+  }
+  if (sorted === 'PREMIUM') {
+    return foodData.filter((food) => food.premium === 'Y');
+  }
+  return foodData;
+}
+
+export function getFilteredRest(sorted: string) {
+  if (sorted === 'WIFI') {
+    return restData.filter((rest) => rest.wifi);
+  }
+  if (sorted === 'REPAIR') {
+    return restData.filter((rest) => rest.repair);
+  }
+  if (sorted === 'ELECTRONIC') {
+    return restData.filter((rest) => rest.electronic);
+  }
+  if (sorted === 'SHELTER') {
+    return restData.filter((rest) => rest.shelter);
+  }
+  if (sorted === 'PHARMACY') {
+    return restData.filter((rest) => rest.pharmacy);
+  }
+  if (sorted === 'PET') {
+    return restData.filter((rest) => rest.pet);
+  }
+  if (sorted === 'NURSE') {
+    return restData.filter((rest) => rest.nurse);
+  }
+  if (sorted === 'DISABLED') {
+    return restData.filter((rest) => rest.disabled);
+  }
+  return restData;
+}
+
+export function sortedOilFilter(
+  oil: string,
+  order: string,
+  data: OilStation[],
+) {
+  if (oil === 'GAS') {
+    if (order === 'ASC') {
+      return data.sort((a, b) => a.gasolinePrice - b.gasolinePrice);
+    }
+    return data.sort((a, b) => b.gasolinePrice - a.gasolinePrice);
+  }
+  if (oil === 'DI') {
+    if (order === 'ASC') {
+      return data.sort((a, b) => a.diselPrice - b.diselPrice);
+    }
+    return data.sort((a, b) => b.diselPrice - a.diselPrice);
+  }
+  if (oil === 'LPG') {
+    if (order === 'ASC') {
+      return oilData
+        .filter((d) => d.lpgPrice)
+        .sort((a, b) => a.lpgPrice! - b.lpgPrice!);
+    }
+    return oilData
+      .filter((d) => d.lpgPrice)
+      .sort((a, b) => b.lpgPrice! - a.lpgPrice!);
+  }
+  return data;
+}

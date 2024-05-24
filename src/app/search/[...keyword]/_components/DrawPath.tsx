@@ -7,8 +7,6 @@ interface IDrawPathProps {
 }
 
 export default function DrawPath({ path, highwayInfo }: IDrawPathProps) {
-  console.log(path);
-
   return (
     <>
       <Polyline

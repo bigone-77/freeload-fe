@@ -20,8 +20,21 @@ export default function AllOil({
   direction,
   closeHandler,
 }: IAllOilProps) {
+  const [fuel, setFuel] = useState('');
+  const [order, setOrder] = useState('');
+  const [selectedElec, setSelectedElec] = useState(false);
+  const [selectedHydr, setSelectedHydr] = useState(false);
+
   const { data: OilData } = useQuery<OilStation[]>({
-    queryKey: ['oil', roadName, direction],
+    queryKey: [
+      'oil',
+      roadName,
+      direction,
+      fuel,
+      order,
+      selectedElec,
+      selectedHydr,
+    ],
     queryFn: getCertainOilData,
   });
 
@@ -61,7 +74,18 @@ export default function AllOil({
         />
       </span>
       {showFilter && (
-        <FilterModal modalOpen={showFilter} setModalOpen={setShowFilter} />
+        <FilterModal
+          modalOpen={showFilter}
+          setModalOpen={setShowFilter}
+          fuel={fuel}
+          setFuel={setFuel}
+          order={order}
+          setOrder={setOrder}
+          selectedElec={selectedElec}
+          setSelectedElec={setSelectedElec}
+          selectedHydr={selectedHydr}
+          setSelectedHydr={setSelectedHydr}
+        />
       )}
     </article>
   );

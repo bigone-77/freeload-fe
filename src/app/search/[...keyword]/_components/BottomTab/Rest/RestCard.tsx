@@ -44,7 +44,7 @@ export default function RestCard({
           </p>
         )}
       </div>
-      <h3 className="text-xs mt-4 mb-6">{addr}</h3>
+      <h3 className="w-full text-xs mt-4 mb-6">{addr}</h3>
       <Facilities
         wifi={wifi}
         repair={repair}

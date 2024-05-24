@@ -11,7 +11,7 @@ export const customModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '80%',
-    height: '60%',
+    height: '50%',
     zIndex: '150',
     position: 'static',
     transform: 'translate(-50%, -50%)',
