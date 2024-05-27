@@ -4,7 +4,6 @@ import copy from 'copy-to-clipboard';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 import {
   HiMiniArrowsUpDown,
@@ -34,7 +33,8 @@ export default function Header({ originAddr, destAddr }: IHeaderProps) {
 
   const copyHandler = () => {
     copy(currentUrl);
-    toast.success('클립보드에 URL이 저장되었습니다.');
+    // eslint-disable-next-line no-alert
+    alert('클립보드에 URL이 저장되었습니다.');
   };
 
   return (

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { toast } from 'react-toastify';
 import copy from 'copy-to-clipboard';
 
 import { GiShare, GrOverview } from '@/constants/Icons';
@@ -28,7 +27,7 @@ export default function ButtonGroup({ coords }: IButtonGroupProps) {
 
   const copyHandler = () => {
     copy(currentUrl);
-    toast.success('클립보드에 URL이 저장되었습니다.');
+    alert('클립보드에 URL이 저장되었습니다.');
   };
 
   return (

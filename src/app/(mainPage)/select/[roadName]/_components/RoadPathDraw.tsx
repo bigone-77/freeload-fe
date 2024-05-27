@@ -34,8 +34,8 @@ export default function RoadPathDraw({
     setMarkerName(name);
     setShowModal(true);
     setCoords({
-      lat: path[Number(selectedId)].lat,
-      lng: path[Number(selectedId)].lng,
+      lat: path[Number(selectedId)]?.lat,
+      lng: path[Number(selectedId)]?.lng,
     });
   };
 
@@ -83,7 +83,7 @@ export default function RoadPathDraw({
               }
             >
               {markerName === p.restName && (
-                <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
+                <div className="border rounded-lg bg-text700 py-2 px-4 text-center z-50">
                   <p className="text-xs text-text50">{p.restName}</p>
                 </div>
               )}
