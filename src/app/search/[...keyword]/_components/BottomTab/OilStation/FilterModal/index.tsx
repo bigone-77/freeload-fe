@@ -74,13 +74,13 @@ export default function FilterModal({
           <div className="flex items-center gap-10 mt-4">
             <TypeTag
               type="수소차"
-              selected={selectedElec}
-              setSelected={setSelectedElec}
+              selected={selectedHydr}
+              setSelected={setSelectedHydr}
             />
             <TypeTag
               type="전기차"
-              selected={selectedHydr}
-              setSelected={setSelectedHydr}
+              selected={selectedElec}
+              setSelected={setSelectedElec}
             />
           </div>
         </div>

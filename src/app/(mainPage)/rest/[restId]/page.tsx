@@ -47,14 +47,13 @@ export default function RestDetailPage({
           />
           <CategoryCard title="편의시설" subTitle="준비중입니다" url="" />
         </section>
-        <footer className="absolute bottom-10 w-full flex flex-col place-content-center text-[#2A629A]">
+        <footer className="absolute bottom-32 w-full flex flex-col place-content-center text-[#2A629A]">
           <Link href="/home">
             <section className="flex flex-col items-center justify-center">
               <RiMap2Line size={35} />
               <p className="font-semibold text-lg">홈</p>
             </section>
           </Link>
-          <hr className="my-6 h-1 w-full" />
         </footer>
       </div>
     </>

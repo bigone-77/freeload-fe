@@ -1,8 +1,8 @@
 export async function getCertainOilData({ queryKey }: any) {
-  const [, roadName, direction, oilName, orderStandard, elec, hydr] = queryKey;
+  const [, roadName, direction] = queryKey;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/oil/${roadName}/${direction}?oil=${oilName}&order=${orderStandard}&elec=${elec}&hydr=${hydr}`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/oil/${roadName}/${direction}`,
     {
       next: {
         tags: ['oil'],

@@ -1,10 +1,15 @@
 'use client';
 
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from '@/constants/Icons';
 import { Highway } from '@/models/Highway';
+import { OilStation } from '@/models/OilStation';
+import { Rest } from '@/models/Rest';
+import { setOil } from '@/store/slices/getOilSlice';
+import { setRest } from '@/store/slices/getRestSlice';
 import ShowHighwayNames from './ShowHighwayNames';
 import ShowRest from './Rest';
 import AllRest from './Rest/AllRest';
@@ -17,6 +22,7 @@ interface IBottomTabProps {
 }
 
 export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
+  const dispatch = useDispatch();
   const router = useRouter();
   const [goUp, setGoUp] = useState(false);
   const [selectedRoad, setSelectedRoad] = useState(1); // 휴게소 이름 인덱스로 정할것임
@@ -34,11 +40,13 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
     setGoUp(!goUp);
   };
 
-  const showAllRestHandler = () => {
+  const showAllRestHandler = (data: Rest[]) => {
+    dispatch(setRest(data));
     setShowMoreRest(true);
   };
 
-  const showAllOilHandler = () => {
+  const showAllOilHandler = (data: OilStation[]) => {
+    dispatch(setOil(data));
     setShowMoreOil(true);
   };
 
@@ -72,7 +80,6 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
     content = (
       <AllRest
         roadName={roadNames[selectedRoad - 1]}
-        direction={direction}
         closeHandler={() => setShowMoreRest(false)}
       />
     );
@@ -82,7 +89,6 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
     content = (
       <AllOil
         roadName={roadNames[selectedRoad - 1]}
-        direction={direction}
         closeHandler={() => setShowMoreOil(false)}
       />
     );

@@ -1,44 +1,36 @@
 'use client';
 
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '@/store';
 import { OilStation } from '@/models/OilStation';
 import { IoChevronBack, MdOutlineFilterAlt } from '@/constants/Icons';
-import { getCertainOilData } from '../../../_lib/getCertainOilData';
+import { getFilteredOil } from '@/utils/getFilterData';
 import OilTable from './OilTable';
 import FilterModal from './FilterModal';
 
 interface IAllOilProps {
   roadName: string;
-  direction: string;
   closeHandler: () => void;
 }
 
-export default function AllOil({
-  roadName,
-  direction,
-  closeHandler,
-}: IAllOilProps) {
+export default function AllOil({ roadName, closeHandler }: IAllOilProps) {
+  const OilData = useSelector((state: RootState) => state.oil);
+
+  const [filteredOilData, setFilteredOilData] = useState<OilStation[]>(OilData);
   const [fuel, setFuel] = useState('');
   const [order, setOrder] = useState('');
   const [selectedElec, setSelectedElec] = useState(false);
   const [selectedHydr, setSelectedHydr] = useState(false);
 
-  const { data: OilData } = useQuery<OilStation[]>({
-    queryKey: [
-      'oil',
-      roadName,
-      direction,
-      fuel,
-      order,
-      selectedElec,
-      selectedHydr,
-    ],
-    queryFn: getCertainOilData,
-  });
-
   const [showFilter, setShowFilter] = useState(false);
+
+  useEffect(() => {
+    setFilteredOilData(
+      getFilteredOil(OilData, selectedElec, selectedHydr, fuel, order),
+    );
+  }, [OilData, selectedElec, selectedHydr, fuel, order]);
 
   return (
     <article className="h-full overflow-y-auto pb-6">
@@ -48,8 +40,8 @@ export default function AllOil({
       </div>
       <div className="px-4 mt-6 h-full">
         <div className="flex flex-col gap-8">
-          {OilData ? (
-            OilData.map((oil, index) => (
+          {filteredOilData ? (
+            filteredOilData.map((oil, index) => (
               <OilTable
                 key={index}
                 name={oil.oilName}

@@ -1,31 +1,28 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { IoChevronBack } from '@/constants/Icons';
-
+import { RootState } from '@/store';
 import { Rest } from '@/models/Rest';
-import { useState } from 'react';
-import { getCertainRestData } from '../../../_lib/getCertainRestData';
+import { IoChevronBack } from '@/constants/Icons';
+import { getFilteredRest } from '@/utils/getFilterData';
 import FacilityIcons from './FacilityIcons';
 import Facilities from './Facilities';
 
 interface IAllRestProps {
   roadName: string;
-  direction: string;
   closeHandler: () => void;
 }
 
-export default function AllRest({
-  roadName,
-  direction,
-  closeHandler,
-}: IAllRestProps) {
+export default function AllRest({ roadName, closeHandler }: IAllRestProps) {
+  const RestData = useSelector((state: RootState) => state.rest);
+  const [filteredData, setFilteredData] = useState<Rest[]>(RestData);
   const [sorted, setSorted] = useState('');
-  const { data: RestData } = useQuery<Rest[]>({
-    queryKey: ['rest', roadName, direction, sorted],
-    queryFn: getCertainRestData,
-  });
+
+  useEffect(() => {
+    setFilteredData(getFilteredRest(sorted, RestData));
+  }, [sorted, RestData]);
 
   return (
     <article>
@@ -36,8 +33,8 @@ export default function AllRest({
       <div className="px-8 mt-6">
         <FacilityIcons sorted={sorted} setSorted={setSorted} />
         <div className="flex flex-col gap-4 mt-16">
-          {RestData ? (
-            RestData.map((rest, index) => (
+          {filteredData ? (
+            filteredData.map((rest, index) => (
               <section
                 className="flex items-center justify-between"
                 key={index}

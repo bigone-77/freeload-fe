@@ -11,6 +11,8 @@ import getMapCenterReducer from './slices/getMapCenterSlice';
 import getWeatherReducer from './slices/getWeatherSlice';
 import recentTargetReducer from './slices/recentTargetSlice';
 import selectReducer from './slices/getUserSelectSlice';
+import restReducer from './slices/getRestSlice';
+import oilReducer from './slices/getOilSlice';
 
 const rootReducer = combineReducers({
   joinUser: joinUserReducer,
@@ -19,6 +21,8 @@ const rootReducer = combineReducers({
   getWeather: getWeatherReducer,
   recentTarget: recentTargetReducer,
   select: selectReducer,
+  rest: restReducer,
+  oil: oilReducer,
 });
 
 const createNoopStorage = () => ({

@@ -48,7 +48,7 @@ export default function RootLayout({
   modal,
 }: {
   children: React.ReactNode;
-  modal?: React.ReactNode; // modal을 optional로 설정
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">

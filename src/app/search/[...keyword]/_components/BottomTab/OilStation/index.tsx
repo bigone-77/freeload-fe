@@ -8,7 +8,7 @@ import OilCard from './OilCard';
 interface IShowOilStationProps {
   roadName: string;
   direction: string;
-  showAllOilHandler: () => void;
+  showAllOilHandler: (data: OilStation[]) => void;
 }
 
 export default function ShowOilStation({
@@ -27,7 +27,7 @@ export default function ShowOilStation({
         <p className="font-bold text-xl mb-4">주유소</p>
         <p
           className="underline decoration-1 text-sm hover:opacity-80 transition-all"
-          onClick={showAllOilHandler}
+          onClick={() => showAllOilHandler(OilData!)}
         >
           더보기
         </p>

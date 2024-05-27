@@ -8,7 +8,7 @@ interface ShowRestProps {
   roadName: string;
   direction: string;
   gotoDetailHandler: (id: string) => void;
-  showAllRestHandler: () => void;
+  showAllRestHandler: (data: Rest[]) => void;
 }
 
 export default function ShowRest({
@@ -28,7 +28,7 @@ export default function ShowRest({
         <p className="font-bold text-xl mb-4">휴게소</p>
         <p
           className="underline decoration-1 text-sm hover:opacity-80 transition-all"
-          onClick={showAllRestHandler}
+          onClick={() => showAllRestHandler(RestData!)}
         >
           더보기
         </p>

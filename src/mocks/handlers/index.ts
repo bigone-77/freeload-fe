@@ -1,12 +1,10 @@
 import { delay, http, HttpResponse } from 'msw';
 import {
   foodData,
-  getFilteredRest,
   getFoodHandler,
   oilData,
   restData,
   roadData,
-  sortedOilFilter,
 } from './ContentType';
 
 export const handlers = [
@@ -29,15 +27,9 @@ export const handlers = [
     return HttpResponse.error();
   }),
 
-  http.get('/rest/:roadName/:direction', ({ params, request }) => {
+  http.get('/rest/:roadName/:direction', ({ params }) => {
     const { roadName, direction } = params;
-    const url = new URL(request.url);
-
-    const sorted = url.searchParams.get('sort');
     if (roadName && direction) {
-      if (sorted) {
-        return HttpResponse.json(getFilteredRest(sorted));
-      }
       return HttpResponse.json(restData);
     }
     return HttpResponse.error();
@@ -59,29 +51,11 @@ export const handlers = [
     });
   }),
 
-  http.get('/oil/:roadName/:direction', ({ params, request }) => {
+  http.get('/oil/:roadName/:direction', ({ params }) => {
     const { roadName, direction } = params;
-    const url = new URL(request.url);
-
-    const oilName = url.searchParams.get('oil');
-    const orderStandard = url.searchParams.get('order');
-    const elec = url.searchParams.get('elec');
-    const hydr = url.searchParams.get('hydr');
 
     if (roadName && direction) {
-      let filteredOilData = oilData;
-      if (elec === 'true') {
-        filteredOilData = filteredOilData.filter((oil) => oil.electric);
-      }
-      if (hydr === 'true') {
-        filteredOilData = filteredOilData.filter((oil) => oil.hydrogen);
-      }
-      if (oilName && orderStandard) {
-        return HttpResponse.json(
-          sortedOilFilter(oilName, orderStandard, filteredOilData),
-        );
-      }
-      return HttpResponse.json(filteredOilData);
+      return HttpResponse.json(oilData);
     }
 
     return HttpResponse.error();
