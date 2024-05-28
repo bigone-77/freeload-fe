@@ -6,6 +6,9 @@ import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdOutlineFilterAlt,
+  MdElectricCar,
+  MdOutlineElectricalServices,
+  MdOutlineTireRepair,
 } from 'react-icons/md';
 import { SlTarget } from 'react-icons/sl';
 import { IoChevronBack, IoChevronForward } from 'react-icons/io5';
@@ -22,6 +25,7 @@ import { GrPhone, GrOverview } from 'react-icons/gr';
 import { GiShare } from 'react-icons/gi';
 import { CiSearch } from 'react-icons/ci';
 import { BiGasPump } from 'react-icons/bi';
+import { FaCartFlatbed } from 'react-icons/fa6';
 
 export {
   RiMap2Line,
@@ -31,6 +35,9 @@ export {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdOutlineFilterAlt,
+  MdElectricCar,
+  MdOutlineElectricalServices,
+  MdOutlineTireRepair,
   SlTarget,
   IoChevronBack,
   IoChevronForward,
@@ -46,4 +53,5 @@ export {
   GiShare,
   CiSearch,
   BiGasPump,
+  FaCartFlatbed,
 };

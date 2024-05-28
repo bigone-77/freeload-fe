@@ -23,6 +23,7 @@ export default function DrawPath({ path, highwayInfo }: IDrawPathProps) {
             lat: highway.latitude,
             lng: highway.longitude,
           }}
+          zIndex={10}
         >
           <div className="border rounded-lg bg-text700 p-2">
             <p className="text-xs text-text50">{highway.name}</p>

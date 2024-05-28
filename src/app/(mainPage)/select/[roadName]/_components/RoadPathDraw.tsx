@@ -1,7 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import {
+  CustomOverlayMap,
+  Map,
+  MapMarker,
+  Polyline,
+} from 'react-kakao-maps-sdk';
 import { useRouter } from 'next/navigation';
 
 import { RestPathType } from '@/models/RestPath';
@@ -77,18 +82,28 @@ export default function RoadPathDraw({
                   height: 40,
                 },
               }}
-              clickable
               onClick={() =>
                 selectMarkerHandler({ id: p.restId, name: p.restName })
               }
-            >
-              {markerName === p.restName && (
-                <div className="border rounded-lg bg-text700 py-2 px-4 text-center z-50">
-                  <p className="text-xs text-text50">{p.restName}</p>
-                </div>
-              )}
-            </MapMarker>
+            />
           ))}
+          <CustomOverlayMap
+            position={{
+              lat: coords.lat || 36,
+              lng: coords.lng || 127,
+            }}
+          >
+            <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
+              <p className="text-xs text-text50">{markerName}</p>
+            </div>
+          </CustomOverlayMap>
+          <Polyline
+            path={path.map((p) => ({ lat: p.lat, lng: p.lng }))}
+            strokeWeight={5}
+            strokeColor="#158EFF"
+            strokeOpacity={0.7}
+            strokeStyle="solid"
+          />
         </Map>
         {selectedId.length > 0 && showModal && (
           <BottomModal

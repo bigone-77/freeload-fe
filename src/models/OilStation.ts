@@ -9,3 +9,9 @@ export type OilStation = {
   hydrogen: boolean;
   lpgPrice?: number;
 };
+
+export type CertainOilStation = OilStation & {
+  gasolineAvr: number;
+  diselAvr: number;
+  lpgAvr: number;
+};

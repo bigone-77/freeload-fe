@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
-import { RiMap2Line, PiBowlFood, BiGasPump } from '@/constants/Icons';
+import {
+  RiMap2Line,
+  PiBowlFood,
+  BiGasPump,
+  FaCartFlatbed,
+} from '@/constants/Icons';
 import CategoryCard from '../_components/CategoryCard';
 
 export default function RestDetailPage({
@@ -45,7 +50,13 @@ export default function RestDetailPage({
             subTitle="주유소 상세정보"
             icon={BiGasPump}
           />
-          <CategoryCard title="편의시설" subTitle="준비중입니다" url="" />
+          <CategoryCard
+            restId={params.restId}
+            title="편의시설"
+            subTitle="휴게소 편의시설 정보"
+            url="etc"
+            icon={FaCartFlatbed}
+          />
         </section>
         <footer className="absolute bottom-32 w-full flex flex-col place-content-center text-[#2A629A]">
           <Link href="/home">

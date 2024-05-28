@@ -1,5 +1,6 @@
 import { delay, http, HttpResponse } from 'msw';
 import {
+  CertainOilData,
   foodData,
   getFoodHandler,
   oilData,
@@ -58,6 +59,15 @@ export const handlers = [
       return HttpResponse.json(oilData);
     }
 
+    return HttpResponse.error();
+  }),
+
+  http.get('/oil/:restId', ({ params }) => {
+    const { restId } = params;
+
+    if (restId) {
+      return HttpResponse.json(CertainOilData);
+    }
     return HttpResponse.error();
   }),
 

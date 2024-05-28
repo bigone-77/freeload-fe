@@ -64,7 +64,7 @@ export default function RootLayout({
         </AuthSession>
         <Script
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&libraries=services,clusterer&autoload=false`}
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
       </body>
     </html>

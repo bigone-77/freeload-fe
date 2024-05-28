@@ -1,5 +1,5 @@
 import { Food } from '@/models/Food';
-import { OilStation } from '@/models/OilStation';
+import { CertainOilStation, OilStation } from '@/models/OilStation';
 import { Rest } from '@/models/Rest';
 
 export const restData: Rest[] = [
@@ -51,21 +51,6 @@ export const restData: Rest[] = [
   {
     restId: '4',
     restName: '천안휴게소(순천 방향)',
-    restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
-    restTelNum: '02-3296-0316',
-    restGrade: 1,
-    wifi: true,
-    repair: true,
-    electronic: true,
-    shelter: true,
-    nurse: true,
-    pharmacy: true,
-    pet: true,
-    disabled: true,
-  },
-  {
-    restId: '5',
-    restName: '함평휴게소(순천 방향)',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -189,6 +174,21 @@ export const oilData: OilStation[] = [
     hydrogen: true,
   },
 ];
+
+export const CertainOilData: CertainOilStation = {
+  oilId: '1',
+  oilName: '옥산(부산)주유소',
+  oilCompany: 'AD',
+  diselPrice: 1508,
+  gasolinePrice: 1665,
+  lpgPrice: 1085,
+  telNum: '043-269-0843',
+  electric: true,
+  hydrogen: true,
+  gasolineAvr: 1430,
+  diselAvr: 1290,
+  lpgAvr: 1240,
+};
 
 export const foodData: Food[] = [
   {
