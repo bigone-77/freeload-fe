@@ -2,7 +2,7 @@
 
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { persistor, store } from '.';
+import { persistor, store } from '../shared/store';
 
 type Props = {
   children: React.ReactNode;

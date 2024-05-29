@@ -3,10 +3,10 @@ import { Noto_Sans_KR } from 'next/font/google';
 import Script from 'next/script';
 import 'react-tooltip/dist/react-tooltip.css';
 import './globals.css';
-import ReduxProvider from '@/shared/store/provider';
 import { MSWComponent } from '@/Common/MSWComponent';
 import RQProvider from '@/Common/RQProvider';
 import AuthSession from '@/Common/AuthSession';
+import ReduxProvider from '@/Common/ReduxProvider';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 

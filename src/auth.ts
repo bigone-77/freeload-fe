@@ -2,6 +2,9 @@ import { AdapterUser } from '@auth/core/adapters';
 import NextAuth, { Account, Profile, User } from 'next-auth';
 import KakaoProvider, { KakaoProfile } from 'next-auth/providers/kakao';
 import NaverProvider from 'next-auth/providers/naver';
+import { checkAuth } from './hooks/auth/checkAuth';
+
+const { isAuthCheck } = checkAuth();
 
 export const {
   handlers: { GET, POST },
@@ -34,13 +37,12 @@ export const {
     }): Promise<boolean | string> => {
       if (profile && 'kakao_account' in profile) {
         const kakaoProfile = profile as KakaoProfile;
-
-        console.log('nickname', kakaoProfile.kakao_account?.profile?.nickname);
-        console.log(
-          'profile_image',
-          kakaoProfile.kakao_account?.profile?.profile_image_url,
-        );
-        console.log('email', kakaoProfile.kakao_account?.email);
+        const formData = {
+          email: kakaoProfile.kakao_account?.email as string,
+          profile_image_url: kakaoProfile.kakao_account?.profile
+            ?.profile_image_url as string,
+        };
+        isAuthCheck(formData);
         return '/join?step=1';
       }
       return false;
