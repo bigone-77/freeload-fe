@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+interface IAuthCheckResponseProps {
+  isChecked: boolean;
+  message: string;
+}
+
 export const checkAuth = () => {
   const isAuthCheck = async (data: {
     email: string;
@@ -7,15 +12,17 @@ export const checkAuth = () => {
   }) => {
     if (data) {
       try {
-        const response = await axios.post(
+        const response = await axios.post<IAuthCheckResponseProps>(
           `${process.env.NEXT_PUBLIC_BE_URL}/auth/check`,
           data,
         );
-        console.log(response.data);
+        return response.data.isChecked;
       } catch (err) {
         console.log(err);
+        return false;
       }
     }
+    return false;
   };
   return { isAuthCheck };
 };

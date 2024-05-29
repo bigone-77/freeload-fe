@@ -1,19 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
+import { RootState } from '@/shared/store';
 import getYear from '@/utils/getYear';
 import PrimaryButton from '@/Common/PrimaryButton';
+import { joinUser } from '@/hooks/auth/joinUser';
 import EnteredInput from './EnteredInput';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '@/store/store';
 
 export default function ThirdJoin() {
-  // const userPhoneNum = useSelector(
-  //   (state: RootState) => state.joinUser.phoneNum,
-  // );
-  const router = useRouter();
+  const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);
+
+  const { postJoin } = joinUser();
 
   const [enteredUserName, setEnteredUserName] = useState('');
   const [selectedYear, setSelectedYear] = useState('');
@@ -31,7 +30,14 @@ export default function ThirdJoin() {
   }, [enteredUserName, selectedYear, selectedSex]);
 
   const nextHandler = () => {
-    router.push('/home');
+    const formData = {
+      name: enteredUserName,
+      phoneNum,
+      birthYear: selectedYear,
+      gender: selectedSex,
+    };
+    postJoin(formData);
+    // 별도로 라우터나 전역적으로 저장하는 로직 있을 수 있음
   };
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,8 +82,8 @@ export default function ThirdJoin() {
           <option value="" disabled>
             선택
           </option>
-          <option value="male">남성</option>
-          <option value="female">여성</option>
+          <option value="MALE">남성</option>
+          <option value="FEMALE">여성</option>
         </select>
       </div>
       <PrimaryButton passed={passed} onClick={nextHandler} classProps="py-4">
