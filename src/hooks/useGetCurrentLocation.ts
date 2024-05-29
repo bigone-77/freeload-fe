@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { setCurrentUserLocation } from '@/store/slices/getCurrentLocationSlice';
-import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
+import { setCurrentUserLocation } from '@/shared/store/slices/getCurrentLocationSlice';
+import { setMapCenterLocation } from '@/shared/store/slices/getMapCenterSlice';
 
 export const useGetCurrentLocation = () => {
   const dispatch = useDispatch();

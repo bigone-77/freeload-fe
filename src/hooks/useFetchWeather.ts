@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 
 import { Coordinates } from '@/models/location';
-import { setWeather } from '@/store/slices/getWeatherSlice';
+import { setWeather } from '@/shared/store/slices/getWeatherSlice';
 
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
 

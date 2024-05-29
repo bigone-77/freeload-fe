@@ -6,7 +6,7 @@ import { TargetPlace } from '@/models/targetPlace';
 import {
   removeTarget,
   setRecentTarget,
-} from '@/store/slices/recentTargetSlice';
+} from '@/shared/store/slices/recentTargetSlice';
 import { formatTime } from '@/utils/getTime';
 import { FaLocationDot } from 'react-icons/fa6';
 import { IoIosClose } from 'react-icons/io';

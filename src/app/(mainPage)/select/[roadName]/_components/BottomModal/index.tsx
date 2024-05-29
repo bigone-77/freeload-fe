@@ -9,7 +9,7 @@ import { RestAndOil } from '@/models/RestAndOil';
 import { certainRestModalStyles } from '@/constants/Modal/CertainRest';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
 import DetailRestInfo from './DetailRestInfo';
 

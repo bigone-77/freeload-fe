@@ -5,7 +5,7 @@ import { Rest } from '@/models/Rest';
 export const restData: Rest[] = [
   {
     restId: '1',
-    restName: '정읍휴게소(순천 방향)',
+    restName: '평택휴게소',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -20,7 +20,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '2',
-    restName: '백양사휴게소(순천 방향)',
+    restName: '안성맞춤휴게소',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,
@@ -35,7 +35,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '3',
-    restName: '장성휴게소(순천 방향)',
+    restName: '금왕휴게소',
     restAddr: '서울시 노원구 노원로 18길 19',
     restTelNum: '02-3296-0316',
     restGrade: 0,
@@ -50,7 +50,7 @@ export const restData: Rest[] = [
   },
   {
     restId: '4',
-    restName: '천안휴게소(순천 방향)',
+    restName: '천등산휴게소',
     restAddr: '충북 충주시 중앙탑면 중부내륙고속도로 230-1',
     restTelNum: '02-3296-0316',
     restGrade: 1,

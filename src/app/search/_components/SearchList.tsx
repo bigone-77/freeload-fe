@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setRecentTarget } from '@/store/slices/recentTargetSlice';
+import { setRecentTarget } from '@/shared/store/slices/recentTargetSlice';
 import { formatTime } from '@/utils/getTime';
 import { FaLocationDot } from 'react-icons/fa6';
 import { getDifferDistance } from '@/utils/getDifferDistance';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import { TargetPlace } from '@/models/targetPlace';
 
 interface ISearchListProps {

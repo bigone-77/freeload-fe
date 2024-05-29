@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSearchParams, useSelectedLayoutSegment } from 'next/navigation';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from '@/constants/Icons';
 import Loader from '@/Common/Loader';

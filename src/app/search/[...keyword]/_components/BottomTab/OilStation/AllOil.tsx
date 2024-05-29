@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import { OilStation } from '@/models/OilStation';
 import { IoChevronBack, MdOutlineFilterAlt } from '@/constants/Icons';
 import { getFilteredOil } from '@/utils/getFilterData';

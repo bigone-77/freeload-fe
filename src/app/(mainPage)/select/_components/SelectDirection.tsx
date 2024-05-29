@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Fade, Slide } from 'react-awesome-reveal';
 
 import { IoChevronBack } from '@/constants/Icons';
-import { RootState } from '@/store';
-import { getDirection } from '@/store/slices/getUserSelectSlice';
+import { RootState } from '@/shared/store';
+import { getDirection } from '@/shared/store/slices/getUserSelectSlice';
 import PathAlertModal from './PathAlertModal';
 
 export default function SelectDirection() {

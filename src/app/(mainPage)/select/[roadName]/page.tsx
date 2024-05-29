@@ -5,7 +5,7 @@ import { geocode, RequestType } from 'react-geocode';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import { Rest } from '@/models/Rest';
 import { getCertainRestData } from '@/app/search/[...keyword]/_lib/getCertainRestData';
 import { RestPathType } from '@/models/RestPath';

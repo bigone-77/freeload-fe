@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
-import { setPhoneNum } from '@/store/slices/joinUserSlice';
+import { setPhoneNum } from '@/shared/store/slices/joinUserSlice';
 import PrimaryButton from '@/Common/PrimaryButton';
 import EnteredInput from './EnteredInput';
 

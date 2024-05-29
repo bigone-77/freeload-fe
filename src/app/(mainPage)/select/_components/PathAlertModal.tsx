@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import Modal from 'react-modal';
 
 import { pathAlertModalStyles } from '@/constants/Modal/PathAlert';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import PrimaryButton from '@/Common/PrimaryButton';
 
 interface IPathAlertModalProps {

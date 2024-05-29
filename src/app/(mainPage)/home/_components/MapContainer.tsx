@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useDispatch } from 'react-redux';
 
-import { setMapCenterLocation } from '@/store/slices/getMapCenterSlice';
+import { setMapCenterLocation } from '@/shared/store/slices/getMapCenterSlice';
 import { SlTarget } from '@/constants/Icons';
 
 // 여기서는 Props로 현재 사용자의 위도, 경도를 받는다.

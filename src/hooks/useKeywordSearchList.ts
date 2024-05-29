@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 
 const useKeywordSearchList = (keyword: string, dist?: number) => {
   const [addressList, setAddressList] = useState<any[]>([]);

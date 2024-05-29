@@ -1,36 +1,28 @@
 {
-  "theme_color": "#158EFF",
-  "background_color": "#158EFF",
-  "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
-  "name": "\uc790\uc720\ub3c4",
-  "short_name": "\uc790\uc720\ub3c4",
-  "description": "\uc804\uad6d \ubaa8\ub4e0 \ud734\uac8c\uc18c \uc815\ubcf4\ub97c \ud55c \ubc88\uc5d0!",
+  "name": "자유도",
+  "short_name": "자유도",
+  "description": "전국 휴게소에 대한 정보를 한 번에",
   "icons": [
     {
-      "src": "/assets/icon-192x192.png",
+      "src": "/logo-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/assets/icon-256x256.png",
-      "sizes": "256x256",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/assets/icon-384x384.png",
+      "src": "/logo-384x384.png",
       "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/assets/icon-512x512.png",
+      "src": "/logo-512x512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
-  ]
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }

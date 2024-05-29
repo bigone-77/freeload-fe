@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import { Rest } from '@/models/Rest';
 import { IoChevronBack } from '@/constants/Icons';
 import { getFilteredRest } from '@/utils/getFilterData';

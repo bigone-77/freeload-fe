@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 
-import { RootState } from '@/store';
-import { getRoadName } from '@/store/slices/getUserSelectSlice';
+import { RootState } from '@/shared/store';
+import { getRoadName } from '@/shared/store/slices/getUserSelectSlice';
 
 interface IRoadCardProps {
   name: string;

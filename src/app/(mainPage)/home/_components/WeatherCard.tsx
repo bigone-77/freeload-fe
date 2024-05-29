@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 
 import { getWeatherType, useFetchWeather } from '@/hooks/useFetchWeather';
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 
 export default function WeatherCard() {
   const weatherData = useSelector((state: RootState) => state.getWeather);

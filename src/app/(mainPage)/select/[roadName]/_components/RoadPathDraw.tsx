@@ -52,7 +52,11 @@ export default function RoadPathDraw({
   return (
     <>
       <header className="absolute w-full p-5 top-0 left-0 right-0 shadow-2xl z-10 bg-primary flex items-center gap-2">
-        <IoChevronBack size={40} color="white" onClick={() => router.back()} />
+        <IoChevronBack
+          size={40}
+          color="white"
+          onClick={() => router.replace('/select/direction')}
+        />
         <span className="flex flex-col gap-2 text-text50 font-semibold text-2xl">
           <p>{roadName}</p>
           <span className="flex items-center">
@@ -87,16 +91,18 @@ export default function RoadPathDraw({
               }
             />
           ))}
-          <CustomOverlayMap
-            position={{
-              lat: coords.lat || 36,
-              lng: coords.lng || 127,
-            }}
-          >
-            <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
-              <p className="text-xs text-text50">{markerName}</p>
-            </div>
-          </CustomOverlayMap>
+          {showModal && (
+            <CustomOverlayMap
+              position={{
+                lat: coords.lat || 36,
+                lng: coords.lng || 127,
+              }}
+            >
+              <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
+                <p className="text-xs text-text50">{markerName}</p>
+              </div>
+            </CustomOverlayMap>
+          )}
           <Polyline
             path={path.map((p) => ({ lat: p.lat, lng: p.lng }))}
             strokeWeight={5}

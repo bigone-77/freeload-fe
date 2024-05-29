@@ -3,7 +3,7 @@
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
 
-import { RootState } from '@/store';
+import { RootState } from '@/shared/store';
 import MapContainer from './_components/MapContainer';
 import WeatherCard from './_components/WeatherCard';
 import ProfileFloating from './_components/ProfileFloating';
