@@ -10,8 +10,6 @@ interface IProfileFloatingProps {
 export default function ProfileFloating({
   currentUser,
 }: IProfileFloatingProps) {
-  console.log(currentUser);
-
   const handleLogOut = async () => {
     await signOut({ redirect: true, callbackUrl: '/login' });
   };

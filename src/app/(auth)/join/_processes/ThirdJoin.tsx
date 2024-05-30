@@ -10,7 +10,7 @@ import { joinUser } from '@/hooks/auth/joinUser';
 import EnteredInput from '../_components/EnteredInput';
 
 export default function ThirdJoin() {
-  const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);
+  const userData = useSelector((state: RootState) => state.joinUser);
 
   const { postJoin } = joinUser();
 
@@ -31,8 +31,9 @@ export default function ThirdJoin() {
 
   const nextHandler = () => {
     const formData = {
+      email: userData.email,
+      phoneNum: userData.phoneNum,
       name: enteredUserName,
-      phoneNum,
       birthYear: selectedYear,
       gender: selectedSex,
     };

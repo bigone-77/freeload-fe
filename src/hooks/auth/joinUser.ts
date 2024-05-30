@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 interface IJoinUserResponseProps {
   code: string;
   message: string;
@@ -8,6 +6,7 @@ interface IJoinUserResponseProps {
 
 export const joinUser = () => {
   const postJoin = async (data: {
+    email: string;
     name: string;
     phoneNum: string;
     birthYear: string;
@@ -15,12 +14,19 @@ export const joinUser = () => {
   }) => {
     if (data) {
       try {
-        const response = await axios.post<IJoinUserResponseProps>(
+        const response = await fetch(
           `${process.env.NEXT_PUBLIC_BE_URL}/auth/join`,
-          data,
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          },
         );
         // 추가 전역적으로 저장하는 로직 있을 수 있음
-        console.log(response.data);
+        const responseData: IJoinUserResponseProps = await response.json();
+        console.log(responseData);
       } catch (err) {
         console.log(err);
       }

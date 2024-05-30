@@ -1,5 +1,3 @@
-import { store } from '@/shared/store';
-import { setEmail } from '@/shared/store/slices/joinUserSlice';
 import axios from 'axios';
 
 interface IAuthCheckResponseProps {
@@ -10,7 +8,7 @@ interface IAuthCheckResponseProps {
 export const checkAuth = () => {
   const isAuthCheck = async (data: {
     email: string;
-    profile_image_url: string;
+    profile_image: string;
   }) => {
     if (data) {
       try {
@@ -18,11 +16,12 @@ export const checkAuth = () => {
           `${process.env.NEXT_PUBLIC_BE_URL}/auth/check`,
           data,
         );
-        store.dispatch(setEmail({ email: data.email }));
-        return response.data.isChecked;
+        if ((response.data as any) === '새로운 회원이 등록되었습니다.') {
+          return false;
+        }
+        return true;
       } catch (err) {
-        console.log(err);
-        return false;
+        throw new Error();
       }
     }
     return false;

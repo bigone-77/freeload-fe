@@ -1,20 +1,23 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const kakaoLogin = async () => {
     await signIn('kakao', {
-      redirect: true,
-      callbackUrl: '/home',
+      redirect: false,
     });
+    router.replace('/home');
   };
 
   const naverLogin = async () => {
     await signIn('naver', {
-      redirect: true,
-      callbackUrl: '/home',
+      redirect: false,
     });
+    router.replace('/home');
   };
   return (
     <>

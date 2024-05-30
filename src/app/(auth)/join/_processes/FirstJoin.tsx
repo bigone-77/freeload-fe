@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
-import { setPhoneNum } from '@/shared/store/slices/joinUserSlice';
+import { setEmail, setPhoneNum } from '@/shared/store/slices/joinUserSlice';
 import PrimaryButton from '@/Common/PrimaryButton';
 import EnteredInput from '../_components/EnteredInput';
 
@@ -12,7 +12,16 @@ export default function FirstJoin() {
   const [enteredPhoneNum, setEnteredPhoneNum] = useState('');
   const [passed, setPassed] = useState(false);
   const router = useRouter();
+  const params = useSearchParams();
   const dispatch = useDispatch();
+
+  const userEmail = params.get('email');
+
+  useEffect(() => {
+    if (userEmail) {
+      dispatch(setEmail({ email: userEmail }));
+    }
+  }, []);
 
   const nextHandler = () => {
     dispatch(setPhoneNum({ phoneNum: enteredPhoneNum }));
