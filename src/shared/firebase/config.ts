@@ -17,24 +17,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const getTokenHandler = async () => {
-  const messaging = getMessaging(app);
-  return (
-    getToken(messaging, {
-      vapidKey: VAPID_KEY,
-    })
-      // eslint-disable-next-line consistent-return
-      .then(async (currentToken) => {
-        if (!currentToken) {
-          // 토큰 생성 불가
-          window.alert(
-            '푸시 토큰 생성에 실패하였습니다.\n잠시 후 다시 시도해 주세요.',
-          );
-        } else {
-          return currentToken;
-        }
-      })
-      .catch((error) => {
-        console.error('token error', error);
-      })
-  );
+  if (
+    typeof window !== 'undefined' &&
+    typeof window.navigator !== 'undefined'
+  ) {
+    const messaging = getMessaging(app);
+    try {
+      const currentToken = await getToken(messaging, { vapidKey: VAPID_KEY });
+      if (!currentToken) {
+        // 토큰 생성 불가
+        window.alert(
+          '푸시 토큰 생성에 실패하였습니다.\n잠시 후 다시 시도해 주세요.',
+        );
+        return null;
+      }
+      return currentToken;
+    } catch (error) {
+      console.error('token error', error);
+      return null;
+    }
+  } else {
+    console.warn('Window or navigator is undefined');
+    return null;
+  }
 };
