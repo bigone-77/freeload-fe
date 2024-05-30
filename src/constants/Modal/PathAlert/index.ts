@@ -11,7 +11,7 @@ export const pathAlertModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '80%',
-    height: '30%',
+    height: '40%',
     zIndex: '150',
     position: 'static',
     transform: 'translate(-50%, -50%)',

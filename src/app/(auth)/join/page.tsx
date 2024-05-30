@@ -1,10 +1,9 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-
-import FirstJoin from './_components/FirstJoin';
-import SecondJoin from './_components/SecondJoin';
-import ThirdJoin from './_components/ThirdJoin';
+import FirstJoin from './_processes/FirstJoin';
+import SecondJoin from './_processes/SecondJoin';
+import ThirdJoin from './_processes/ThirdJoin';
 
 export default function JoinPage() {
   const params = useSearchParams();

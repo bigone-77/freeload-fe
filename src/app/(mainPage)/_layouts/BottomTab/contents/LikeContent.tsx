@@ -11,7 +11,7 @@ export default function LikeContent() {
     const isToken = localStorage.getItem('fcmToken');
     // TODO: 만약에 토큰이 없다면 권한 재요청하기
     if (!isToken) {
-      console.log('토큰이 없어요');
+      window.alert('토큰이 없어요');
       requestPermission();
     } else {
       // TODO: 토큰이 있다면 sendPush

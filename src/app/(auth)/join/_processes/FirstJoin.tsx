@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { setPhoneNum } from '@/shared/store/slices/joinUserSlice';
 import PrimaryButton from '@/Common/PrimaryButton';
-import EnteredInput from './EnteredInput';
+import EnteredInput from '../_components/EnteredInput';
 
 export default function FirstJoin() {
   const [enteredPhoneNum, setEnteredPhoneNum] = useState('');

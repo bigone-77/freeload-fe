@@ -6,7 +6,7 @@ import { RootState } from '@/shared/store';
 import { useRouter } from 'next/navigation';
 
 import PrimaryButton from '@/Common/PrimaryButton';
-import { Timer } from './Timer';
+import { Timer } from '../_components/Timer';
 
 export default function SecondJoin() {
   const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);

@@ -28,14 +28,15 @@ export default function PathAlertModal({
       ariaHideApp={false}
       contentLabel="Pop up Message"
     >
-      <div className="flex flex-col text-start text-xl py-4">
+      <div className="flex flex-col text-start text-xl py-4 gap-4">
         <span className="flex items-center">
           입력하신<p className="text-primary ml-2">{selectedRoad}</p>,
         </span>
-        <span className="flex items-center mt-4">
-          <p className="text-primary mr-2">{direction}</p>방향으로 경로를
-          검색합니다.
+        <span className="flex items-center">
+          <p className="text-primary mr-2">{direction}</p>
+          방향으로
         </span>
+        경로를 검색합니다.
         <div className="flex flex-col items-center gap-4 mx-12 mt-10">
           <PrimaryButton onClick={() => router.push(`/select/${selectedRoad}`)}>
             확인

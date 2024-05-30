@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
+    startupImage: '/splash-screen.png',
     title: '자유도',
   },
 };

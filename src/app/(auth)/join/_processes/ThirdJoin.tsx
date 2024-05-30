@@ -7,7 +7,7 @@ import { RootState } from '@/shared/store';
 import getYear from '@/utils/getYear';
 import PrimaryButton from '@/Common/PrimaryButton';
 import { joinUser } from '@/hooks/auth/joinUser';
-import EnteredInput from './EnteredInput';
+import EnteredInput from '../_components/EnteredInput';
 
 export default function ThirdJoin() {
   const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);

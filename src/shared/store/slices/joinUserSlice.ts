@@ -2,10 +2,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface IJoinUserSliceProps {
+  email: string;
   phoneNum: string;
 }
 
 const initialState = {
+  email: '',
   phoneNum: '',
 };
 
@@ -13,15 +15,15 @@ const joinUserSlice = createSlice({
   name: 'joinUser',
   initialState,
   reducers: {
-    setPhoneNum: (
-      state,
-      action: PayloadAction<Partial<IJoinUserSliceProps>>,
-    ) => {
-      state.phoneNum = action.payload.phoneNum!;
+    setEmail: (state, action: PayloadAction<{ email: string }>) => {
+      state.email = action.payload.email;
+    },
+    setPhoneNum: (state, action: PayloadAction<{ phoneNum: string }>) => {
+      state.phoneNum = action.payload.phoneNum;
     },
   },
 });
 
-export const { setPhoneNum } = joinUserSlice.actions;
+export const { setEmail, setPhoneNum } = joinUserSlice.actions;
 
 export default joinUserSlice.reducer;
