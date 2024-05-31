@@ -13,7 +13,7 @@ export const {
   signIn,
 } = NextAuth({
   pages: {
-    signIn: '/login', // 임시 로그인화면
+    signIn: '/login', // 임시 로그인 화면
   },
   providers: [
     KakaoProvider({
@@ -46,7 +46,6 @@ export const {
         const isAuth = await isAuthCheck(formData); // 이 사람이 이전에 로그인한 적이 있는지?
 
         if (isAuth === true) {
-          // return '/home';
           return true;
         }
         return `/join?step=1&email=${formData.email}`;

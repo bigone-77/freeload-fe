@@ -9,7 +9,8 @@ import WeatherCard from './_components/WeatherCard';
 import ProfileFloating from './_components/ProfileFloating';
 
 export default function Home() {
-  const { data: currentUser } = useSession();
+  const { data: session } = useSession();
+  const currentUser = session?.user; // 현재 접속한 유저가 있는지 ?
 
   const currentLatLng = useSelector(
     (state: RootState) => state.currentLocation,

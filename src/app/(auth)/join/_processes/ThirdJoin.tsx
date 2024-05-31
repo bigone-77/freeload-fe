@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@/shared/store';
@@ -10,6 +11,7 @@ import { joinUser } from '@/hooks/auth/joinUser';
 import EnteredInput from '../_components/EnteredInput';
 
 export default function ThirdJoin() {
+  const router = useRouter();
   const userData = useSelector((state: RootState) => state.joinUser);
 
   const { postJoin } = joinUser();
@@ -29,7 +31,7 @@ export default function ThirdJoin() {
     }
   }, [enteredUserName, selectedYear, selectedSex]);
 
-  const nextHandler = () => {
+  const nextHandler = async () => {
     const formData = {
       email: userData.email,
       phoneNum: userData.phoneNum,
@@ -37,8 +39,10 @@ export default function ThirdJoin() {
       birthYear: selectedYear,
       gender: selectedSex,
     };
-    postJoin(formData);
-    // 별도로 라우터나 전역적으로 저장하는 로직 있을 수 있음
+    const response = await postJoin(formData);
+    if (response === '추가입력 성공입니다') {
+      router.replace('/home');
+    }
   };
 
   const handleUserNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {

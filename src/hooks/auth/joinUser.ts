@@ -1,9 +1,3 @@
-interface IJoinUserResponseProps {
-  code: string;
-  message: string;
-  name: string;
-}
-
 export const joinUser = () => {
   const postJoin = async (data: {
     email: string;
@@ -25,12 +19,13 @@ export const joinUser = () => {
           },
         );
         // 추가 전역적으로 저장하는 로직 있을 수 있음
-        const responseData: IJoinUserResponseProps = await response.json();
-        console.log(responseData);
+        const responseData = await response.json();
+        return responseData;
       } catch (err) {
-        console.log(err);
+        throw new Error();
       }
     }
+    throw new Error();
   };
   return { postJoin };
 };
