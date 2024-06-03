@@ -1,4 +1,4 @@
-import Facilities from './Facilities';
+// import Facilities from './Facilities';
 
 interface RestCardProps {
   gotoDetailHandler: (id: string) => void;
@@ -6,14 +6,14 @@ interface RestCardProps {
   name: string;
   addr: string;
   grade: number;
-  wifi: boolean;
-  repair: boolean;
-  electronic: boolean;
-  shelter: boolean;
-  nurse: boolean;
-  pharmacy: boolean;
-  pet: boolean;
-  disabled: boolean;
+  // wifi: boolean;
+  // repair: boolean;
+  // electronic: boolean;
+  // shelter: boolean;
+  // nurse: boolean;
+  // pharmacy: boolean;
+  // pet: boolean;
+  // disabled: boolean;
 }
 
 export default function RestCard({
@@ -22,14 +22,14 @@ export default function RestCard({
   name,
   addr,
   grade,
-  wifi,
-  repair,
-  electronic,
-  shelter,
-  nurse,
-  pharmacy,
-  pet,
-  disabled,
+  // wifi,
+  // repair,
+  // electronic,
+  // shelter,
+  // nurse,
+  // pharmacy,
+  // pet,
+  // disabled,
 }: RestCardProps) {
   return (
     <div
@@ -45,16 +45,15 @@ export default function RestCard({
         )}
       </div>
       <h3 className="w-full text-xs mt-4 mb-6">{addr}</h3>
-      <Facilities
+      {/* <Facilities
         wifi={wifi}
-        repair={repair}
         electronic={electronic}
         shelter={shelter}
         nurse={nurse}
         pharmacy={pharmacy}
         pet={pet}
         disabled={disabled}
-      />
+      /> */}
     </div>
   );
 }

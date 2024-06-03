@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
   roadName: '',
-  direction: '',
+  direction: '' as 'up' | 'down',
 };
 
 const getUserSelectSlice = createSlice({
@@ -12,7 +12,10 @@ const getUserSelectSlice = createSlice({
     getRoadName: (state, action: PayloadAction<{ roadName: string }>) => {
       state.roadName = action.payload.roadName;
     },
-    getDirection: (state, action: PayloadAction<{ direction: string }>) => {
+    getDirection: (
+      state,
+      action: PayloadAction<{ direction: 'up' | 'down' }>,
+    ) => {
       state.direction = action.payload.direction;
     },
   },

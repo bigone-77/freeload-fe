@@ -2,10 +2,17 @@
 
 import axios from 'axios';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+
+import {
+  setReceipt,
+  setReceiptImage,
+} from '@/shared/store/slices/getReceiptSlice';
+import { useRouter } from 'next/navigation';
 
 export default function CameraButton() {
-  const [ocrResult, setOcrResult] = useState<any>(null);
+  const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleOcrRequest = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -23,15 +30,22 @@ export default function CameraButton() {
           fileFormat,
           fileName,
         });
+        dispatch(setReceiptImage(base64Image));
 
-        setOcrResult(response.data);
+        dispatch(
+          setReceipt({
+            storeInfo: response.data.storeInfo,
+            paymentInfo: response.data.paymentInfo,
+            subResults: response.data.subResults,
+          }),
+        );
+        router.push('/review');
       } catch (error) {
         console.error('Error processing OCR', error);
       }
     };
 
     reader.readAsDataURL(file);
-    setOcrResult(null); // Reset previous result
   };
 
   return (
@@ -53,7 +67,6 @@ export default function CameraButton() {
           priority
         />
       </label>
-      {ocrResult && <pre>{JSON.stringify(ocrResult, null, 2)}</pre>}
     </div>
   );
 }

@@ -1,37 +1,37 @@
 'use client';
 
+import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 import Modal from 'react-modal';
 
-import { getRestAndOilData } from '@/app/(mainPage)/select/_lib/getRestAndOilData';
 import Loader from '@/Common/Loader';
-import { RestAndOil } from '@/models/RestAndOil';
 import { certainRestModalStyles } from '@/constants/Modal/CertainRest';
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
 import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
+import { RestResponse } from '@/models/Rest';
 import DetailRestInfo from './DetailRestInfo';
+import { getRestData } from '../../../../../../lib/getRestData';
 
 interface IBottomModalProps {
-  id: string;
-  coords: {
-    lat: number | undefined;
-    lng: number | undefined;
-  };
+  id: number;
+  lat: number;
+  lng: number;
   showModal: boolean;
   onRequestClose: () => void;
 }
 
 export default function BottomModal({
   id,
-  coords,
+  lat,
+  lng,
   showModal,
   onRequestClose,
 }: IBottomModalProps) {
-  const { data, isLoading } = useQuery<RestAndOil>({
+  // 특정 휴게소 정보 불러오기 (하나임)
+  const { data: Response, isLoading } = useQuery<RestResponse>({
     queryKey: ['rest', id],
-    queryFn: () => getRestAndOilData(id),
+    queryFn: () => getRestData(id),
   });
 
   const currentCoords = useSelector(
@@ -40,12 +40,12 @@ export default function BottomModal({
 
   let differDist: string;
 
-  if (coords.lat && coords.lng) {
+  if (lat && lng) {
     differDist = getDifferDistance(
       currentCoords.latitude!,
       currentCoords.longitude!,
-      coords.lat,
-      coords.lng,
+      lat,
+      lng,
     );
   } else {
     differDist = '';
@@ -58,8 +58,14 @@ export default function BottomModal({
         <Loader />
       </div>
     );
-  } else if (data) {
-    content = <DetailRestInfo data={data} dist={differDist} coords={coords} />;
+  } else if (Response) {
+    content = (
+      <DetailRestInfo
+        data={Response.data[0]}
+        dist={differDist}
+        coords={{ lat, lng }}
+      />
+    );
   }
   return (
     <Modal

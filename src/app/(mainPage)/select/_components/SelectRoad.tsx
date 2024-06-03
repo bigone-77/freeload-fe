@@ -2,13 +2,13 @@
 
 import { useQuery } from '@tanstack/react-query';
 
-import { Road } from '@/models/Road';
+import { RoadResponse } from '@/models/Road';
 import Loader from '@/Common/Loader';
-import { getRoadData } from '../_lib/getRoadData';
+import { getRoadData } from '@/lib/getRoadData';
 import RoadCard from './RoadCard';
 
 export default function SelectRoad() {
-  const { data, isLoading } = useQuery<Road[]>({
+  const { data: Response, isLoading } = useQuery<RoadResponse>({
     queryKey: ['road'],
     queryFn: getRoadData,
   });
@@ -17,11 +17,11 @@ export default function SelectRoad() {
 
   if (isLoading) {
     content = <Loader />;
-  } else if (data) {
+  } else if (Response) {
     content = (
       <section className="flex flex-col gap-5 mt-10">
-        {data.map((d, index) => (
-          <RoadCard key={index} name={d.roadName} />
+        {Response.data.map((d, index) => (
+          <RoadCard key={index} name={d.routeNm} />
         ))}
       </section>
     );

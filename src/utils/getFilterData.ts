@@ -5,14 +5,8 @@ export function getFilteredRest(sorted: string, restData: Rest[]) {
   if (sorted === 'WIFI') {
     return restData.filter((rest) => rest.wifi);
   }
-  if (sorted === 'REPAIR') {
-    return restData.filter((rest) => rest.repair);
-  }
   if (sorted === 'ELECTRONIC') {
-    return restData.filter((rest) => rest.electronic);
-  }
-  if (sorted === 'SHELTER') {
-    return restData.filter((rest) => rest.shelter);
+    return restData.filter((rest) => rest.electric_car);
   }
   if (sorted === 'PHARMACY') {
     return restData.filter((rest) => rest.pharmacy);
@@ -21,10 +15,10 @@ export function getFilteredRest(sorted: string, restData: Rest[]) {
     return restData.filter((rest) => rest.pet);
   }
   if (sorted === 'NURSE') {
-    return restData.filter((rest) => rest.nurse);
+    return restData.filter((rest) => rest.nursing_room);
   }
   if (sorted === 'DISABLED') {
-    return restData.filter((rest) => rest.disabled);
+    return restData.filter((rest) => rest.braile_block);
   }
   return restData;
 }

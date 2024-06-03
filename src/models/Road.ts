@@ -1,4 +1,10 @@
 export type Road = {
-  id: number;
-  roadName: string;
+  routeCd: string;
+  routeNm: string;
+};
+
+export type RoadResponse = {
+  error: any;
+  message: boolean;
+  data: Road[];
 };

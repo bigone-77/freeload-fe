@@ -2,7 +2,8 @@
 
 import { OilStation } from '@/models/OilStation';
 import { useQuery } from '@tanstack/react-query';
-import { getCertainOilData } from '../../../_lib/getCertainOilData';
+
+import { getRoadOilData } from '@/lib/getRoadOilData';
 import OilCard from './OilCard';
 
 interface IShowOilStationProps {
@@ -18,7 +19,7 @@ export default function ShowOilStation({
 }: IShowOilStationProps) {
   const { data: OilData } = useQuery<OilStation[]>({
     queryKey: ['oil', roadName, direction],
-    queryFn: getCertainOilData,
+    queryFn: getRoadOilData,
   });
 
   return (

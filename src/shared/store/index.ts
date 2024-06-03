@@ -13,6 +13,7 @@ import recentTargetReducer from './slices/recentTargetSlice';
 import selectReducer from './slices/getUserSelectSlice';
 import restReducer from './slices/getRestSlice';
 import oilReducer from './slices/getOilSlice';
+import receiptReducer from './slices/getReceiptSlice';
 
 const rootReducer = combineReducers({
   joinUser: joinUserReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   select: selectReducer,
   rest: restReducer,
   oil: oilReducer,
+  receipt: receiptReducer,
 });
 
 const createNoopStorage = () => ({

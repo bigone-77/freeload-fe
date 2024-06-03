@@ -1,5 +1,5 @@
 export async function getRoadData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/road`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/rest/all`, {
     next: {
       tags: ['road'],
     },

@@ -1,9 +1,9 @@
-export async function getRestAndOilData(restId: string) {
+export async function getRestData(restId: number) {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/rest?restId=${restId}`,
+    `${process.env.NEXT_PUBLIC_BE_URL}/rest/SvarCd/${restId}`,
     {
       next: {
-        tags: [restId, 'rest'],
+        tags: ['rest', String(restId)],
       },
       credentials: 'include',
       cache: 'no-store',

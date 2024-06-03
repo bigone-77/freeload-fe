@@ -2,9 +2,7 @@ import { Tooltip } from 'react-tooltip';
 
 import {
   MdOutlineWifi,
-  MdCarRepair,
   MdOutlineElectricBolt,
-  MdNightShelter,
   MdLocalPharmacy,
   MdPets,
   RiNurseFill,
@@ -14,9 +12,7 @@ import {
 interface IFacilitiesProps {
   size?: number;
   wifi: boolean;
-  repair: boolean;
   electronic: boolean;
-  shelter: boolean;
   nurse: boolean;
   pharmacy: boolean;
   pet: boolean;
@@ -26,9 +22,7 @@ interface IFacilitiesProps {
 export default function Facilities({
   size,
   wifi,
-  repair,
   electronic,
-  shelter,
   nurse,
   pharmacy,
   pet,
@@ -43,24 +37,10 @@ export default function Facilities({
           size={size}
         />
       )}
-      {repair && (
-        <MdCarRepair
-          data-tooltip-id="facility"
-          data-tooltip-content="수리 및 정비"
-          size={size}
-        />
-      )}
       {electronic && (
         <MdOutlineElectricBolt
           data-tooltip-id="facility"
           data-tooltip-content="전기차"
-          size={size}
-        />
-      )}
-      {shelter && (
-        <MdNightShelter
-          data-tooltip-id="facility"
-          data-tooltip-content="쉼터"
           size={size}
         />
       )}

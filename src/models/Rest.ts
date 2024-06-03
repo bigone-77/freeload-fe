@@ -1,17 +1,25 @@
 export type Rest = {
-  restId: string;
+  restId: number;
   restName: string;
   restAddr: string;
-  restTelNum: string;
-  restGrade: number;
-  latitude?: number;
-  longitude?: number;
-  wifi: boolean;
-  repair: boolean;
-  electronic: boolean;
-  shelter: boolean;
-  nurse: boolean;
-  pharmacy: boolean;
-  pet: boolean;
-  disabled: boolean;
+  gudClssCd: string;
+  routeNm: string;
+  hdqrCd: string;
+  routeCd: string;
+  rprsTelNo: string;
+  wifi: string;
+  satisfaction: string;
+  electric_car: string;
+  nursing_room: string;
+  pharmacy: string;
+  pet: string;
+  latitude: string;
+  longitude: string;
+  braile_block: string;
+};
+
+export type RestResponse = {
+  error: any;
+  message: boolean;
+  data: Rest[];
 };

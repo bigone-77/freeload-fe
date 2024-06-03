@@ -25,27 +25,28 @@ export default function RoadPathDraw({
   path,
 }: IRoadPathDrawProps) {
   const router = useRouter();
-  const [selectedId, setSelectedId] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [markerName, setMarkerName] = useState('');
-  const [coords, setCoords] = useState<{
-    lat: number | undefined;
-    lng: number | undefined;
-  }>({ lat: undefined, lng: undefined });
+  const [selectedPath, setSelectedPath] = useState<RestPathType | null>(null);
 
-  const selectMarkerHandler = ({ id, name }: { id: string; name: string }) => {
-    router.push(`?restId=${id}`);
-    setSelectedId(id);
-    setMarkerName(name);
+  // 단일 휴게소의 정보 찍기 && 모달 열기
+  const selectMarkerHandler = ({
+    restId,
+    restName,
+    lat,
+    lng,
+  }: RestPathType) => {
     setShowModal(true);
-    setCoords({
-      lat: path[Number(selectedId)]?.lat,
-      lng: path[Number(selectedId)]?.lng,
+    setSelectedPath({
+      restId,
+      restName,
+      lat,
+      lng,
     });
+    router.push(`?restId=${restId}`);
   };
 
   const onRequestClose = () => {
-    setMarkerName('');
+    setSelectedPath(null);
     setShowModal(false);
   };
 
@@ -58,9 +59,9 @@ export default function RoadPathDraw({
           onClick={() => router.replace('/select/direction')}
         />
         <span className="flex flex-col gap-2 text-text50 font-semibold text-2xl">
-          <p>{roadName}</p>
+          <p>{roadName.replace('선', '고속도로')}</p>
           <span className="flex items-center">
-            <p>{direction}</p>
+            <p>{direction === 'up' ? '상행' : '하행'}</p>
             <p className="ml-2">방향</p>
           </span>
         </span>
@@ -87,34 +88,42 @@ export default function RoadPathDraw({
                 },
               }}
               onClick={() =>
-                selectMarkerHandler({ id: p.restId, name: p.restName })
+                selectMarkerHandler({
+                  restId: p.restId,
+                  restName: p.restName,
+                  lat: p.lat,
+                  lng: p.lng,
+                })
               }
             />
           ))}
-          {showModal && (
+          {showModal && selectedPath && (
             <CustomOverlayMap
               position={{
-                lat: coords.lat || 36,
-                lng: coords.lng || 127,
+                lat: selectedPath.lat,
+                lng: selectedPath.lng,
               }}
             >
               <div className="border rounded-lg bg-text700 py-2 px-4 text-center">
-                <p className="text-xs text-text50">{markerName}</p>
+                <p className="text-xs text-text50">{selectedPath.restName}</p>
               </div>
             </CustomOverlayMap>
           )}
           <Polyline
-            path={path.map((p) => ({ lat: p.lat, lng: p.lng }))}
+            path={path
+              .sort((a, b) => a.lng - b.lng)
+              .map((p) => ({ lat: p.lat, lng: p.lng }))}
             strokeWeight={5}
             strokeColor="#158EFF"
             strokeOpacity={0.7}
             strokeStyle="solid"
           />
         </Map>
-        {selectedId.length > 0 && showModal && (
+        {selectedPath && showModal && (
           <BottomModal
-            id={selectedId}
-            coords={coords}
+            id={selectedPath.restId}
+            lat={selectedPath.lat}
+            lng={selectedPath.lng}
             showModal={showModal}
             onRequestClose={onRequestClose}
           />

@@ -22,19 +22,15 @@ export async function POST(req: NextRequest) {
   };
 
   try {
-    const response = await axios.post(
-      `${OCR_INVOKE_URL}/document/receipt`,
-      message,
-      {
-        headers: {
-          'X-OCR-SECRET': OCR_SECRET,
-          'Content-Type': 'application/json',
-        },
+    const response = await axios.post(`${OCR_INVOKE_URL}`, message, {
+      headers: {
+        'X-OCR-SECRET': OCR_SECRET,
+        'Content-Type': 'application/json',
       },
-    );
+    });
 
     if (response.status === 200) {
-      return NextResponse.json(response.data, {
+      return NextResponse.json(response.data.images[0].receipt.result, {
         status: 200,
       });
     }

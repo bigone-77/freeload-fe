@@ -1,25 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 
 import { Rest } from '@/models/Rest';
-import RestCard from './RestCard';
-import { getCertainRestData } from '../../../_lib/getCertainRestData';
+import { getRoadRestData } from '@/lib/getRoadRestData';
+// import RestCard from './RestCard';
 
 interface ShowRestProps {
   roadName: string;
   direction: string;
-  gotoDetailHandler: (id: string) => void;
+  // gotoDetailHandler: (id: string) => void;
   showAllRestHandler: (data: Rest[]) => void;
 }
 
 export default function ShowRest({
   roadName,
   direction,
-  gotoDetailHandler,
+  // gotoDetailHandler,
   showAllRestHandler,
 }: ShowRestProps) {
   const { data: RestData } = useQuery<Rest[]>({
     queryKey: ['rest', roadName, direction],
-    queryFn: getCertainRestData,
+    queryFn: getRoadRestData,
   });
 
   return (
@@ -34,7 +34,7 @@ export default function ShowRest({
         </p>
       </div>
       <div className="flex overflow-x-auto gap-4">
-        {RestData ? (
+        {/* {RestData ? (
           RestData.map((rest) => (
             <RestCard
               gotoDetailHandler={gotoDetailHandler}
@@ -55,7 +55,7 @@ export default function ShowRest({
           ))
         ) : (
           <p>이용 가능한 휴게소가 없습니다.</p>
-        )}
+        )} */}
       </div>
     </section>
   );

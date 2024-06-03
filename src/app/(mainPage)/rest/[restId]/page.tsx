@@ -7,6 +7,7 @@ import {
   FaCartFlatbed,
 } from '@/constants/Icons';
 import CategoryCard from '../_components/CategoryCard';
+import CertainRestCard from './_components/CertainRestCard';
 
 export default function RestDetailPage({
   params,
@@ -15,24 +16,7 @@ export default function RestDetailPage({
 }) {
   return (
     <>
-      <main className="pb-10 px-10 bg-primary text-white">
-        <h1 className="text-2xl font-bold">경주(부산방향)휴게소</h1>
-        <span className="flex items-center gap-1 my-4">
-          <h2>본부명 :</h2>
-          <h2>대구경북본부</h2>
-        </span>
-        <div className="grid grid-cols-2 gap-3">
-          <span className="text-sm rounded-xl border px-2 py-1 bg-transparent text-center">
-            <p>휘발유: 1,633원</p>
-          </span>
-          <span className="text-sm rounded-xl border px-2 py-1 bg-transparent text-center">
-            <p>경유: 1,467원</p>
-          </span>
-          <span className="text-sm rounded-xl border px-2 py-1 bg-transparent text-center">
-            <p>LPG: 1,251원</p>
-          </span>
-        </div>
-      </main>
+      <CertainRestCard id={params.restId} />
       <div className="h-full px-3 py-12 bg-text100">
         <section className="grid grid-cols-2 gap-4 w-full place-items-center">
           <CategoryCard restId={params.restId} title="고객 만족도" grade={2} />

@@ -18,7 +18,7 @@ export default function SelectDirection() {
   );
   const [showCheckModal, setShowCheckModal] = useState(false);
 
-  const showPathHandler = (way: string) => {
+  const showPathHandler = (way: 'up' | 'down') => {
     dispatch(
       getDirection({
         direction: way,
@@ -40,14 +40,14 @@ export default function SelectDirection() {
       <Fade duration={5000}>
         <section className="flex items-center justify-center gap-16 mt-32 font-semibold text-lg">
           <p
-            className={`px-10 py-6 border-4 border-primary rounded-2xl ${selectedDirection === '상행' ? 'bg-primary text-text50' : 'bg-transparent text-text500'}`}
-            onClick={() => showPathHandler('상행')}
+            className={`px-10 py-6 border-4 border-primary rounded-2xl ${selectedDirection === 'up' ? 'bg-primary text-text50' : 'bg-transparent text-text500'}`}
+            onClick={() => showPathHandler('up')}
           >
             상행
           </p>
           <p
-            className={`px-10 py-6 border-4 border-secondary rounded-2xl ${selectedDirection === '하행' ? 'bg-secondary text-text50' : 'bg-transparent text-text500'}`}
-            onClick={() => showPathHandler('하행')}
+            className={`px-10 py-6 border-4 border-secondary rounded-2xl ${selectedDirection === 'down' ? 'bg-secondary text-text50' : 'bg-transparent text-text500'}`}
+            onClick={() => showPathHandler('down')}
           >
             하행
           </p>
