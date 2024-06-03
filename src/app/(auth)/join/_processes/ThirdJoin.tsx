@@ -40,7 +40,6 @@ export default function ThirdJoin() {
       gender: selectedSex,
     };
     const goToHome = await postJoin(formData);
-    console.log(goToHome);
 
     if (goToHome) {
       router.replace('/home');
