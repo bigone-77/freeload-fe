@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const joinUser = () => {
   const postJoin = async (data: {
     email: string;
@@ -8,24 +10,19 @@ export const joinUser = () => {
   }) => {
     if (data) {
       try {
-        const response = await fetch(
+        const response = await axios.post(
           `${process.env.NEXT_PUBLIC_BE_URL}/auth/join`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-          },
+          data,
         );
-        // 추가 전역적으로 저장하는 로직 있을 수 있음
-        const responseData = await response.json();
-        return responseData;
+        if ((response.data as any) === '추가입력 성공입니다') {
+          return true;
+        }
+        return false;
       } catch (err) {
         throw new Error();
       }
     }
-    throw new Error();
+    return false;
   };
   return { postJoin };
 };

@@ -39,8 +39,10 @@ export default function ThirdJoin() {
       birthYear: selectedYear,
       gender: selectedSex,
     };
-    const response = await postJoin(formData);
-    if (response === '추가입력 성공입니다') {
+    const goToHome = await postJoin(formData);
+    console.log(goToHome);
+
+    if (goToHome) {
       router.replace('/home');
     }
   };

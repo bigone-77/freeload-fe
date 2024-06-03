@@ -1,7 +1,7 @@
 import { AdapterUser } from '@auth/core/adapters';
 import NextAuth, { Account, Profile, User } from 'next-auth';
 import KakaoProvider, { KakaoProfile } from 'next-auth/providers/kakao';
-import NaverProvider from 'next-auth/providers/naver';
+import GoogleProvider, { GoogleProfile } from 'next-auth/providers/google';
 
 import { checkAuth } from './hooks/auth/checkAuth';
 
@@ -20,19 +20,20 @@ export const {
       clientId: process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!,
       clientSecret: process.env.NEXT_PUBLIC_KAKAO_SECRET_KEY!,
     }),
-    NaverProvider({
-      clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_NAVER_SECRET_KEY!,
+    GoogleProvider({
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET_KEY!,
     }),
   ],
   secret: process.env.AUTH_SECRET,
   callbacks: {
     signIn: async ({
       profile,
+      account,
     }: {
       user: User | AdapterUser;
       account: Account | null;
-      profile?: Profile | KakaoProfile | undefined;
+      profile?: Profile | KakaoProfile | GoogleProfile | undefined;
       email?: { verificationRequest?: boolean | undefined };
       credentials?: Record<string, unknown>;
     }): Promise<boolean | string> => {
@@ -44,6 +45,19 @@ export const {
             ?.profile_image_url as string,
         };
         const isAuth = await isAuthCheck(formData); // 이 사람이 이전에 로그인한 적이 있는지?
+
+        if (isAuth === true) {
+          return true;
+        }
+        return `/join?step=1&email=${formData.email}`;
+      }
+      if (account?.provider === 'google') {
+        const googleProfile = profile as GoogleProfile;
+        const formData = {
+          email: googleProfile.email,
+          profile_image: googleProfile.picture,
+        };
+        const isAuth = await isAuthCheck(formData);
 
         if (isAuth === true) {
           return true;

@@ -1,12 +1,39 @@
 'use client';
 
+import axios from 'axios';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function CameraButton() {
-  const fileUpload = (event: any) => {
-    const selectedFile = event.target.files[0];
-    console.log('Selected file:', selectedFile);
+  const [ocrResult, setOcrResult] = useState<any>(null);
+
+  const handleOcrRequest = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+      const fileFormat = file.type.split('/')[1];
+      const fileName = file.name;
+
+      try {
+        const response = await axios.post('/api/ocr', {
+          imageBase64: base64Image,
+          fileFormat,
+          fileName,
+        });
+
+        setOcrResult(response.data);
+      } catch (error) {
+        console.error('Error processing OCR', error);
+      }
+    };
+
+    reader.readAsDataURL(file);
+    setOcrResult(null); // Reset previous result
   };
+
   return (
     <div className="rounded-full bg-primary flex items-center justify-center -translate-y-6 w-16 h-16">
       <label htmlFor="file" style={{ cursor: 'pointer' }}>
@@ -15,7 +42,7 @@ export default function CameraButton() {
           id="file"
           accept="image/*"
           capture="environment"
-          onChange={fileUpload}
+          onChange={handleOcrRequest}
           style={{ display: 'none' }}
         />
         <Image
@@ -26,6 +53,7 @@ export default function CameraButton() {
           priority
         />
       </label>
+      {ocrResult && <pre>{JSON.stringify(ocrResult, null, 2)}</pre>}
     </div>
   );
 }

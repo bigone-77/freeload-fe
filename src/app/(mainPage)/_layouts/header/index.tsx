@@ -6,7 +6,7 @@ export default function HomeHeader() {
   const router = useRouter();
   return (
     <header className="absolute top-10 w-full grid grid-cols-1 place-items-center z-10">
-      <section className="flex bg-white w-4/5 h-12 rounded-lg shadow-lg items-center justify-start gap-2 pl-4">
+      <section className="flex bg-white w-[70%] h-12 rounded-lg shadow-lg items-center justify-start gap-2 pl-4">
         {/* 추후 사이드탭 로직 들어갈 곳입니다 */}
         <RxHamburgerMenu size={25} />
         <h3
