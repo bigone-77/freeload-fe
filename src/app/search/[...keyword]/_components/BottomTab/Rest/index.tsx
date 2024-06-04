@@ -1,24 +1,24 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { Rest } from '@/models/Rest';
+import { Rest, RestResponse } from '@/models/Rest';
 import { getRoadRestData } from '@/lib/getRoadRestData';
-// import RestCard from './RestCard';
+import RestCard from './RestCard';
 
 interface ShowRestProps {
   roadName: string;
   direction: string;
-  // gotoDetailHandler: (id: string) => void;
+  gotoDetailHandler: (id: number) => void;
   showAllRestHandler: (data: Rest[]) => void;
 }
 
 export default function ShowRest({
   roadName,
   direction,
-  // gotoDetailHandler,
+  gotoDetailHandler,
   showAllRestHandler,
 }: ShowRestProps) {
-  const { data: RestData } = useQuery<Rest[]>({
-    queryKey: ['rest', roadName, direction],
+  const { data: RestData } = useQuery<RestResponse>({
+    queryKey: ['rest', roadName.replace('고속도로', '선'), direction],
     queryFn: getRoadRestData,
   });
 
@@ -28,34 +28,32 @@ export default function ShowRest({
         <p className="font-bold text-xl mb-4">휴게소</p>
         <p
           className="underline decoration-1 text-sm hover:opacity-80 transition-all"
-          onClick={() => showAllRestHandler(RestData!)}
+          onClick={() => showAllRestHandler(RestData?.data!)}
         >
           더보기
         </p>
       </div>
       <div className="flex overflow-x-auto gap-4">
-        {/* {RestData ? (
-          RestData.map((rest) => (
+        {RestData ? (
+          RestData.data.map((rest) => (
             <RestCard
               gotoDetailHandler={gotoDetailHandler}
               key={rest.restId}
               id={rest.restId}
               name={rest.restName}
               addr={rest.restAddr}
-              grade={rest.restGrade}
-              wifi={rest.wifi}
-              repair={rest.repair}
-              electronic={rest.electronic}
-              shelter={rest.shelter}
-              nurse={rest.nurse}
-              pharmacy={rest.pharmacy}
-              pet={rest.pet}
-              disabled={rest.disabled}
+              grade={rest.satisfaction}
+              wifi={rest.wifi === 'True'}
+              electronic={rest.electric_car === 'True'}
+              nurse={rest.nursing_room === 'True'}
+              pharmacy={rest.pharmacy === 'True'}
+              pet={rest.pet === 'True'}
+              disabled={rest.braile_block === 'True'}
             />
           ))
         ) : (
           <p>이용 가능한 휴게소가 없습니다.</p>
-        )} */}
+        )}
       </div>
     </section>
   );

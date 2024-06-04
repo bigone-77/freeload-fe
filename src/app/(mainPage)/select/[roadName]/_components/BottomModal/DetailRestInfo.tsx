@@ -13,12 +13,14 @@ interface IDetailRestInfoProps {
     lat: number;
     lng: number;
   };
+  direction: 'up' | 'down';
 }
 
 export default function DetailRestInfo({
   data,
   dist,
   coords,
+  direction,
 }: IDetailRestInfoProps) {
   const {
     restId,
@@ -38,7 +40,7 @@ export default function DetailRestInfo({
     <article className="py-4">
       <header className="flex items-center justify-between">
         <h1 className="font-bold text-lg">{restName}</h1>
-        <Link href={`/rest/${restId}`}>
+        <Link href={`/rest/${restId}?direction=${direction}`}>
           <p className="underline decoration-2">더보기</p>
         </Link>
       </header>

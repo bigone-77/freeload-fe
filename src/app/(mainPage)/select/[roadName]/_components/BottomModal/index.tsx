@@ -34,6 +34,9 @@ export default function BottomModal({
     queryFn: () => getRestData(id),
   });
 
+  const selectedDirection = useSelector(
+    (state: RootState) => state.select.direction,
+  );
   const currentCoords = useSelector(
     (state: RootState) => state.currentLocation,
   );
@@ -64,6 +67,7 @@ export default function BottomModal({
         data={Response.data[0]}
         dist={differDist}
         coords={{ lat, lng }}
+        direction={selectedDirection}
       />
     );
   }

@@ -44,13 +44,13 @@ export default function AllOil({ roadName, closeHandler }: IAllOilProps) {
             filteredOilData.map((oil, index) => (
               <OilTable
                 key={index}
-                name={oil.oilName}
+                name={oil.serviceAreaName}
                 company={oil.oilCompany}
                 gasoline={oil.gasolinePrice}
                 disel={oil.diselPrice}
                 lpg={oil.lpgPrice}
-                electric={oil.electric}
-                hydrogen={oil.hydrogen}
+                electric={oil.electric === '1'}
+                hydrogen={oil.hydrogen === '1'}
               />
             ))
           ) : (

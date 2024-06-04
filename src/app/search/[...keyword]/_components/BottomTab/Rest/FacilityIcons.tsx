@@ -4,9 +4,7 @@ import { Dispatch, SetStateAction } from 'react';
 
 import {
   MdOutlineWifi,
-  MdCarRepair,
   MdOutlineElectricBolt,
-  MdNightShelter,
   MdLocalPharmacy,
   MdPets,
   RiNurseFill,
@@ -38,17 +36,6 @@ export default function FacilityIcons({
       </div>
       <div
         className="flex flex-col items-center justify-center gap-2 p-2"
-        onClick={() => setSorted('REPAIR')}
-      >
-        <span
-          className={`${sorted === 'REPAIR' ? 'bg-primary text-white' : 'bg-text100 text-text600'} border rounded-full p-2 `}
-        >
-          <MdCarRepair size={40} className="flex-shrink-0" />
-        </span>
-        <p>정비소</p>
-      </div>
-      <div
-        className="flex flex-col items-center justify-center gap-2 p-2"
         onClick={() => setSorted('ELECTRONIC')}
       >
         <span
@@ -57,17 +44,6 @@ export default function FacilityIcons({
           <MdOutlineElectricBolt size={40} className="flex-shrink-0" />
         </span>
         <p>전기차</p>
-      </div>
-      <div
-        className="flex flex-col items-center justify-center gap-2 p-2"
-        onClick={() => setSorted('SHELTER')}
-      >
-        <span
-          className={`${sorted === 'SHELTER' ? 'bg-primary text-white' : 'bg-text100 text-text600'} border rounded-full p-2 `}
-        >
-          <MdNightShelter size={40} className="flex-shrink-0" />
-        </span>
-        <p>쉼터</p>
       </div>
       <div
         className="flex flex-col items-center justify-center gap-2 p-2"

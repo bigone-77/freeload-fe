@@ -8,7 +8,7 @@ interface ICategoryCardProps {
   title: string;
   icon?: IconType;
   url?: string;
-  grade?: number;
+  grade?: string;
   subTitle?: string;
 }
 
@@ -20,11 +20,11 @@ export default function CategoryCard({
   url,
   grade,
 }: ICategoryCardProps) {
-  const getGradeText = (score: number) => {
-    if (score === 2) {
+  const getGradeText = (score: string) => {
+    if (score === '2') {
       return '최우수';
     }
-    if (score === 1) {
+    if (score === '1') {
       return '우수';
     }
     return '보통';

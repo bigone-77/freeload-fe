@@ -1,14 +1,8 @@
-export async function getFoodData({
-  queryKey,
-  pageParam,
-}: {
-  queryKey: any;
-  pageParam: number | null;
-}) {
-  const [, , restId, sorted] = queryKey;
+export async function getFoodData({ queryKey }: { queryKey: any }) {
+  const [, , restId, sorted, cursor] = queryKey;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/rest/food/${restId}?sort=${sorted}&cursor=${(pageParam as number) / 6}`,
+    `${process.env.NEXT_PUBLIC_BE_URL}/rest/food/${restId}?sort=${sorted}&cursor=${cursor}`,
     {
       next: {
         tags: ['rest', 'food', restId, sorted],

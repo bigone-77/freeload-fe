@@ -42,9 +42,9 @@ export default function DetailLayout({ children, params }: IDetailLayoutProps) {
   const content = getContent(segment);
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full h-full">
       <nav
-        className={`flex items-center px-6 py-10 ${!segment ? 'justify-between  bg-primary text-white' : 'border-b-2 gap-6 bg-transparent text-text700'}`}
+        className={`flex items-center p-6 ${!segment ? 'justify-between  bg-primary text-white' : 'border-b-2 gap-6 bg-transparent text-text700'}`}
       >
         <IoChevronBack size={30} onClick={backHandler} />
         {content}

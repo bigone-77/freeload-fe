@@ -3,22 +3,22 @@ import { Rest } from '@/models/Rest';
 
 export function getFilteredRest(sorted: string, restData: Rest[]) {
   if (sorted === 'WIFI') {
-    return restData.filter((rest) => rest.wifi);
+    return restData.filter((rest) => rest.wifi === 'True');
   }
   if (sorted === 'ELECTRONIC') {
-    return restData.filter((rest) => rest.electric_car);
+    return restData.filter((rest) => rest.electric_car === 'True');
   }
   if (sorted === 'PHARMACY') {
-    return restData.filter((rest) => rest.pharmacy);
+    return restData.filter((rest) => rest.pharmacy === 'True');
   }
   if (sorted === 'PET') {
-    return restData.filter((rest) => rest.pet);
+    return restData.filter((rest) => rest.pet === 'True');
   }
   if (sorted === 'NURSE') {
-    return restData.filter((rest) => rest.nursing_room);
+    return restData.filter((rest) => rest.nursing_room === 'True');
   }
   if (sorted === 'DISABLED') {
-    return restData.filter((rest) => rest.braile_block);
+    return restData.filter((rest) => rest.braile_block === 'True');
   }
   return restData;
 }

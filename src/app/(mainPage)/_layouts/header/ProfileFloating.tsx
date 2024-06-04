@@ -15,11 +15,11 @@ export default function ProfileFloating({
   };
   if (currentUser) {
     return (
-      <div className="absolute top-11 right-2 z-10" onClick={handleLogOut}>
+      <div onClick={handleLogOut}>
         <img
           src={currentUser.image as string}
           alt="profile"
-          className="w-10 h-10 rounded-full "
+          className="w-10 h-10 rounded-full"
         />
       </div>
     );

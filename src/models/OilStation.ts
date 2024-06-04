@@ -1,17 +1,21 @@
 export type OilStation = {
-  oilId?: string;
-  oilName: string;
+  svarCd: number;
+  serviceAreaName: string;
+  svarAddr: string;
   oilCompany: string;
-  diselPrice: number;
+  telNo: string;
   gasolinePrice: number;
-  telNum: string;
-  electric: boolean;
-  hydrogen: boolean;
   lpgPrice?: number;
+  diselPrice: number;
+  gasolineAver: number;
+  diselAver: number;
+  lpgAver: number;
+  electric: string;
+  hydrogen: string;
 };
 
-export type CertainOilStation = OilStation & {
-  gasolineAvr: number;
-  diselAvr: number;
-  lpgAvr: number;
+export type OilResponse = {
+  error: any;
+  data: OilStation[];
+  message: boolean;
 };

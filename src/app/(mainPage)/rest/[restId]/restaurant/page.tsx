@@ -1,46 +1,37 @@
-/* eslint-disable @typescript-eslint/indent */
-
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 
-import { Food } from '@/models/Food';
+import { FoodResponse, FoodTag } from '@/models/Food';
 import Loader from '@/Common/Loader';
-import { FoodTag } from '@/models/FoodTag';
 import { useScroll } from '@/hooks/useScroll';
-import { getFoodData } from '../_lib/getFoodData';
+import { getFoodData } from '@/lib/getFoodData';
 import Menubar from './_components/Menubar';
 import FoodCard from './_components/FoodCard';
 
 export default function Page({ params }: { params: { restId: string } }) {
+  const [cursor, setCursor] = useState(0);
   const sorted = useSearchParams().get('sort');
-  const {
-    data: FoodData,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-  } = useInfiniteQuery<Food[], Object, InfiniteData<Food[]>, any, number>({
-    queryKey: ['rest', 'food', params.restId, sorted],
+
+  const { data: FoodData, isLoading } = useQuery<FoodResponse>({
+    queryKey: ['rest', 'food', params.restId, sorted, 0],
     queryFn: getFoodData,
-    initialPageParam: 0,
-    getNextPageParam: (lastPage) => lastPage.at(-1)?.foodId,
   });
+
   const { ref, inView } = useInView({
     threshold: 0,
     delay: 0,
   });
+  console.log(inView);
 
   useEffect(() => {
     if (inView) {
-      if (!isFetching && hasNextPage) {
-        fetchNextPage();
-      }
+      setCursor(cursor + 1);
     }
-  }, [inView, isFetching, hasNextPage, fetchNextPage]);
+  }, [inView, cursor]);
 
   const [foodTag, setFoodTag] = useState<FoodTag>('ALL');
 
@@ -53,33 +44,31 @@ export default function Page({ params }: { params: { restId: string } }) {
     content = <Loader />;
   } else if (FoodData) {
     content = (
-      <main className="bg-white h-full mt-6">
-        <Menubar fix={fixStandard} value={foodTag} setValue={setFoodTag} />
-        <div className="grid grid-cols-2 place-items-center p-4 gap-3">
-          {FoodData.pages.map((page, index) => (
-            <Fragment key={index}>
-              {page.map((food) => (
+      <>
+        <header className="mx-4 bg-primary flex flex-col items-center text-white py-6 border rounded-b-xl">
+          <h1 className="text-2xl">{FoodData.data[0].stdRestNm}</h1>
+          <h2 className="text-sm mt-6">{FoodData.data[0].svarAddr}</h2>
+        </header>
+        <main className="bg-white h-full mt-6">
+          <Menubar fix={fixStandard} value={foodTag} setValue={setFoodTag} />
+          <div className="grid grid-cols-2 place-items-center p-4 gap-3">
+            {FoodData.data ? (
+              FoodData.data.map((food, index) => (
                 <FoodCard
-                  key={food.foodId}
-                  name={food.foodName}
+                  key={index}
+                  name={food.foodNm}
                   cost={food.foodCost.toLocaleString()}
                 />
-              ))}
-            </Fragment>
-          ))}
-        </div>
-        <div ref={ref} className="w-full h-2" />
-      </main>
+              ))
+            ) : (
+              <p>현재 판매되고 있는 음식이 없습니다.</p>
+            )}
+          </div>
+          <div ref={ref} className="w-full h-[2px]" />
+        </main>
+      </>
     );
   }
 
-  return (
-    <div className="bg-text100 h-full overscroll-y-auto">
-      <header className="mx-4 bg-primary flex flex-col items-center text-white py-6 border rounded-b-xl">
-        <h1 className="text-2xl">구리(일산방향)휴게소</h1>
-        <h2 className="text-sm mt-6">주소: 경기 구리시 사노동170-13</h2>
-      </header>
-      {content}
-    </div>
-  );
+  return <div className="bg-text100 h-full overscroll-y-auto">{content}</div>;
 }

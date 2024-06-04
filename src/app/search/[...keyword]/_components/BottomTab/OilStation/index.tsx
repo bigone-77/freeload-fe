@@ -1,9 +1,10 @@
 'use client';
 
-import { OilStation } from '@/models/OilStation';
+import { OilResponse, OilStation } from '@/models/OilStation';
 import { useQuery } from '@tanstack/react-query';
 
 import { getRoadOilData } from '@/lib/getRoadOilData';
+import { getRouteCode } from '@/constants/RouteCode';
 import OilCard from './OilCard';
 
 interface IShowOilStationProps {
@@ -17,8 +18,12 @@ export default function ShowOilStation({
   direction,
   showAllOilHandler,
 }: IShowOilStationProps) {
-  const { data: OilData } = useQuery<OilStation[]>({
-    queryKey: ['oil', roadName, direction],
+  const { data: Response } = useQuery<OilResponse>({
+    queryKey: [
+      'oil',
+      getRouteCode(roadName.replace('고속도로', '선')),
+      direction,
+    ],
     queryFn: getRoadOilData,
   });
 
@@ -28,23 +33,23 @@ export default function ShowOilStation({
         <p className="font-bold text-xl mb-4">주유소</p>
         <p
           className="underline decoration-1 text-sm hover:opacity-80 transition-all"
-          onClick={() => showAllOilHandler(OilData!)}
+          onClick={() => showAllOilHandler(Response?.data!)}
         >
           더보기
         </p>
       </div>
       <div className="flex overflow-x-auto gap-4">
-        {OilData ? (
-          OilData.map((oil, index) => (
+        {Response ? (
+          Response.data.map((oil, index) => (
             <OilCard
               key={index}
-              name={oil.oilName}
+              name={oil.serviceAreaName}
               company={oil.oilCompany}
               disel={oil.diselPrice}
               gasoline={oil.gasolinePrice}
               lpg={oil.lpgPrice}
-              electric={oil.electric}
-              hydrogen={oil.hydrogen}
+              electric={oil.electric === '1'}
+              hydrogen={oil.hydrogen === '1'}
             />
           ))
         ) : (

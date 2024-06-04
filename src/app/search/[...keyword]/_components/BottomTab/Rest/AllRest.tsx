@@ -8,7 +8,7 @@ import { Rest } from '@/models/Rest';
 import { IoChevronBack } from '@/constants/Icons';
 import { getFilteredRest } from '@/utils/getFilterData';
 import FacilityIcons from './FacilityIcons';
-// import Facilities from './Facilities';
+import Facilities from './Facilities';
 
 interface IAllRestProps {
   roadName: string;
@@ -30,7 +30,7 @@ export default function AllRest({ roadName, closeHandler }: IAllRestProps) {
         <IoChevronBack size={35} onClick={closeHandler} />
         <h1 className="font-semibold text-2xl w-full">{roadName} 휴게소</h1>
       </div>
-      <div className="px-8 mt-6">
+      <div className="px-4 mt-6">
         <FacilityIcons sorted={sorted} setSorted={setSorted} />
         <div className="flex flex-col gap-4 mt-16">
           {filteredData ? (
@@ -39,17 +39,16 @@ export default function AllRest({ roadName, closeHandler }: IAllRestProps) {
                 className="flex items-center justify-between"
                 key={index}
               >
-                <p>{rest.restName}</p>
-                {/* <Facilities
+                <p className="w-full">{rest.restName}</p>
+                <Facilities
                   size={20}
-                  wifi={rest.wifi}
-                  electronic={rest.electronic}
-                  shelter={rest.shelter}
-                  nurse={rest.nurse}
-                  pharmacy={rest.pharmacy}
-                  pet={rest.pet}
-                  disabled={rest.disabled}
-                /> */}
+                  wifi={rest.wifi === 'True'}
+                  electronic={rest.electric_car === 'True'}
+                  nurse={rest.nursing_room === 'True'}
+                  pharmacy={rest.pharmacy === 'True'}
+                  pet={rest.pet === 'True'}
+                  disabled={rest.braile_block === 'True'}
+                />
               </section>
             ))
           ) : (

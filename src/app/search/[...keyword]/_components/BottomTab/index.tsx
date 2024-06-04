@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from '@/constants/Icons';
 import { Highway } from '@/models/Highway';
@@ -23,15 +23,14 @@ interface IBottomTabProps {
 
 export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
   const dispatch = useDispatch();
-  // const router = useRouter();
+  const router = useRouter();
   const [goUp, setGoUp] = useState(false);
   const [selectedRoad, setSelectedRoad] = useState(1); // 휴게소 이름 인덱스로 정할것임
   const [showMoreRest, setShowMoreRest] = useState(false); // 휴게소 더보기 눌렀을 때
   const [showMoreOil, setShowMoreOil] = useState(false); // 주유소 더보기 눌렀을 때
   const roadNames = highwayInfo.map((road) => road.name);
 
-  console.log('roadName', roadNames[selectedRoad - 1], 'direction', direction);
-
+  // 모달 넓게 열기 닫기 핸들러
   const upDownHandler = () => {
     if (showMoreRest || showMoreOil) {
       setShowMoreRest(false);
@@ -40,20 +39,22 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
     setGoUp(!goUp);
   };
 
+  // 휴게소 sorting 보여주기 닫기 핸들러
   const showAllRestHandler = (data: Rest[]) => {
     dispatch(setRest(data));
     setShowMoreRest(true);
   };
 
+  // 주유소 sorting 보여주기 닫기 핸들러
   const showAllOilHandler = (data: OilStation[]) => {
     dispatch(setOil(data));
     setShowMoreOil(true);
   };
 
-  // // TODO: 해당 RestID에 맞는 정보를 보여주자
-  // const gotoDetailHandler = (restId: string) => {
-  //   router.push(`/rest/${restId}`);
-  // };
+  // TODO: 해당 RestID에 맞는 정보를 보여주자
+  const gotoDetailHandler = (restId: number) => {
+    router.push(`/rest/${restId}?direction=${direction}`);
+  };
 
   let content = (
     <article className="flex flex-col gap-10 w-full">
@@ -65,7 +66,7 @@ export default function BottomTab({ highwayInfo, direction }: IBottomTabProps) {
       <ShowRest
         roadName={roadNames[selectedRoad - 1]}
         direction={direction}
-        // gotoDetailHandler={gotoDetailHandler}
+        gotoDetailHandler={gotoDetailHandler}
         showAllRestHandler={showAllRestHandler}
       />
       <ShowOilStation

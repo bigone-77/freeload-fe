@@ -1,11 +1,11 @@
-export async function getRoadOilData({ queryKey }: any) {
-  const [, roadName, direction] = queryKey;
+export async function getOilData({ queryKey }: { queryKey: any }) {
+  const [, , restId, direction] = queryKey;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BE_URL}/oil/${roadName}/${direction}`,
+    `${process.env.NEXT_PUBLIC_BE_URL}/oil/detail/${restId}/${direction}`,
     {
       next: {
-        tags: ['oil'],
+        tags: ['rest', 'oil', restId],
       },
       credentials: 'include',
       cache: 'no-store',

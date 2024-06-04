@@ -70,8 +70,8 @@ export default function RoadPathDraw({
       <main>
         <Map
           center={{
-            lat: path[path.length - 1].lat,
-            lng: path[path.length - 1].lng,
+            lat: path[path.length - 1].lat || 36.34,
+            lng: path[path.length - 1].lng || 127.77,
           }}
           className="w-full h-screen"
           level={12}
@@ -112,6 +112,7 @@ export default function RoadPathDraw({
           <Polyline
             path={path
               .sort((a, b) => a.lng - b.lng)
+              .filter((p) => p.lat && p.lng)
               .map((p) => ({ lat: p.lat, lng: p.lng }))}
             strokeWeight={5}
             strokeColor="#158EFF"
