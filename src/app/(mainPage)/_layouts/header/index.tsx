@@ -16,7 +16,7 @@ export default function HomeHeader() {
 
   return (
     <>
-      <header className="absolute top-10 w-full flex items-center gap-4 z-10 px-4">
+      <header className="absolute top-10 w-full flex items-center justify-center gap-4 z-10 px-4">
         <section className="flex bg-white w-[80%] h-12 rounded-lg shadow-lg items-center justify-start gap-2 pl-4">
           <RxHamburgerMenu size={25} onClick={() => cycleOpen()} />
           <h3
@@ -26,7 +26,7 @@ export default function HomeHeader() {
             어디로 갈까요?
           </h3>
         </section>
-        <ProfileFloating currentUser={currentUser} />
+        {currentUser && <ProfileFloating currentUser={currentUser} />}
       </header>
       {/* framer slide  */}
       <AnimatePresence>

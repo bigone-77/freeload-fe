@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
-import { useInView } from 'react-intersection-observer';
+// import { useInView } from 'react-intersection-observer';
 
 import { FoodResponse, FoodTag } from '@/models/Food';
 import Loader from '@/Common/Loader';
@@ -14,24 +14,24 @@ import FoodCard from './_components/FoodCard';
 
 export default function Page({ params }: { params: { restId: string } }) {
   const [cursor, setCursor] = useState(0);
+  console.log(setCursor);
+
   const sorted = useSearchParams().get('sort');
 
   const { data: FoodData, isLoading } = useQuery<FoodResponse>({
-    queryKey: ['rest', 'food', params.restId, sorted, 0],
+    queryKey: ['rest', 'food', params.restId, sorted, cursor],
     queryFn: getFoodData,
   });
 
-  const { ref, inView } = useInView({
-    threshold: 0,
-    delay: 0,
-  });
-  console.log(inView);
+  // const { ref, inView } = useInView({
+  //   threshold: 0,
+  //   delay: 0,
+  // });
 
-  useEffect(() => {
-    if (inView) {
-      setCursor(cursor + 1);
-    }
-  }, [inView, cursor]);
+  // useEffect(() => {
+  //   if (inView) {
+  //   }
+  // }, [inView, cursor]);
 
   const [foodTag, setFoodTag] = useState<FoodTag>('ALL');
 
@@ -64,7 +64,7 @@ export default function Page({ params }: { params: { restId: string } }) {
               <p>현재 판매되고 있는 음식이 없습니다.</p>
             )}
           </div>
-          <div ref={ref} className="w-full h-[2px]" />
+          {/* <div ref={ref} className="w-full h-[2px]" /> */}
         </main>
       </>
     );
@@ -72,3 +72,6 @@ export default function Page({ params }: { params: { restId: string } }) {
 
   return <div className="bg-text100 h-full overscroll-y-auto">{content}</div>;
 }
+
+// TODO: 처음에 6개씩 -> 상태변수에 저장 -> 만약 저장 후 보니까 길이가 6 미만이라면 curosr값 변화 X
+// TODO: 저장했는데 6개라면 cursor값 1증가

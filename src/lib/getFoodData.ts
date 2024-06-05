@@ -1,6 +1,10 @@
 export async function getFoodData({ queryKey }: { queryKey: any }) {
   const [, , restId, sorted, cursor] = queryKey;
 
+  if (cursor === -1) {
+    return '데이터 페칭 중지';
+  }
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BE_URL}/rest/food/${restId}?sort=${sorted}&cursor=${cursor}`,
     {

@@ -1,14 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import {
-  RiMap2Line,
   PiBowlFood,
   BiGasPump,
-  FaCartFlatbed,
+  RiCustomerService2Line,
 } from '@/constants/Icons';
 import { getRestData } from '@/lib/getRestData';
 import { getOilData } from '@/lib/getOilData';
@@ -47,7 +45,7 @@ export default function RestDetailPage({
           <CategoryCard
             restId={params.restId}
             title="고객 만족도"
-            grade={Rest?.data[0].satisfaction}
+            grade={Rest?.data[0].satisfaction ? Rest.data[0].satisfaction : '0'}
           />
           <CategoryCard
             restId={params.restId}
@@ -58,25 +56,18 @@ export default function RestDetailPage({
           />
           <CategoryCard
             restId={params.restId}
+            title="고객평가"
+            subTitle="휴게소 이용 고객 리뷰"
+            url="customer"
+            icon={RiCustomerService2Line}
+          />
+          <CategoryCard
+            restId={params.restId}
             title="주유소정보"
             url={`oil?direction=${directionParams.get('direction')}`}
             subTitle="주유소 상세정보"
             icon={BiGasPump}
           />
-          <CategoryCard
-            restId={params.restId}
-            title="편의시설"
-            subTitle="휴게소 편의시설 정보"
-            url="etc"
-            icon={FaCartFlatbed}
-          />
-        </section>
-
-        <section className="flex flex-col items-center justify-center text-[#2A629A] pt-10">
-          <Link href="/home">
-            <RiMap2Line size={35} />
-            <p className="font-semibold text-lg text-center">홈</p>
-          </Link>
         </section>
       </div>
     </>

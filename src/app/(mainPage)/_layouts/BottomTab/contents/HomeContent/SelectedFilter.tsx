@@ -31,7 +31,7 @@ export default function SelectedFilter({
       contentLabel="Pop up Message"
     >
       <main className="flex flex-col gap-4 relative">
-        <CgClose className="absolute right-1" size={25} />
+        <CgClose className="absolute right-1 -top-2" size={25} />
         <h3 className="font-semibold">반경 설정</h3>
         <h4 className="text-sm text-text200">
           해당 반경 내 장소를 추천해드립니다.

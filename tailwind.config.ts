@@ -94,6 +94,7 @@ const config: Config = {
       colors: {
         primary: '#158EFF',
         secondary: '#EC9D26',
+        third: '#FBF9F1',
         text50: '#FFFFFF',
         text75: '#F2F2F2',
         text100: '#E6E6E6',

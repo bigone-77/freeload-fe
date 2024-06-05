@@ -1,6 +1,6 @@
 'use client';
 
-import { useRouter, useSelectedLayoutSegment } from 'next/navigation';
+import { useRouter, useSelectedLayoutSegments } from 'next/navigation';
 
 import { IoChevronBack, CiSearch } from '@/constants/Icons';
 
@@ -13,10 +13,10 @@ interface IDetailLayoutProps {
 
 export default function DetailLayout({ children, params }: IDetailLayoutProps) {
   const router = useRouter();
-  const segment = useSelectedLayoutSegment();
+  const segments = useSelectedLayoutSegments();
 
   const backHandler = () => {
-    if (!segment) {
+    if (!segments) {
       router.back();
     }
     router.push(`/rest/${params.restId}`);
@@ -24,7 +24,7 @@ export default function DetailLayout({ children, params }: IDetailLayoutProps) {
 
   const getContent = (param: string | null) => {
     switch (param) {
-      case null:
+      case undefined:
         return (
           <>
             <p className="font-semibold">고속도로 휴게소</p>
@@ -35,16 +35,20 @@ export default function DetailLayout({ children, params }: IDetailLayoutProps) {
         return <p className="text-2xl font-semibold">메뉴 정보</p>;
       case 'oil':
         return <p className="text-2xl font-semibold">주유소 정보</p>;
+      case 'customer':
+        return <p className="text-2xl font-semibold">고객평가</p>;
+      case 'review':
+        return <p className="text-2xl font-semibold">리뷰 남기기</p>;
       default:
         return null;
     }
   };
-  const content = getContent(segment);
+  const content = getContent(segments[segments.length - 1]);
 
   return (
     <div className="w-full h-full">
       <nav
-        className={`flex items-center p-6 ${!segment ? 'justify-between  bg-primary text-white' : 'border-b-2 gap-6 bg-transparent text-text700'}`}
+        className={`flex items-center p-6 ${segments[segments.length - 1] === undefined ? 'justify-between  bg-primary text-white' : 'border-b-2 gap-6 bg-transparent text-text700'}`}
       >
         <IoChevronBack size={30} onClick={backHandler} />
         {content}

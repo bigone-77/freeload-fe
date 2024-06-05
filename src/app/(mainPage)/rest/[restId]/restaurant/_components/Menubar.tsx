@@ -1,8 +1,8 @@
 'use client';
 
 import { Dispatch, SetStateAction } from 'react';
-import { FoodTag } from '@/models/FoodTag';
 import Link from 'next/link';
+import { FoodTag } from '@/models/Food';
 
 interface IMenubarProps {
   fix: boolean;
