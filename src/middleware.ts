@@ -4,7 +4,7 @@ import { auth } from './auth';
 export async function middleware() {
   const session = await auth();
 
-  if (!session) {
+  if (!session?.user) {
     const redirectUrl =
       process.env.NODE_ENV === 'development'
         ? `${process.env.NEXT_PUBLIC_DEV_URL}/login`
