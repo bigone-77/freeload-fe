@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
 
 import {
@@ -10,6 +10,7 @@ import {
 export const useFetchOcr = (id: string) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const params = useSearchParams();
 
   const handleOcrRequest = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -36,7 +37,9 @@ export const useFetchOcr = (id: string) => {
             subResults: response.data.subResults,
           }),
         );
-        router.push(`/rest/${id}/customer/review`);
+        router.push(
+          `/rest/${id}/customer/review?restNm=${params.get('restNm')}`,
+        );
       } catch (error) {
         console.error('Error processing OCR', error);
       }

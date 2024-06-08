@@ -1,3 +1,9 @@
+import RcCheckCard from './_components/RcCheckCard';
+
 export default function ReviewPage() {
-  return <p>리뷰페이지입니다.</p>;
+  return (
+    <main className="px-6">
+      <RcCheckCard />
+    </main>
+  );
 }

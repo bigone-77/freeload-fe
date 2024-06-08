@@ -6,9 +6,10 @@ import { IoIosCamera, IoIosAlbums } from 'react-icons/io';
 
 interface IButtonGroupProps {
   id: string;
+  restNm: string | null;
 }
 
-export default function ButtonGroup({ id }: IButtonGroupProps) {
+export default function ButtonGroup({ id, restNm }: IButtonGroupProps) {
   const router = useRouter();
   const handleOcrRequest = useFetchOcr(id);
 
@@ -39,7 +40,9 @@ export default function ButtonGroup({ id }: IButtonGroupProps) {
           type="file"
           id="album"
           accept="image/*"
-          onChange={() => router.push(`/rest/${id}/customer/review`)}
+          onChange={() =>
+            router.push(`/rest/${id}/customer/review?restNm=${restNm}`)
+          }
           style={{ display: 'none' }}
         />
         <p>앨범 선택</p>

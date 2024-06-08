@@ -47,7 +47,7 @@ const storage =
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['recentTarget'],
+  whitelist: ['recentTarget', 'receipt'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -58,7 +58,7 @@ export default function RestDetailPage({
             restId={params.restId}
             title="고객평가"
             subTitle="휴게소 이용 고객 리뷰"
-            url="customer"
+            url={`customer?restNm=${Rest?.data[0].restName}`}
             icon={RiCustomerService2Line}
           />
           <CategoryCard

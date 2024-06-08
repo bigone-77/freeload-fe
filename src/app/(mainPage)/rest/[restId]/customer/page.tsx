@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import { IoReceiptOutline, CiCreditCard1 } from '@/constants/Icons';
 import ReviewSlider from './_components/ReviewSlider';
@@ -8,6 +9,7 @@ import ReceiptAlertModal from './_components/ReceiptAlertModal';
 
 export default function Page({ params }: { params: { restId: string } }) {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
+  const nameParams = useSearchParams();
 
   return (
     <main className="bg-white h-full mt-6 rounded-t-xl px-10">
@@ -41,6 +43,7 @@ export default function Page({ params }: { params: { restId: string } }) {
           id={params.restId}
           modalOpen={showReceiptModal}
           setModalOpen={setShowReceiptModal}
+          restNm={nameParams.get('restNm')}
         />
       )}
     </main>
