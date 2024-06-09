@@ -8,9 +8,9 @@ import { RootState } from '@/shared/store';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from '@/constants/Icons';
 import Loader from '@/Common/Loader';
 import HomeContent from './contents/HomeContent';
-import LikeContent from './contents/LikeContent';
 import SelectContent from './contents/SelectContent';
 import ProfileContent from './contents/ProfileContent';
+import LikeContent from './contents/LikeContent';
 
 export default function BottomTab() {
   const segment = useSelectedLayoutSegment();

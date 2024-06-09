@@ -15,10 +15,15 @@ export default function LoginButton({ origin }: ILoginButtonProps) {
   return (
     <button
       type="button"
-      className="border-2 p-2"
+      // className="border-2 p-2"
       onClick={() => handleLogin(origin)}
     >
-      {origin === 'kakao' ? '카카오' : '구글'} 로그인
+      <img
+        src={`https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717935475/social-${origin}-button.png`}
+        alt="loginBtn"
+        width={300}
+        height={45}
+      />
     </button>
   );
 }

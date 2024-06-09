@@ -1,9 +1,11 @@
 'use client';
 
 import { useState } from 'react';
+import SelectType from './SelectType';
+import ShowRest from './ShowRest';
+import ShowRoute from './ShowRoute';
 // import { requestPermission } from '@/hooks/push/requestPermission';
 // import { useSendPush } from '@/hooks/push/useSendPush';
-import { MdOutlinePlace, FaRoute } from '@/constants/Icons';
 
 export default function LikeContent() {
   const [clickedRest, setClickedRest] = useState<'rest' | 'route'>('rest');
@@ -28,6 +30,14 @@ export default function LikeContent() {
   //     });
   //   }
   // };
+  let content;
+  if (clickedRest === 'rest') {
+    content = <ShowRest />;
+  }
+
+  if (clickedRest === 'route') {
+    content = <ShowRoute />;
+  }
 
   return (
     <div className="w-full px-4">
@@ -35,22 +45,8 @@ export default function LikeContent() {
       <button type="button" onClick={pushHandler}>
         푸시 알림 테스트 버튼
       </button> */}
-      <div className="flex items-center border rounded-3xl bg-slate-100 font-semibold">
-        <section
-          className={`w-1/2 ${clickedRest === 'rest' && 'border-2 border-primary text-primary bg-white'} rounded-3xl flex items-center justify-center gap-1 py-3`}
-          onClick={() => setClickedRest('rest')}
-        >
-          <MdOutlinePlace size={25} />
-          <p className="">휴게소</p>
-        </section>
-        <section
-          className={`w-1/2 ${clickedRest === 'route' && 'border-2 border-primary text-primary bg-white'} rounded-3xl flex items-center justify-center gap-1 py-3`}
-          onClick={() => setClickedRest('route')}
-        >
-          <FaRoute size={20} />
-          <p className="">경로</p>
-        </section>
-      </div>
+      <SelectType clickedRest={clickedRest} setClickedRest={setClickedRest} />
+      {content}
     </div>
   );
 }

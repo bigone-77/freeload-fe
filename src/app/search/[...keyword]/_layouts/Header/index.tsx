@@ -1,6 +1,5 @@
 'use client';
 
-import copy from 'copy-to-clipboard';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -10,6 +9,7 @@ import {
   CgClose,
   PiDotsThreeVerticalBold,
 } from '@/constants/Icons';
+import ShareModal from './ShareModal';
 
 interface IHeaderProps {
   originAddr: string;
@@ -25,17 +25,15 @@ export default function Header({ originAddr, destAddr }: IHeaderProps) {
   const destLatLng = params.get('destLatLng');
 
   const [currentUrl, setCurrentUrl] = useState('');
+  const [showShareModal, setShowShareModal] = useState(false);
 
   useEffect(() => {
-    const url = `${process.env.NEXT_PUBLIC_DEV_URL}/${decodeURI(pathname)}?${params}`;
+    const url =
+      process.env.NODE_ENV === 'development'
+        ? `${process.env.NEXT_PUBLIC_DEV_URL}/${decodeURI(pathname)}?${params}`
+        : `${process.env.NEXT_PUBLIC_PROD_URL}${decodeURI(pathname)}?${params}`;
     setCurrentUrl(url);
   }, [pathname, params]);
-
-  const copyHandler = () => {
-    copy(currentUrl);
-    // eslint-disable-next-line no-alert
-    alert('클립보드에 URL이 저장되었습니다.');
-  };
 
   return (
     <header className="absolute w-full top-0 left-0 right-0 shadow-2xl z-10 bg-text50">
@@ -68,9 +66,20 @@ export default function Header({ originAddr, destAddr }: IHeaderProps) {
           <Link href="/home">
             <CgClose size={28} />
           </Link>
-          <PiDotsThreeVerticalBold size={28} onClick={copyHandler} />
+          <PiDotsThreeVerticalBold
+            size={28}
+            onClick={() => setShowShareModal(true)}
+          />
         </div>
       </section>
+      {showShareModal && (
+        <ShareModal
+          modalOpen={showShareModal}
+          setModalOpen={setShowShareModal}
+          url={currentUrl}
+          destAddr={destAddr}
+        />
+      )}
     </header>
   );
 }

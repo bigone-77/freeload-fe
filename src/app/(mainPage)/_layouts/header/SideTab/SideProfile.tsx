@@ -1,3 +1,5 @@
+import { RxAvatar } from '@/constants/Icons';
+
 import { User } from 'next-auth';
 
 interface ISideContentsProps {
@@ -6,7 +8,7 @@ interface ISideContentsProps {
 
 export default function SideProfile({ user }: ISideContentsProps) {
   return (
-    <div className="flex items-center gap-2 mt-10">
+    <div className={`${!user && 'flex-col'} flex items-center gap-2 mt-10`}>
       {user ? (
         <>
           <img
@@ -22,7 +24,10 @@ export default function SideProfile({ user }: ISideContentsProps) {
           </div>
         </>
       ) : (
-        <p>유저 없당</p>
+        <>
+          <RxAvatar size={36} />
+          <p className="font-semibold">로그인해주세요.</p>
+        </>
       )}
     </div>
   );

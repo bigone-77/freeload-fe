@@ -28,7 +28,6 @@ export default function HomeHeader() {
         </section>
         {currentUser && <ProfileFloating currentUser={currentUser} />}
       </header>
-      {/* framer slide  */}
       <AnimatePresence>
         {open && (
           <div className="fixed inset-0 z-50">

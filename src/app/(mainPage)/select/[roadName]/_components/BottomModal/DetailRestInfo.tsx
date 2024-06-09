@@ -37,7 +37,7 @@ export default function DetailRestInfo({
   } = data;
 
   return (
-    <article className="py-4">
+    <article className="py-1">
       <header className="flex items-center justify-between">
         <h1 className="font-bold text-lg">{restName}</h1>
         <Link href={`/rest/${restId}?direction=${direction}`}>

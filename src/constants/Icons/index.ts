@@ -31,6 +31,7 @@ import { GiShare } from 'react-icons/gi';
 import { CiSearch, CiCreditCard1 } from 'react-icons/ci';
 import { BiGasPump } from 'react-icons/bi';
 import { FaCartFlatbed, FaRoute } from 'react-icons/fa6';
+import { RxAvatar } from 'react-icons/rx';
 
 export {
   RiMap2Line,
@@ -64,4 +65,5 @@ export {
   BiGasPump,
   FaCartFlatbed,
   FaRoute,
+  RxAvatar,
 };
