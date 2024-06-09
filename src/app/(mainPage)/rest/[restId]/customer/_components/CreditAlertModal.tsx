@@ -14,7 +14,7 @@ interface IReceiptAlertModalProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ReceiptAlertModal({
+export default function CreditAlertModal({
   id,
   restNm,
   modalOpen,
@@ -34,7 +34,7 @@ export default function ReceiptAlertModal({
           className="absolute right-1"
           size={25}
         />
-        <h1 className="font-semibold text-xl">영수증 인증 가능 대상</h1>
+        <h1 className="font-semibold text-xl">결제내역 인증 가능 대상</h1>
         <section className="my-6 flex flex-col gap-6 text-sm">
           <h2>
             1. 영수증 출력 기기(POS 기기)로 알맞게 출력되고 아래 영수증 정보가
@@ -49,7 +49,7 @@ export default function ReceiptAlertModal({
           * 영수증 정보: 사업자 정보(업체명, 업체 주소, 업체 전화번호 또는
           사업자번호) + 결제 정보(결제 일시, 결제 승인 번호, 결제 금액)
         </p>
-        <ButtonGroup id={id} restNm={restNm} way="receipt" />
+        <ButtonGroup id={id} restNm={restNm} way="credit" />
       </div>
     </Modal>
   );

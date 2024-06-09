@@ -9,6 +9,7 @@ import {
   MdElectricCar,
   MdOutlineElectricalServices,
   MdOutlineTireRepair,
+  MdOutlinePlace,
 } from 'react-icons/md';
 import { SlTarget } from 'react-icons/sl';
 import {
@@ -29,7 +30,7 @@ import { GrPhone, GrOverview } from 'react-icons/gr';
 import { GiShare } from 'react-icons/gi';
 import { CiSearch, CiCreditCard1 } from 'react-icons/ci';
 import { BiGasPump } from 'react-icons/bi';
-import { FaCartFlatbed } from 'react-icons/fa6';
+import { FaCartFlatbed, FaRoute } from 'react-icons/fa6';
 
 export {
   RiMap2Line,
@@ -43,6 +44,7 @@ export {
   MdElectricCar,
   MdOutlineElectricalServices,
   MdOutlineTireRepair,
+  MdOutlinePlace,
   SlTarget,
   IoChevronBack,
   IoChevronForward,
@@ -61,4 +63,5 @@ export {
   CiCreditCard1,
   BiGasPump,
   FaCartFlatbed,
+  FaRoute,
 };

@@ -1,4 +1,5 @@
 import { getHdqrName } from '@/constants/Hd';
+import LikeButton from './LikeButton';
 
 interface ICertainRestCardProps {
   hq: string;
@@ -6,6 +7,7 @@ interface ICertainRestCardProps {
   gas: number;
   di: number;
   lpg?: number;
+  isLike: boolean;
 }
 
 export default function CertainRestCard({
@@ -14,9 +16,10 @@ export default function CertainRestCard({
   gas,
   di,
   lpg,
+  isLike,
 }: ICertainRestCardProps) {
   return (
-    <main className="py-5 px-10 bg-primary text-white">
+    <main className="py-5 px-10 bg-primary text-white relative">
       <h1 className="text-2xl font-bold">{name}</h1>
       <span className="flex items-center gap-1 my-4">
         <h2>본부명 :</h2>
@@ -32,6 +35,9 @@ export default function CertainRestCard({
         <span className="text-sm rounded-xl border px-2 py-1 bg-transparent text-center">
           <p>LPG: {lpg || 0}원</p>
         </span>
+      </div>
+      <div className="absolute top-5 right-10 border rounded-full p-2">
+        <LikeButton isLike={isLike} />
       </div>
     </main>
   );

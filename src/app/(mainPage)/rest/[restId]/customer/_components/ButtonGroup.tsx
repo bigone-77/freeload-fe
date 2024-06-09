@@ -1,5 +1,6 @@
 'use client';
 
+import { useFetchGeneral } from '@/hooks/useFetchGeneral';
 import { useFetchOcr } from '@/hooks/useFetchOcr';
 import { useRouter } from 'next/navigation';
 import { IoIosCamera, IoIosAlbums } from 'react-icons/io';
@@ -7,11 +8,13 @@ import { IoIosCamera, IoIosAlbums } from 'react-icons/io';
 interface IButtonGroupProps {
   id: string;
   restNm: string | null;
+  way: 'receipt' | 'credit';
 }
 
-export default function ButtonGroup({ id, restNm }: IButtonGroupProps) {
+export default function ButtonGroup({ id, restNm, way }: IButtonGroupProps) {
   const router = useRouter();
-  const handleOcrRequest = useFetchOcr(id);
+  const handleOcrRequest = useFetchOcr(id, way);
+  const handleGeneralRequest = useFetchGeneral(id, way);
 
   return (
     <div className="flex items-center justify-center px-4 gap-6">
@@ -25,7 +28,7 @@ export default function ButtonGroup({ id, restNm }: IButtonGroupProps) {
           id="file"
           accept="image/*"
           capture="environment"
-          onChange={handleOcrRequest}
+          onChange={way === 'receipt' ? handleOcrRequest : handleGeneralRequest}
           style={{ display: 'none' }}
         />
         <p>직접 찍기</p>
@@ -41,7 +44,9 @@ export default function ButtonGroup({ id, restNm }: IButtonGroupProps) {
           id="album"
           accept="image/*"
           onChange={() =>
-            router.push(`/rest/${id}/customer/review?restNm=${restNm}`)
+            router.push(
+              `/rest/${id}/customer/review?restNm=${restNm}&way=${way}`,
+            )
           }
           style={{ display: 'none' }}
         />

@@ -51,7 +51,7 @@ export default function HomeContent({
             ))}
           </div>
         ) : (
-          <p>찾으시는 {tag}가 없습니다.</p>
+          <p className="mt-10 text-center">찾으시는 {tag}가 없습니다.</p>
         )}
       </div>
     </>

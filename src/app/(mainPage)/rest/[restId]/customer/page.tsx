@@ -6,9 +6,11 @@ import { useSearchParams } from 'next/navigation';
 import { IoReceiptOutline, CiCreditCard1 } from '@/constants/Icons';
 import ReviewSlider from './_components/ReviewSlider';
 import ReceiptAlertModal from './_components/ReceiptAlertModal';
+import CreditAlertModal from './_components/CreditAlertModal';
 
 export default function Page({ params }: { params: { restId: string } }) {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
+  const [showCreditModal, setShowCreditModal] = useState(false);
   const nameParams = useSearchParams();
 
   return (
@@ -27,7 +29,10 @@ export default function Page({ params }: { params: { restId: string } }) {
           <IoReceiptOutline size={40} />
           영수증
         </div>
-        <div className="relative w-40 h-24 flex flex-col items-center justify-center border rounded-xl shadow-lg">
+        <div
+          className="relative w-40 h-24 flex flex-col items-center justify-center border rounded-xl shadow-lg"
+          onClick={() => setShowCreditModal(true)}
+        >
           <p className="absolute -top-2 right-2 rounded-lg bg-primary text-white text-sm px-1 py-[2px]">
             인증
           </p>
@@ -43,6 +48,14 @@ export default function Page({ params }: { params: { restId: string } }) {
           id={params.restId}
           modalOpen={showReceiptModal}
           setModalOpen={setShowReceiptModal}
+          restNm={nameParams.get('restNm')}
+        />
+      )}
+      {showCreditModal && (
+        <CreditAlertModal
+          id={params.restId}
+          modalOpen={showCreditModal}
+          setModalOpen={setShowCreditModal}
           restNm={nameParams.get('restNm')}
         />
       )}

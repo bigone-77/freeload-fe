@@ -39,6 +39,7 @@ export default function RestDetailPage({
         gas={Oil?.data[0].gasolinePrice!}
         di={Oil?.data[0].diselPrice!}
         lpg={Oil?.data[0].lpgPrice}
+        isLike
       />
       <div className="h-screen pt-6 px-3 bg-text100">
         <section className="grid grid-cols-2 gap-4 w-full place-items-center">

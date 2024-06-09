@@ -7,7 +7,7 @@ import {
   setReceiptImage,
 } from '@/shared/store/slices/getReceiptSlice';
 
-export const useFetchOcr = (id: string) => {
+export const useFetchOcr = (id: string, way: string) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const params = useSearchParams();
@@ -38,7 +38,7 @@ export const useFetchOcr = (id: string) => {
           }),
         );
         router.push(
-          `/rest/${id}/customer/review?restNm=${params.get('restNm')}`,
+          `/rest/${id}/customer/review?restNm=${params.get('restNm')}&way=${way}`,
         );
       } catch (error) {
         console.error('Error processing OCR', error);

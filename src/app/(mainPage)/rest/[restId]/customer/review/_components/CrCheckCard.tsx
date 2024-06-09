@@ -1,38 +1,33 @@
-'use client';
-
-import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useSearchParams } from 'next/navigation';
+import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
-import { RootState } from '@/shared/store';
-import { formatTime } from '@/utils/getTime';
 import PrimaryButton from '@/Common/PrimaryButton';
-import ItemCard from './ItemCard';
+import { RootState } from '@/shared/store';
+import { useMutation } from '@tanstack/react-query';
 
-interface IRcCheckCardProps {
+interface ICrCheckCardProps {
   restId: string;
   way: string;
 }
 
-export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
+export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   const currentUser = useSession();
+  const [content, setContent] = useState('');
   const params = useSearchParams();
   const restNm = params.get('restNm');
-  const receiptData = useSelector((state: RootState) => state.receipt);
-  const [prices, setPrices] = useState<string[]>([]);
-  const [content, setContent] = useState('');
+  const creditData = useSelector((state: RootState) => state.credit);
 
   const mutation = useMutation({
     mutationFn: async () => {
       const formData = {
         email: currentUser.data?.user?.email,
         profile_image: currentUser.data?.user?.image,
-        storeName: receiptData.storeName,
-        visitedDate: formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),
-        price: prices?.map((p) => Number(p))?.reduce((a, b) => a + b),
+        storeName: creditData.storeName,
+        visitedDate: creditData.creditDate,
+        price: creditData.price,
         content,
         way,
       };
@@ -48,25 +43,11 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
     },
   });
 
-  // 초기 페이지 뜰 때 렌더링
-  useEffect(() => {
-    if (receiptData.items && receiptData.items.length > 0) {
-      const updatedPrices = receiptData.items.map((item) => item.price || '0');
-      setPrices(updatedPrices);
-    }
-  }, [receiptData.items]);
-
-  const handlePriceChange = (index: number, newPrice: string) => {
-    const updatedPrices = [...prices];
-    updatedPrices[index] = newPrice;
-    setPrices(updatedPrices);
-  };
-
   return (
     <div className="flex flex-col items-center justify-center">
       <section className="flex items-start gap-4 my-4 ">
         <Image
-          src={receiptData.receiptImage!}
+          src={creditData.creditImage!}
           alt="receipt"
           width={70}
           height={80}
@@ -74,38 +55,28 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
         />
         <div className="flex flex-col gap-6">
           <h2 className="text-xl font-semibold">
-            {restNm}, {receiptData.storeName}
+            {restNm}, {creditData.storeName}
           </h2>
           <span className="inline-block">
             <h2 className="text-xl font-semibold mb-2">
-              {formatTime(receiptData.creditDate, 'YYYY년 M월 D일')}
+              {creditData.creditDate}
             </h2>
             <h2>에 방문하셨군요!</h2>
           </span>
         </div>
       </section>
 
-      <section className="flex flex-col gap-2 border rounded-md bg-white shadow-lg p-4 w-full mt-6">
-        {receiptData.items.map((item, index) => (
-          <ItemCard
-            key={index}
-            name={item.name}
-            count={item.count}
-            price={prices[index]}
-            onPriceChange={(newPrice) => handlePriceChange(index, newPrice)}
-          />
-        ))}
-        <hr className="w-full my-4" />
+      <section className="gap-2 border rounded-md bg-white shadow-lg p-4 w-full mt-6">
         <div className="flex items-center justify-between">
           <h3>총금액</h3>
-          <h3>{prices?.map((p) => Number(p))?.reduce((a, b) => a + b, 0)}원</h3>
+          <h3>{creditData.price}원</h3>
         </div>
       </section>
 
       <section className="mt-10 flex flex-col gap-3 w-full">
         <span className="inline-block">
           <p className="text-lg font-semibold mb-2">
-            {restNm}, {receiptData.storeName}
+            {restNm}, {creditData.storeName}
           </p>
           <p>은 어떠셨나요?</p>
         </span>
