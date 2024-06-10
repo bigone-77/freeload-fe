@@ -41,7 +41,7 @@ export default function Page({ params }: { params: { restId: string } }) {
         </div>
       </section>
       <section className="mt-20">
-        <ReviewSlider />
+        <ReviewSlider restId={params.restId} />
       </section>
       {showReceiptModal && (
         <ReceiptAlertModal

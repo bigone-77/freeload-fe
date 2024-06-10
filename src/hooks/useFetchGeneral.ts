@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import axios from 'axios';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useDispatch } from 'react-redux';
@@ -32,18 +33,35 @@ export const useFetchGeneral = (id: string, way: string) => {
         });
         dispatch(setCreditImage(base64Image));
 
+        let creditDate;
+
+        for (let i = 0; i < response.data.length; i += 1) {
+          if (response.data[i].inferText === '결제일시') {
+            creditDate = `${response.data[i + 1].inferText} ${response.data[i + 2].inferText} ${response.data[i + 3].inferText}`;
+            break;
+          }
+        }
+        let storeName;
+        let price;
+
+        const [, , , , data4, data5, data6] = response.data;
+
+        if (data6.inferText.includes('-')) {
+          storeName = data5.inferText;
+          price = data6.inferText.replace(/[^\d-]/g, '').split('-')[1];
+        } else if (data5.inferText.includes('-')) {
+          storeName = data4.inferText;
+          price = data5.inferText.replace(/[^\d-]/g, '').split('-')[1];
+        }
+
         dispatch(
           setCredit({
-            storeName: response.data[5].inferText,
-            price: response.data[6].inferText
-              .replace(/[^\d-]/g, '')
-              .split('-')[1],
-            creditDate:
-              response.data[20].inferText === '결제일시'
-                ? `${response.data[21].inferText} ${response.data[22].inferText} ${response.data[23].inferText}`
-                : `${response.data[20].inferText} ${response.data[21].inferText} ${response.data[22].inferText}`,
+            storeName,
+            price,
+            creditDate,
           }),
         );
+
         router.push(
           `/rest/${id}/customer/review?restNm=${params.get('restNm')}&way=${way}`,
         );

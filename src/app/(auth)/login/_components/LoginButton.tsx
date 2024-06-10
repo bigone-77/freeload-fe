@@ -19,7 +19,7 @@ export default function LoginButton({ origin }: ILoginButtonProps) {
       onClick={() => handleLogin(origin)}
     >
       <img
-        src={`https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717935475/social-${origin}-button.png`}
+        src={`https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717977113/social-${origin}-button.svg`}
         alt="loginBtn"
         width={300}
         height={45}

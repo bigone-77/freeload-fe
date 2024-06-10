@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import { useState } from 'react';
 import PrimaryButton from '@/Common/PrimaryButton';
 import { RootState } from '@/shared/store';
 import { useMutation } from '@tanstack/react-query';
+import { postReview } from '@/lib/postReview';
 
 interface ICrCheckCardProps {
   restId: string;
@@ -19,27 +20,27 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   const params = useSearchParams();
   const restNm = params.get('restNm');
   const creditData = useSelector((state: RootState) => state.credit);
+  const router = useRouter();
+
+  const formData = {
+    email: currentUser.data?.user?.email,
+    profile_image: currentUser.data?.user?.image,
+    svarCd: restId,
+    storeName: creditData.storeName,
+    visitedDate: creditData.creditDate,
+    price: creditData.price,
+    content,
+    way,
+  };
 
   const mutation = useMutation({
-    mutationFn: async () => {
-      const formData = {
-        email: currentUser.data?.user?.email,
-        profile_image: currentUser.data?.user?.image,
-        storeName: creditData.storeName,
-        visitedDate: creditData.creditDate,
-        price: creditData.price,
-        content,
-        way,
-      };
-
-      return fetch(`${process.env.NEXT_PUBLIC_BE_URL}/review/${restId}`, {
-        method: 'post',
-        credentials: 'include',
-        body: JSON.stringify(formData),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    mutationFn: postReview,
+    onSuccess: () => {
+      console.log('Mutation succeeded');
+      router.push(`/rest/${restId}/customer?restNm=${restNm}`);
+    },
+    onError: (error) => {
+      console.error('Mutation failed', error);
     },
   });
 
@@ -88,7 +89,11 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
         />
       </section>
 
-      <PrimaryButton onClick={() => mutation.mutate()} classProps="mt-6" short>
+      <PrimaryButton
+        onClick={() => mutation.mutate(formData)}
+        classProps="mt-6"
+        short
+      >
         리뷰 남기기
       </PrimaryButton>
     </div>

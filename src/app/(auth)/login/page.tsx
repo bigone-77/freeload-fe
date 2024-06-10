@@ -1,5 +1,7 @@
-import { auth } from '@/auth';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
+
+import { auth } from '@/auth';
 import LoginButton from './_components/LoginButton';
 
 export default async function LoginPage() {
@@ -19,9 +21,14 @@ export default async function LoginPage() {
         <h2 className="text-lg mt-20">휴게소 정보들에 대해 궁금하다면?</h2>
       </section>
 
-      <section className="">
+      <section className="mt-20 flex flex-col gap-4">
         <LoginButton origin="kakao" />
         <LoginButton origin="google" />
+        <Link href="/home">
+          <p className="border rounded-lg bg-primary shadow-lg p-3 text-text50 text-lg text-center">
+            로그인 없이 할래요
+          </p>
+        </Link>
       </section>
     </div>
   );
