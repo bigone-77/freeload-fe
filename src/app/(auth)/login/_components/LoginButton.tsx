@@ -13,11 +13,7 @@ export default function LoginButton({ origin }: ILoginButtonProps) {
     });
   };
   return (
-    <button
-      type="button"
-      // className="border-2 p-2"
-      onClick={() => handleLogin(origin)}
-    >
+    <button type="button" onClick={() => handleLogin(origin)}>
       <img
         src={`https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717977113/social-${origin}-button.svg`}
         alt="loginBtn"

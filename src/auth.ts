@@ -15,6 +15,7 @@ export const {
   pages: {
     signIn: '/login', // 임시 로그인 화면
   },
+  trustHost: true,
   providers: [
     KakaoProvider({
       clientId: process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY!,
