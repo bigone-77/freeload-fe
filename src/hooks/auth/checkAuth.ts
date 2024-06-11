@@ -16,7 +16,8 @@ export const checkAuth = () => {
           `${process.env.NEXT_PUBLIC_BE_URL}/auth/check`,
           data,
         );
-        if ((response.data as any) === '새로운 회원이 등록되었습니다.') {
+        if (!response.data.message) {
+          // 신규 가입하려는 회원이라면
           return false;
         }
         return true;

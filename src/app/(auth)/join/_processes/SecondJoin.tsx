@@ -2,18 +2,27 @@
 
 import { useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/shared/store';
 import { useRouter } from 'next/navigation';
 
+import { RootState } from '@/shared/store';
 import PrimaryButton from '@/Common/PrimaryButton';
 import { Timer } from '../_components/Timer';
 
 export default function SecondJoin() {
-  const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);
+  const realAuthNum = useSelector((state: RootState) => state.joinUser.authNum);
   const router = useRouter();
 
-  const [authNums, setAuthNums] = useState<string[]>(['', '', '', '']);
+  const phoneNum = useSelector((state: RootState) => state.joinUser.phoneNum);
+
+  const [enteredAuthNums, setEnteredAuthNums] = useState<string[]>([
+    '',
+    '',
+    '',
+    '',
+  ]);
   const [passed, setPassed] = useState(false);
+  const [error, setError] = useState('');
+  const [resetTimer, setResetTimer] = useState(false);
 
   const inputRefs = [
     useRef<HTMLInputElement>(null),
@@ -24,15 +33,14 @@ export default function SecondJoin() {
 
   const handleChange = (index: number, value: string) => {
     if (value.length <= 1 && /^\d*$/.test(value)) {
-      const newAuthNums = [...authNums];
+      const newAuthNums = [...enteredAuthNums];
       newAuthNums[index] = value;
-      setAuthNums(newAuthNums);
+      setEnteredAuthNums(newAuthNums);
 
       if (value.length === 1 && index < 3) {
         inputRefs[index + 1].current?.focus();
       }
 
-      // 입력값이 모두 채워져 있는지 확인
       if (newAuthNums.every((num) => num !== '')) {
         setPassed(true);
       } else {
@@ -41,16 +49,29 @@ export default function SecondJoin() {
     }
   };
 
+  const setPushAuthNumHandler = () => {
+    // TODO: 인증번호 다시 보내기
+    setResetTimer(true);
+  };
+
+  const handleResetComplete = () => {
+    setResetTimer(false);
+  };
+
   const nextHandler = () => {
     if (passed === true) {
-      router.push('/join?step=3');
+      if (Number(enteredAuthNums.join('')) !== realAuthNum) {
+        setError('인증번호가 일치하지 않아요. 다시 확인해주세요.');
+      } else {
+        router.push('/join?step=3');
+      }
     }
   };
 
   return (
-    <main className="mt-10 flex flex-col w-full px-10">
+    <main className="mt-10 flex flex-col w-full px-10 relative">
       <div className="grid grid-cols-4 items-center gap-4">
-        {authNums.map((authNum, index) => (
+        {enteredAuthNums.map((authNum, index) => (
           <input
             key={index}
             ref={inputRefs[index]}
@@ -60,13 +81,21 @@ export default function SecondJoin() {
           />
         ))}
       </div>
-      <p className="font-regular text-text400 mt-10 mb-20">
+      <p className="font-regular text-text400 my-20">
         +81 {phoneNum} 로 확인코드를 보냈습니다
       </p>
+      <button
+        type="button"
+        className="border w-24 p-2 rounded-full my-4 justify-items-center absolute top-44 right-12 shadow-lg"
+        onClick={setPushAuthNumHandler}
+      >
+        다시 받기
+      </button>
+      <p className="absolute text-sm top-2 text-error">{error}</p>
       <PrimaryButton passed={passed} onClick={nextHandler}>
         다음
       </PrimaryButton>
-      <Timer />
+      <Timer reset={resetTimer} onResetComplete={handleResetComplete} />
     </main>
   );
 }

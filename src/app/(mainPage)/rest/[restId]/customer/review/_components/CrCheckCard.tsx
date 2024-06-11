@@ -36,7 +36,6 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   const mutation = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
-      console.log('Mutation succeeded');
       router.push(`/rest/${restId}/customer?restNm=${restNm}`);
     },
     onError: (error) => {

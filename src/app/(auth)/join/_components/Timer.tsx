@@ -2,8 +2,13 @@
 
 import { memo, useEffect, useState } from 'react';
 
-export const Timer = memo(() => {
-  const MINUTES_IN_MS = 2 * 60 * 1000; // 시간은 2분일때
+interface TimerProps {
+  reset: boolean;
+  onResetComplete: () => void;
+}
+
+export const Timer = memo(({ reset, onResetComplete }: TimerProps) => {
+  const MINUTES_IN_MS = 2 * 60 * 1000; // 2분
   const INTERVAL = 1000;
   const [timeLeft, setTimeLeft] = useState<number>(MINUTES_IN_MS);
 
@@ -11,28 +16,35 @@ export const Timer = memo(() => {
     2,
     '0',
   );
-  const second = String(Math.floor((timeLeft / 1000) % 60)).padStart(2, '0');
+  const seconds = String(Math.floor((timeLeft / 1000) % 60)).padStart(2, '0');
+
+  useEffect(() => {
+    setTimeLeft(MINUTES_IN_MS);
+  }, [reset]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft((prevTime) => prevTime - INTERVAL);
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 0) {
+          clearInterval(timer);
+          onResetComplete();
+          console.log('응답시간이 초과되었습니다');
+          return 0;
+        }
+        return prevTime - INTERVAL;
+      });
     }, INTERVAL);
-
-    if (timeLeft <= 0) {
-      clearInterval(timer);
-      console.log('응답시간이 초과되었습니다');
-    }
 
     return () => {
       clearInterval(timer);
     };
-  }, [timeLeft]);
+  }, [timeLeft, onResetComplete]);
 
   return (
     <div className="flex items-center justify-center gap-2 mt-10">
-      <p className="font-regular">Resend code in </p>
+      <p className="font-regular">시간 초과시 다시 받기</p>
       <p className="font-semibold">
-        {minutes} : {second}
+        {minutes} : {seconds}
       </p>
     </div>
   );
