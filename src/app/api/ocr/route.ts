@@ -8,15 +8,15 @@ export async function POST(req: NextRequest) {
   const { imageBase64, fileFormat, fileName } = await req.json();
 
   const message = {
-    requestId: 'receipt', // Identifier for the request
-    resultType: 'string', // Expecting a string result type
-    version: 'V2', // API version
+    requestId: 'receipt',
+    resultType: 'string',
+    version: 'V2',
     timestamp: 0,
     images: [
       {
-        format: fileFormat, // File format, e.g., jpeg, png
-        name: fileName, // File name
-        data: imageBase64.split(',')[1], // Base64 data part
+        format: fileFormat,
+        name: fileName,
+        data: imageBase64.split(',')[1],
       },
     ],
   };
