@@ -13,7 +13,7 @@ export const checkAuth = () => {
     if (data) {
       try {
         const response = await axios.post<IAuthCheckResponseProps>(
-          '/api/user/check',
+          `${process.env.NEXT_PUBLIC_BE_URL}/auth/check`,
           data,
         );
         if (!response.data.message) {

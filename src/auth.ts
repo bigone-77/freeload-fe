@@ -45,6 +45,7 @@ export const {
           profile_image: kakaoProfile.kakao_account?.profile
             ?.profile_image_url as string,
         };
+
         const isAuth = await isAuthCheck(formData); // 이 사람이 이전에 로그인한 적이 있는지?
 
         if (isAuth === true) {
