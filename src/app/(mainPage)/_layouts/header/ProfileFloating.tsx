@@ -14,13 +14,10 @@ export default function ProfileFloating({
     await signOut({ callbackUrl: '/' });
   };
   if (currentUser) {
+    const imageUrl = currentUser?.image?.replace('http:', 'https:');
     return (
       <div onClick={handleLogOut}>
-        <img
-          src={currentUser.image as string}
-          alt="profile"
-          className="w-10 h-10 rounded-full"
-        />
+        <img src={imageUrl} alt="profile" className="w-10 h-10 rounded-full" />
       </div>
     );
   }

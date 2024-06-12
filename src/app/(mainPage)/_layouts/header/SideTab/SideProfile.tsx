@@ -7,12 +7,13 @@ interface ISideContentsProps {
 }
 
 export default function SideProfile({ user }: ISideContentsProps) {
+  const imageUrl = user?.image?.replace('http:', 'https:');
   return (
     <div className={`${!user && 'flex-col'} flex items-center gap-2 mt-10`}>
       {user ? (
         <>
           <img
-            src={user.image as string}
+            src={imageUrl}
             alt="profile"
             className="w-12 h-12 rounded-full"
           />
