@@ -9,14 +9,12 @@ import ButtonGroup from './ButtonGroup';
 
 interface IReceiptAlertModalProps {
   id: string;
-  restNm: string | null;
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 export default function CreditAlertModal({
   id,
-  restNm,
   modalOpen,
   setModalOpen,
 }: IReceiptAlertModalProps) {
@@ -49,7 +47,7 @@ export default function CreditAlertModal({
           * 영수증 정보: 사업자 정보(업체명, 업체 주소, 업체 전화번호 또는
           사업자번호) + 결제 정보(결제 일시, 결제 승인 번호, 결제 금액)
         </p>
-        <ButtonGroup id={id} restNm={restNm} way="credit" />
+        <ButtonGroup id={id} way="credit" />
       </div>
     </Modal>
   );

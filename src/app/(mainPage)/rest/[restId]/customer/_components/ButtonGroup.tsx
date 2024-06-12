@@ -2,17 +2,14 @@
 
 import { useFetchGeneral } from '@/hooks/useFetchGeneral';
 import { useFetchOcr } from '@/hooks/useFetchOcr';
-import { useRouter } from 'next/navigation';
 import { IoIosCamera, IoIosAlbums } from 'react-icons/io';
 
 interface IButtonGroupProps {
   id: string;
-  restNm: string | null;
   way: 'receipt' | 'credit';
 }
 
-export default function ButtonGroup({ id, restNm, way }: IButtonGroupProps) {
-  const router = useRouter();
+export default function ButtonGroup({ id, way }: IButtonGroupProps) {
   const handleOcrRequest = useFetchOcr(id, way);
   const handleGeneralRequest = useFetchGeneral(id, way);
 
@@ -47,11 +44,7 @@ export default function ButtonGroup({ id, restNm, way }: IButtonGroupProps) {
           type="file"
           id="album"
           accept="image/*"
-          onChange={() =>
-            router.push(
-              `/rest/${id}/customer/review?restNm=${restNm}&way=${way}`,
-            )
-          }
+          onChange={way === 'receipt' ? handleOcrRequest : handleGeneralRequest}
           style={{ display: 'none' }}
         />
         <p>앨범 선택</p>
