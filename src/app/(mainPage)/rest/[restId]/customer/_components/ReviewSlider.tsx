@@ -65,7 +65,10 @@ export default function ReviewSlider({ restId }: IReviewSliderProps) {
             >
               <ReviewCard
                 email={ReviewData.data[visibleNumber].email}
-                imgUrl={ReviewData.data[visibleNumber].profile_image}
+                imgUrl={ReviewData.data[visibleNumber].profile_image.replace(
+                  'http',
+                  'https',
+                )}
                 date={ReviewData.data[visibleNumber].visitedDate}
                 storeNm={ReviewData.data[visibleNumber].storeName}
                 price={ReviewData.data[visibleNumber].price}

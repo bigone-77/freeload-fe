@@ -33,7 +33,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
 
   const formData = {
     email: currentUser.data?.user?.email,
-    profile_image: currentUser.data?.user?.image,
+    profile_image: currentUser.data?.user?.image?.replace('http', 'https'),
     svarCd: restId,
     storeName: receiptData.storeName,
     visitedDate: formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),

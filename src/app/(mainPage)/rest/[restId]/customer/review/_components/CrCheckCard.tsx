@@ -24,7 +24,7 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
 
   const formData = {
     email: currentUser.data?.user?.email,
-    profile_image: currentUser.data?.user?.image,
+    profile_image: currentUser.data?.user?.image?.replace('http', 'https'),
     svarCd: restId,
     storeName: creditData.storeName,
     visitedDate: creditData.creditDate,
