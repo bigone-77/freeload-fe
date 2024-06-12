@@ -10,7 +10,10 @@ export const joinUser = () => {
   }) => {
     if (data) {
       try {
-        const response = await axios.post('/api/user/join', data);
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BE_URL}/auth/join`,
+          data,
+        );
         if ((response.data as any) === '추가입력 성공입니다') {
           return true;
         }

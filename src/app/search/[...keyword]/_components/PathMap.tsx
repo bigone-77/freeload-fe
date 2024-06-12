@@ -54,9 +54,6 @@ export default function PathMap({
   useEffect(() => {
     getPathData({ originLatLng, destLatLng }).then((data) => {
       if (data) {
-        // data.uniqueHighway.map((highway) =>
-        //   console.log(highway.name.replace('고속도로', '선')),
-        // );
         setIsLoading(true);
         setPath(data.path);
         setHighwayInfo(data.uniqueHighway);
