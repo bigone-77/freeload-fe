@@ -23,7 +23,7 @@ export default function HomeHeader() {
             className="text-text200 hover:opacity-50 transform-all text-lg font-semibold"
             onClick={() => router.push('/search')}
           >
-            어디로 갈까요?
+            {session ? session.user?.image : '어디로 갈까요?'}
           </h3>
         </section>
         {currentUser && <ProfileFloating currentUser={currentUser} />}
