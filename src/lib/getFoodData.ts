@@ -6,7 +6,7 @@ export async function getFoodData({ queryKey }: { queryKey: any }) {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BE_URL}/rest/food/${restId}?sort=${sorted}&cursor=${cursor}`,
+    `/api/rest/food?restId=${restId}&sort=${sorted}&cursor=${cursor}`,
     {
       next: {
         tags: ['rest', 'food', restId, sorted],

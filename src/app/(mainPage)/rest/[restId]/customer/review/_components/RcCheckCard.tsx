@@ -26,7 +26,10 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
   const [prices, setPrices] = useState<string[]>([]);
   const [content, setContent] = useState('');
 
-  const router = useRouter(); // useRouter 훅 사용
+  const router = useRouter();
+
+  const calculateTotalPrice = (pricesArray: string[]) =>
+    pricesArray.map((p) => Number(p)).reduce((a, b) => a + b, 0);
 
   const formData = {
     email: currentUser.data?.user?.email,
@@ -34,7 +37,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
     svarCd: restId,
     storeName: receiptData.storeName,
     visitedDate: formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),
-    price: prices?.map((p) => Number(p))?.reduce((a, b) => a + b),
+    price: calculateTotalPrice(prices), // 가격 합계
     content,
     way,
   };
@@ -42,7 +45,6 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
   const mutation = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
-      console.log('Mutation succeeded');
       router.push(`/rest/${restId}/customer?restNm=${restNm}`);
     },
     onError: (error) => {
@@ -93,14 +95,14 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
             key={index}
             name={item.name}
             count={item.count}
-            price={prices[index]}
+            price={prices[index] ? prices[index] : ''}
             onPriceChange={(newPrice) => handlePriceChange(index, newPrice)}
           />
         ))}
         <hr className="w-full my-4" />
         <div className="flex items-center justify-between">
           <h3>총금액</h3>
-          <h3>{prices?.map((p) => Number(p))?.reduce((a, b) => a + b, 0)}원</h3>
+          <h3>{calculateTotalPrice(prices)}원</h3>
         </div>
       </section>
 

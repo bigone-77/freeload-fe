@@ -1,5 +1,5 @@
 export async function postReview(formData: any) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/review`, {
+  const res = await fetch('/api/rest/customer/postReview', {
     method: 'post',
     credentials: 'include',
     body: JSON.stringify(formData),
