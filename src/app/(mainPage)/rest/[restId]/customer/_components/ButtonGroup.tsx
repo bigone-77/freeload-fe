@@ -18,21 +18,25 @@ export default function ButtonGroup({ id, restNm, way }: IButtonGroupProps) {
 
   return (
     <div className="flex items-center justify-center px-4 gap-6">
-      <label
-        htmlFor="file"
-        className="flex items-center gap-[2px] cursor-pointer border p-2 rounded-md"
-      >
-        <IoIosCamera size={25} />
-        <input
-          type="file"
-          id="file"
-          accept="image/*"
-          capture="environment"
-          onChange={way === 'receipt' ? handleOcrRequest : handleGeneralRequest}
-          style={{ display: 'none' }}
-        />
-        <p>직접 찍기</p>
-      </label>
+      {way === 'receipt' && (
+        <label
+          htmlFor="file"
+          className="flex items-center gap-[2px] cursor-pointer border p-2 rounded-md"
+        >
+          <IoIosCamera size={25} />
+          <input
+            type="file"
+            id="file"
+            accept="image/*"
+            capture="environment"
+            onChange={
+              way === 'receipt' ? handleOcrRequest : handleGeneralRequest
+            }
+            style={{ display: 'none' }}
+          />
+          <p>직접 찍기</p>
+        </label>
+      )}
 
       <label
         htmlFor="album"

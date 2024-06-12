@@ -14,6 +14,6 @@ export async function middleware() {
   }
   return NextResponse.next();
 }
-export const config = {
-  matcher: ['/profile'],
-};
+// export const config = {
+//   matcher: ['/profile'],
+// };
