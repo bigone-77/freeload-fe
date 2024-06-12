@@ -3,6 +3,7 @@ import { auth } from './auth';
 
 export async function middleware() {
   const session = await auth();
+  console.log(session);
 
   if (!session?.user) {
     const redirectUrl =
