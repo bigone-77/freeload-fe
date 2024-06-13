@@ -39,7 +39,7 @@ export default function LikeContent() {
   }
 
   if (clickedRest === 'route' && userEmail) {
-    content = <ShowRoute />;
+    content = <ShowRoute email={userEmail} />;
   }
 
   return (

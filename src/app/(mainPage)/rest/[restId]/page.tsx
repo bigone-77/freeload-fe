@@ -26,7 +26,7 @@ export default function RestDetailPage({
   const userEmail = useSession().data?.user?.email;
 
   const { data: Rest } = useQuery<RestResponse>({
-    queryKey: ['rest', params.restId],
+    queryKey: ['rest', 'detail', params.restId, userEmail],
     queryFn: () => getRestData(Number(params.restId), userEmail),
   });
 
@@ -43,7 +43,8 @@ export default function RestDetailPage({
         gas={Oil?.data[0].gasolinePrice!}
         di={Oil?.data[0].diselPrice!}
         lpg={Oil?.data[0].lpgPrice}
-        isLiked
+        isLiked={Rest?.data[0].isLiked!}
+        restId={params.restId}
       />
       <div className="h-screen pt-6 px-3 bg-text100">
         <section className="grid grid-cols-2 gap-4 w-full place-items-center">

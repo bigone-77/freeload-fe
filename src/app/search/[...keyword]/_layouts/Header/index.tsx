@@ -77,7 +77,10 @@ export default function Header({ originAddr, destAddr }: IHeaderProps) {
           modalOpen={showShareModal}
           setModalOpen={setShowShareModal}
           url={currentUrl}
-          destAddr={destAddr}
+          startAddr={originAddr}
+          startLatLng={originLatLng!}
+          endAddr={destAddr}
+          endLatLng={destLatLng!}
         />
       )}
     </header>

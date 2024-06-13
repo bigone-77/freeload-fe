@@ -12,14 +12,20 @@ interface IReceiptAlertModalProps {
   modalOpen: boolean;
   setModalOpen: Dispatch<SetStateAction<boolean>>;
   url: string;
-  destAddr: string;
+  startAddr: string;
+  startLatLng: string;
+  endAddr: string;
+  endLatLng: string;
 }
 
 export default function ShareModal({
   modalOpen,
   setModalOpen,
   url,
-  destAddr,
+  startAddr,
+  startLatLng,
+  endAddr,
+  endLatLng,
 }: IReceiptAlertModalProps) {
   return (
     <Modal
@@ -31,8 +37,13 @@ export default function ShareModal({
     >
       <section className="flex items-center justify-center gap-3 text-sm">
         <ShareButton url={url} />
-        <ShareButton url={url} social dest={destAddr} />
-        <FavoriteButton />
+        <ShareButton url={url} social dest={endAddr} />
+        <FavoriteButton
+          startAddr={startAddr}
+          startLatLng={startLatLng}
+          endAddr={endAddr}
+          endLatLng={endLatLng}
+        />
       </section>
     </Modal>
   );

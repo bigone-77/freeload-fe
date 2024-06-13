@@ -1,19 +1,44 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
-import { redirect } from 'next/navigation';
+import { postLike } from '@/lib/postLike';
+import { deleteLike } from '@/lib/deleteLike';
 
 interface ILikeButtonProps {
+  restId: string;
   isLiked: boolean;
 }
 
-export default function LikeButton({ isLiked }: ILikeButtonProps) {
-  console.log(isLiked);
-
+export default function LikeButton({ restId, isLiked }: ILikeButtonProps) {
   const currentUser = useSession().data?.user;
+  const emailForm = { email: currentUser?.email };
+
+  const postLikeData = { emailForm, restId };
+
+  const queryClient = useQueryClient();
+
+  const likeMutation = useMutation({
+    mutationFn: postLike,
+    onSettled() {
+      queryClient.invalidateQueries({
+        queryKey: ['rest', 'detail'],
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteLike,
+    onSettled() {
+      queryClient.invalidateQueries({
+        queryKey: ['rest', 'detail'],
+      });
+    },
+  });
 
   const likeHandler = () => {
     if (!currentUser) {
@@ -21,10 +46,12 @@ export default function LikeButton({ isLiked }: ILikeButtonProps) {
     }
     if (isLiked) {
       // TODO: 즐겨찾기 삭제 핸들러
+      deleteMutation.mutate(postLikeData);
     }
 
     if (!isLiked) {
       // TODO: 즐겨찾기 등록 핸들러
+      likeMutation.mutate(postLikeData);
     }
   };
 
