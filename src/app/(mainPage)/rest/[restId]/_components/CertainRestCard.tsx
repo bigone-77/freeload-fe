@@ -7,7 +7,7 @@ interface ICertainRestCardProps {
   gas: number;
   di: number;
   lpg?: number;
-  isLike: boolean;
+  isLiked: boolean;
 }
 
 export default function CertainRestCard({
@@ -16,7 +16,7 @@ export default function CertainRestCard({
   gas,
   di,
   lpg,
-  isLike,
+  isLiked,
 }: ICertainRestCardProps) {
   return (
     <main className="py-5 px-10 bg-primary text-white relative">
@@ -37,7 +37,7 @@ export default function CertainRestCard({
         </span>
       </div>
       <div className="absolute top-5 right-10 border rounded-full p-2">
-        <LikeButton isLike={isLike} />
+        <LikeButton isLiked={isLiked} />
       </div>
     </main>
   );

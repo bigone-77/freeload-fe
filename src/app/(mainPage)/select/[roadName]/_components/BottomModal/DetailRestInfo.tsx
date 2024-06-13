@@ -14,9 +14,11 @@ interface IDetailRestInfoProps {
     lng: number;
   };
   direction: 'up' | 'down';
+  like?: boolean;
 }
 
 export default function DetailRestInfo({
+  like,
   data,
   dist,
   coords,
@@ -37,7 +39,9 @@ export default function DetailRestInfo({
   } = data;
 
   return (
-    <article className="py-1">
+    <article
+      className={`py-1 ${like && 'p-3 border rounded-md shadow-lg mb-6'}`}
+    >
       <header className="flex items-center justify-between">
         <h1 className="font-bold text-lg">{restName}</h1>
         <Link href={`/rest/${restId}?direction=${direction}`}>

@@ -16,7 +16,7 @@ export default function DetailLayout({ children, params }: IDetailLayoutProps) {
   const segments = useSelectedLayoutSegments();
 
   const backHandler = () => {
-    if (!segments) {
+    if (segments.length === 0) {
       router.back();
     }
     router.push(`/rest/${params.restId}`);

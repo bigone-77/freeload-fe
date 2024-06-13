@@ -21,7 +21,7 @@ export default function ButtonGroup({ coords }: IButtonGroupProps) {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const url = `${process.env.NEXT_PUBLIC_DEV_URL}/${decodeURI(pathname)}?${searchParams}`;
+    const url = `${process.env.NEXT_PUBLIC_PROD_URL}/${decodeURI(pathname)}?${searchParams}`;
     setCurrentUrl(url);
   }, [pathname, searchParams]);
 

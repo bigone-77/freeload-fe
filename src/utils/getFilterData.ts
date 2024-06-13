@@ -33,11 +33,11 @@ export function getFilteredOil(
   let filteredOilData = [...data];
 
   if (elec) {
-    filteredOilData = filteredOilData.filter((d) => d.electric);
+    filteredOilData = filteredOilData.filter((d) => d.electric === '1');
   }
 
   if (hydr) {
-    filteredOilData = filteredOilData.filter((d) => d.hydrogen);
+    filteredOilData = filteredOilData.filter((d) => d.hydrogen === '1');
   }
 
   if (oil && order) {

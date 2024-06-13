@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
+import { useSession } from 'next-auth/react';
 
 import {
   PiBowlFood,
@@ -21,9 +22,12 @@ export default function RestDetailPage({
   params: { restId: string };
 }) {
   const directionParams = useSearchParams();
+
+  const userEmail = useSession().data?.user?.email;
+
   const { data: Rest } = useQuery<RestResponse>({
     queryKey: ['rest', params.restId],
-    queryFn: () => getRestData(Number(params.restId)),
+    queryFn: () => getRestData(Number(params.restId), userEmail),
   });
 
   const { data: Oil } = useQuery<OilResponse>({
@@ -39,7 +43,7 @@ export default function RestDetailPage({
         gas={Oil?.data[0].gasolinePrice!}
         di={Oil?.data[0].diselPrice!}
         lpg={Oil?.data[0].lpgPrice}
-        isLike
+        isLiked
       />
       <div className="h-screen pt-6 px-3 bg-text100">
         <section className="grid grid-cols-2 gap-4 w-full place-items-center">

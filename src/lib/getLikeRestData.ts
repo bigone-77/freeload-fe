@@ -1,10 +1,7 @@
-export async function getRestData(
-  restId: number,
-  userEmail: string | undefined | null,
-) {
-  const res = await fetch(`/api/rest?restId=${restId}&email=${userEmail}`, {
+export async function getLikeRestData(userEmail: string) {
+  const res = await fetch(`/api/rest/like?email=${userEmail}`, {
     next: {
-      tags: ['rest', String(restId)],
+      tags: ['rest', 'like', userEmail],
     },
     credentials: 'include',
     cache: 'no-store',

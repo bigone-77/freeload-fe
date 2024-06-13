@@ -4,12 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
-  const restId = searchParams.get('restId');
   const email = searchParams.get('email');
 
   try {
     const response = await axios.request({
-      url: `${process.env.NEXT_PUBLIC_BE_URL}/rest/SvarCd/${restId}`,
+      url: `${process.env.NEXT_PUBLIC_BE_URL}/rest/like`,
       method: 'GET',
       data: { email }, // GET 요청에 본문 데이터 포함
       headers: {

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import Modal from 'react-modal';
+import { useSession } from 'next-auth/react';
 
 import Loader from '@/Common/Loader';
 import { certainRestModalStyles } from '@/constants/Modal/CertainRest';
@@ -28,10 +29,11 @@ export default function BottomModal({
   showModal,
   onRequestClose,
 }: IBottomModalProps) {
+  const userEmail = useSession().data?.user?.email;
   // 특정 휴게소 정보 불러오기 (하나임)
   const { data: Response, isLoading } = useQuery<RestResponse>({
     queryKey: ['rest', id],
-    queryFn: () => getRestData(id),
+    queryFn: () => getRestData(id, userEmail),
   });
 
   const selectedDirection = useSelector(

@@ -6,7 +6,7 @@ interface IFuelTagProps {
 }
 
 export default function FuelTag({ value, onChange }: IFuelTagProps) {
-  const handleClick = (selectedValue: string) => {
+  const handleChange = (selectedValue: string) => {
     if (selectedValue === value) {
       // 이미 선택된 값과 같은 값이 클릭되면 빈 문자열로 변경하여 토글
       onChange('');
@@ -27,7 +27,7 @@ export default function FuelTag({ value, onChange }: IFuelTagProps) {
             name="fuel"
             value="GAS"
             checked={value === 'GAS'}
-            onClick={() => handleClick('GAS')}
+            onChange={() => handleChange('GAS')}
             className="h-5 w-5 text-primary"
           />
           <span className="ml-2 text-gray-700">휘발유</span>
@@ -39,7 +39,7 @@ export default function FuelTag({ value, onChange }: IFuelTagProps) {
             id="DI"
             value="DI"
             checked={value === 'DI'}
-            onClick={() => handleClick('DI')}
+            onChange={() => handleChange('DI')}
             className="h-5 w-5 text-primary"
           />
           <span className="ml-2 text-gray-700">경유</span>
@@ -51,7 +51,7 @@ export default function FuelTag({ value, onChange }: IFuelTagProps) {
             name="fuel"
             value="LPG"
             checked={value === 'LPG'}
-            onClick={() => handleClick('LPG')}
+            onChange={() => handleChange('LPG')}
             className="h-5 w-5 text-primary"
           />
           <span className="ml-2 text-gray-700">LPG</span>

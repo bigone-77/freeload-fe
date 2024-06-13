@@ -16,6 +16,7 @@ export type Rest = {
   latitude: string;
   longitude: string;
   braile_block: string;
+  isLiked?: boolean;
 };
 
 export type RestResponse = {

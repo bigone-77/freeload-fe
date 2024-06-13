@@ -1,6 +1,8 @@
 'use client';
 
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+
 import SelectType from './SelectType';
 import ShowRest from './ShowRest';
 import ShowRoute from './ShowRoute';
@@ -8,6 +10,7 @@ import ShowRoute from './ShowRoute';
 // import { useSendPush } from '@/hooks/push/useSendPush';
 
 export default function LikeContent() {
+  const userEmail = useSession().data?.user?.email;
   const [clickedRest, setClickedRest] = useState<'rest' | 'route'>('rest');
   // const sendPush = useSendPush();
 
@@ -31,11 +34,11 @@ export default function LikeContent() {
   //   }
   // };
   let content;
-  if (clickedRest === 'rest') {
-    content = <ShowRest />;
+  if (clickedRest === 'rest' && userEmail) {
+    content = <ShowRest email={userEmail} />;
   }
 
-  if (clickedRest === 'route') {
+  if (clickedRest === 'route' && userEmail) {
     content = <ShowRoute />;
   }
 
