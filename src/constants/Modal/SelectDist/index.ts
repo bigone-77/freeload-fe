@@ -8,7 +8,7 @@ export const selectDistModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '100%',
-    height: '40%',
+    height: '45%',
     zIndex: '150',
     position: 'absolute',
     top: 'auto',
@@ -20,7 +20,7 @@ export const selectDistModalStyles: ReactModal.Styles = {
     boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.25)',
     backgroundColor: 'white',
     justifyContent: 'center',
-    overflow: 'auto',
+    overflow: 'hidden',
     animation: 'slideIn 0.75s forwards',
   },
 };
