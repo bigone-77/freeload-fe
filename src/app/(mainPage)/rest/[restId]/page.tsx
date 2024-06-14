@@ -26,7 +26,7 @@ export default function RestDetailPage({
   const userEmail = useSession().data?.user?.email;
 
   const { data: Rest } = useQuery<RestResponse>({
-    queryKey: ['rest', 'detail', params.restId, userEmail],
+    queryKey: ['rest', 'detail', params.restId],
     queryFn: () => getRestData(Number(params.restId), userEmail),
   });
 

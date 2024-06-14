@@ -4,7 +4,7 @@ import { Rest } from '@/models/Rest';
 
 const initialState: Rest[] = [];
 
-const getOilSlce = createSlice({
+const getRestSlice = createSlice({
   name: 'getRest',
   initialState,
   reducers: {
@@ -12,6 +12,6 @@ const getOilSlce = createSlice({
   },
 });
 
-export const { setRest } = getOilSlce.actions;
+export const { setRest } = getRestSlice.actions;
 
-export default getOilSlce.reducer;
+export default getRestSlice.reducer;

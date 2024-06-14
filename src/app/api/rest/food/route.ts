@@ -5,12 +5,11 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
   const restId = searchParams.get('restId');
-  const sorted = searchParams.get('sorted');
-  const cursor = searchParams.get('cursor');
+  const sorted = searchParams.get('sort');
 
   try {
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BE_URL}/rest/food/${restId}?sort=${sorted}&cursor=${cursor}`,
+      `${process.env.NEXT_PUBLIC_BE_URL}/rest/food/${restId}?sort=${sorted}`,
     );
 
     if (response.status === 200) {

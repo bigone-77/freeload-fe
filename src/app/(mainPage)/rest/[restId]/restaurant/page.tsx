@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
-// import { useInView } from 'react-intersection-observer';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { FoodResponse, FoodTag } from '@/models/Food';
+import { RestResponse } from '@/models/Rest';
 import Loader from '@/Common/Loader';
 import { useScroll } from '@/hooks/useScroll';
 import { getFoodData } from '@/lib/getFoodData';
@@ -13,25 +13,19 @@ import Menubar from './_components/Menubar';
 import FoodCard from './_components/FoodCard';
 
 export default function Page({ params }: { params: { restId: string } }) {
-  const [cursor, setCursor] = useState(0);
-  console.log(setCursor);
+  const queryClient = useQueryClient();
+  const restCachedData = queryClient.getQueryData<RestResponse>([
+    'rest',
+    'detail',
+    params.restId,
+  ]);
 
   const sorted = useSearchParams().get('sort');
 
   const { data: FoodData, isLoading } = useQuery<FoodResponse>({
-    queryKey: ['rest', 'food', params.restId, sorted, cursor],
+    queryKey: ['rest', 'food', params.restId, sorted],
     queryFn: getFoodData,
   });
-
-  // const { ref, inView } = useInView({
-  //   threshold: 0,
-  //   delay: 0,
-  // });
-
-  // useEffect(() => {
-  //   if (inView) {
-  //   }
-  // }, [inView, cursor]);
 
   const [foodTag, setFoodTag] = useState<FoodTag>('ALL');
 
@@ -42,35 +36,38 @@ export default function Page({ params }: { params: { restId: string } }) {
 
   if (isLoading) {
     content = <Loader />;
-  } else if (FoodData) {
+  } else if (FoodData && FoodData.data && FoodData?.data.length > 0) {
     content = (
       <>
-        <header className="mx-4 bg-primary flex flex-col items-center text-white py-6 border rounded-b-xl">
-          <h1 className="text-2xl">{FoodData.data[0].stdRestNm}</h1>
-          <h2 className="text-sm mt-6">{FoodData.data[0].svarAddr}</h2>
-        </header>
-        <main className="bg-white h-full mt-6">
-          <Menubar fix={fixStandard} value={foodTag} setValue={setFoodTag} />
-          <div className="grid grid-cols-2 place-items-center p-4 gap-3">
-            {FoodData.data ? (
-              FoodData.data.map((food, index) => (
-                <FoodCard
-                  key={index}
-                  name={food.foodNm}
-                  cost={food.foodCost.toLocaleString()}
-                />
-              ))
-            ) : (
-              <p>현재 판매되고 있는 음식이 없습니다.</p>
-            )}
-          </div>
-          {/* <div ref={ref} className="w-full h-[2px]" /> */}
-        </main>
+        {FoodData.data.map((food, index) => (
+          <FoodCard
+            key={index}
+            name={food.foodNm}
+            cost={food.foodCost.toLocaleString()}
+          />
+        ))}
       </>
     );
+  } else {
+    content = <p>현재 판매되고 있는 음식이 없습니다.</p>;
   }
 
-  return <div className="bg-text100 h-full overscroll-y-auto">{content}</div>;
+  return (
+    <div className="bg-text100 h-full overscroll-y-auto">
+      <header className="mx-4 bg-primary flex flex-col items-center text-white py-6 border rounded-b-xl">
+        <h1 className="text-2xl">{restCachedData?.data[0].restName}</h1>
+        <h2 className="text-sm mt-6">{restCachedData?.data[0].restAddr}</h2>
+      </header>
+      <main className="bg-white h-full mt-6">
+        <Menubar fix={fixStandard} value={foodTag} setValue={setFoodTag} />
+        <div
+          className={`grid ${FoodData && FoodData.data && FoodData?.data.length > 0 ? 'grid-cols-2' : 'grid-cols-1'} place-items-center p-4 gap-3`}
+        >
+          {content}
+        </div>
+      </main>
+    </div>
+  );
 }
 
 // TODO: 처음에 6개씩 -> 상태변수에 저장 -> 만약 저장 후 보니까 길이가 6 미만이라면 curosr값 변화 X
