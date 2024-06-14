@@ -1,6 +1,6 @@
 'use client';
 
-import { postFavorite } from '@/lib/postFavorite';
+import { postFavorite } from '@/lib/user/postFavorite';
 import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';

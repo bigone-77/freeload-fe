@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { RoadResponse } from '@/models/Road';
 import Loader from '@/Common/Loader';
-import { getRoadData } from '@/lib/getRoadData';
+import { getRoadData } from '@/lib/road/getRoadData';
 import RoadCard from './RoadCard';
 
 export default function SelectRoad() {

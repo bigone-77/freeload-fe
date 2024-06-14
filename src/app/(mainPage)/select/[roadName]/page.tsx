@@ -8,7 +8,7 @@ import { RootState } from '@/shared/store';
 import { RestResponse } from '@/models/Rest';
 import { RestPathType } from '@/models/RestPath';
 import Loader from '@/Common/Loader';
-import { getRoadRestData } from '@/lib/getRoadRestData';
+import { getRoadRestData } from '@/lib/road/getRoadRestData';
 import RoadPathDraw from './_components/RoadPathDraw';
 
 export default function RoadPathPage() {

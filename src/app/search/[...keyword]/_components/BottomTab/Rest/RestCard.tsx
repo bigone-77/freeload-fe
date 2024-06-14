@@ -33,7 +33,7 @@ export default function RestCard({
       onClick={() => gotoDetailHandler(id)}
     >
       <div className="flex items-center justify-between">
-        <h1 className="text-sm font-semibold">{name}</h1>
+        <h1 className="text-sm font-semibold w-[140px]">{name}</h1>
         <p className="text-text50 bg-secondary rounded-full text-xs p-1 text-center">
           {grade === '2' ? '최우수' : grade === '1' ? '우수' : '보통'}
         </p>

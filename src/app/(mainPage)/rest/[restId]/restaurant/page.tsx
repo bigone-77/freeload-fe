@@ -8,7 +8,7 @@ import { FoodResponse, FoodTag } from '@/models/Food';
 import { RestResponse } from '@/models/Rest';
 import Loader from '@/Common/Loader';
 import { useScroll } from '@/hooks/useScroll';
-import { getFoodData } from '@/lib/getFoodData';
+import { getFoodData } from '@/lib/rest/getFoodData';
 import Menubar from './_components/Menubar';
 import FoodCard from './_components/FoodCard';
 

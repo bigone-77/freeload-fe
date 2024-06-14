@@ -31,7 +31,7 @@ export default function ButtonGroup({ id, way }: IButtonGroupProps) {
             }
             style={{ display: 'none' }}
           />
-          <p>직접 찍기</p>
+          <p className="w-full">직접 찍기</p>
         </label>
       )}
 
@@ -47,7 +47,7 @@ export default function ButtonGroup({ id, way }: IButtonGroupProps) {
           onChange={way === 'receipt' ? handleOcrRequest : handleGeneralRequest}
           style={{ display: 'none' }}
         />
-        <p>앨범 선택</p>
+        <p className="w-full">앨범 선택</p>
       </label>
     </div>
   );

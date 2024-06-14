@@ -12,7 +12,7 @@ import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
 import { RestResponse } from '@/models/Rest';
 import DetailRestInfo from './DetailRestInfo';
-import { getRestData } from '../../../../../../lib/getRestData';
+import { getRestData } from '../../../../../../lib/rest/getRestData';
 
 interface IBottomModalProps {
   id: number;

@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
-import { postLike } from '@/lib/postLike';
-import { deleteLike } from '@/lib/deleteLike';
+import { postLike } from '@/lib/user/postLike';
+import { deleteLike } from '@/lib/user/deleteLike';
 
 interface ILikeButtonProps {
   restId: string;

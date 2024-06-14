@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 
 import { OilResponse } from '@/models/OilStation';
-import { getOilData } from '@/lib/getOilData';
+import { getOilData } from '@/lib/rest/getOilData';
 import Loader from '@/Common/Loader';
 import DpFuel from './_components/DpFuel';
 import DpStore from './_components/DpStore';
@@ -32,7 +32,7 @@ export default function Page({ params }: { params: { restId: string } }) {
           <h3 className="text-sm mt-2">tel. {Oil.data[0].telNo}</h3>
         </header>
 
-        <main className="bg-white h-full mt-6 px-4">
+        <main className="bg-white h-full mt-6 px-4 pb-32">
           <DpAvr
             gas={Oil.data[0].gasolineAver.toLocaleString()}
             di={Oil.data[0].diselAver.toLocaleString()}

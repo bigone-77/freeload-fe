@@ -9,8 +9,8 @@ import {
   BiGasPump,
   RiCustomerService2Line,
 } from '@/constants/Icons';
-import { getRestData } from '@/lib/getRestData';
-import { getOilData } from '@/lib/getOilData';
+import { getRestData } from '@/lib/rest/getRestData';
+import { getOilData } from '@/lib/rest/getOilData';
 import { RestResponse } from '@/models/Rest';
 import { OilResponse } from '@/models/OilStation';
 import CategoryCard from '../_components/CategoryCard';

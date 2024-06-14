@@ -11,7 +11,7 @@ export const receiptAlertModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '80%',
-    height: '50%',
+    height: '55%',
     zIndex: '150',
     position: 'static',
     transform: 'translate(-50%, -50%)',

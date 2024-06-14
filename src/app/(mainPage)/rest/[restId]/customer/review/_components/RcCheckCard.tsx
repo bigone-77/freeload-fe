@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 import { RootState } from '@/shared/store';
 import { formatTime } from '@/utils/getTime';
 import PrimaryButton from '@/Common/PrimaryButton';
-import { postReview } from '@/lib/postReview';
+import { postReview } from '@/lib/user/postReview';
 import ItemCard from './ItemCard';
 
 interface IRcCheckCardProps {

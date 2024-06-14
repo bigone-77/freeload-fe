@@ -39,9 +39,7 @@ export default function DetailRestInfo({
   } = data;
 
   return (
-    <article
-      className={`py-1 ${like && 'p-3 border rounded-md shadow-lg mb-6'}`}
-    >
+    <article className={`p-4 ${like && 'border-2 rounded-xl shadow-lg mb-6'}`}>
       <header className="flex items-center justify-between">
         <h1 className="font-bold text-lg">{restName}</h1>
         <Link href={`/rest/${restId}?direction=${direction}`}>
@@ -59,7 +57,7 @@ export default function DetailRestInfo({
           disabled={braile_block === 'True'}
         />
       </section>
-      <section className="flex items-center justify-between">
+      <section className="flex items-center justify-between gap-2">
         <div className="flex flex-col gap-1">
           <p className="w-16 text-text50 bg-secondary rounded-full p-1 text-center">
             {satisfaction === '2'

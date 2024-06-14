@@ -1,7 +1,7 @@
 'use client';
 
 import Loader from '@/Common/Loader';
-import { getLikeRouteData } from '@/lib/getLikeRouteData';
+import { getLikeRouteData } from '@/lib/user/getLikeRouteData';
 import { RouteResponse } from '@/models/Route';
 import { useQuery } from '@tanstack/react-query';
 

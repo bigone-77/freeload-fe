@@ -3,7 +3,7 @@ import { AiFillNotification } from 'react-icons/ai';
 
 export default function SubMenu() {
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center gap-2 w-full">
       <section className="flex items-center justify-center gap-2 border p-3 rounded-md shadow-lg">
         <MdRateReview />
         <p>남긴 리뷰</p>
@@ -13,7 +13,7 @@ export default function SubMenu() {
       <section className="flex items-center justify-center gap-2 border p-3 rounded-md shadow-lg">
         <AiFillNotification />
         <p>상담 내역</p>
-        <p>(10)</p>
+        <p>(0)</p>
       </section>
     </div>
   );

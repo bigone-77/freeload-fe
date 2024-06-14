@@ -68,8 +68,13 @@ export const {
       }
       return false;
     },
-
-    jwt: async ({ token }) => token,
+    jwt({ token, trigger, session }) {
+      if (trigger === 'update' && session?.name) {
+        // Session 정보 업데이트하기
+        token.name = session.name;
+      }
+      return token;
+    },
     session: async ({ session }) => session,
   },
 });

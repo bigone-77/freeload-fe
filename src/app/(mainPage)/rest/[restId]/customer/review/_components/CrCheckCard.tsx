@@ -7,7 +7,7 @@ import { useState } from 'react';
 import PrimaryButton from '@/Common/PrimaryButton';
 import { RootState } from '@/shared/store';
 import { useMutation } from '@tanstack/react-query';
-import { postReview } from '@/lib/postReview';
+import { postReview } from '@/lib/user/postReview';
 
 interface ICrCheckCardProps {
   restId: string;

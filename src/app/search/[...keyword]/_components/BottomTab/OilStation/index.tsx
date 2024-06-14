@@ -3,8 +3,9 @@
 import { OilResponse, OilStation } from '@/models/OilStation';
 import { useQuery } from '@tanstack/react-query';
 
-import { getRoadOilData } from '@/lib/getRoadOilData';
+import { getRoadOilData } from '@/lib/road/getRoadOilData';
 import { getRouteCode } from '@/constants/RouteCode';
+import Loader from '@/Common/Loader';
 import OilCard from './OilCard';
 
 interface IShowOilStationProps {
@@ -18,7 +19,7 @@ export default function ShowOilStation({
   direction,
   showAllOilHandler,
 }: IShowOilStationProps) {
-  const { data: Response } = useQuery<OilResponse>({
+  const { data: Response, isLoading } = useQuery<OilResponse>({
     queryKey: [
       'oil',
       getRouteCode(roadName.replace('고속도로', '선')),
@@ -26,6 +27,31 @@ export default function ShowOilStation({
     ],
     queryFn: getRoadOilData,
   });
+
+  let content;
+
+  if (isLoading) {
+    content = <Loader />;
+  } else if (Response && Response.data && Response.data.length > 0) {
+    content = (
+      <div className="flex overflow-x-auto gap-4">
+        {Response.data.map((oil, index) => (
+          <OilCard
+            key={index}
+            name={oil.serviceAreaName}
+            company={oil.oilCompany}
+            disel={oil.diselPrice}
+            gasoline={oil.gasolinePrice}
+            lpg={oil.lpgPrice}
+            electric={oil.electric === '1'}
+            hydrogen={oil.hydrogen === '1'}
+          />
+        ))}
+      </div>
+    );
+  } else {
+    content = <p>이용 가능한 주유소가 없습니다.</p>;
+  }
 
   return (
     <section>
@@ -38,24 +64,7 @@ export default function ShowOilStation({
           더보기
         </p>
       </div>
-      <div className="flex overflow-x-auto gap-4">
-        {Response ? (
-          Response.data.map((oil, index) => (
-            <OilCard
-              key={index}
-              name={oil.serviceAreaName}
-              company={oil.oilCompany}
-              disel={oil.diselPrice}
-              gasoline={oil.gasolinePrice}
-              lpg={oil.lpgPrice}
-              electric={oil.electric === '1'}
-              hydrogen={oil.hydrogen === '1'}
-            />
-          ))
-        ) : (
-          <p>이용 가능한 주유소가 없습니다.</p>
-        )}
-      </div>
+      {content}
     </section>
   );
 }

@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 import { Pie } from 'react-chartjs-2';
 import {
@@ -9,27 +7,24 @@ import {
   Legend,
   ChartOptions,
 } from 'chart.js';
+import { Review } from '@/models/Review';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface DataItem {
-  name: string;
-  price: number;
-}
-
 interface PieChartProps {
-  data: DataItem[];
+  data: Review[];
 }
 
 export default function PieChart({ data }: PieChartProps) {
   // 같은 이름의 휴게소의 가격을 합치기 위한 로직
   const aggregatedData = data.reduce(
     (acc: Record<string, { price: number; count: number }>, item) => {
-      if (acc[item.name]) {
-        acc[item.name].price += item.price;
-        acc[item.name].count += 1;
+      const { svarCd, price } = item; // item 객체에서 svarCd와 price를 구조 분해 할당
+      if (acc[svarCd]) {
+        acc[svarCd].price += Number(price);
+        acc[svarCd].count += 1;
       } else {
-        acc[item.name] = { price: item.price, count: 1 };
+        acc[svarCd] = { price: Number(price), count: 1 };
       }
       return acc;
     },

@@ -8,7 +8,7 @@ export const certainRestModalStyles: ReactModal.Styles = {
   },
   content: {
     width: '100%',
-    height: '45%',
+    height: '50%',
     zIndex: '30',
     position: 'absolute',
     top: 'auto',

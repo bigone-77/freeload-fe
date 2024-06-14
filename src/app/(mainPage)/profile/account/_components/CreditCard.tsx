@@ -2,7 +2,7 @@ import { IoReceiptOutline, CiCreditCard1 } from '@/constants/Icons';
 
 interface ICreditCardProps {
   restNm: string;
-  price: number;
+  price: string;
   date: string;
   way: string;
 }

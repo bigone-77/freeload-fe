@@ -10,8 +10,8 @@ export const pathAlertModalStyles: ReactModal.Styles = {
     alignItems: 'center',
   },
   content: {
-    width: '80%',
-    height: '40%',
+    width: '70%',
+    height: '45%',
     zIndex: '150',
     position: 'static',
     transform: 'translate(-50%, -50%)',

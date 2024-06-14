@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 
 import { ReviewResponse } from '@/models/Review';
-import { getRestReviewData } from '@/lib/getRestReviewData';
+import { getRestReviewData } from '@/lib/rest/getRestReviewData';
 import Loader from '@/Common/Loader';
 import { boxVariants } from '@/constants/Framer';
 import { AnimatePresence, motion } from 'framer-motion';

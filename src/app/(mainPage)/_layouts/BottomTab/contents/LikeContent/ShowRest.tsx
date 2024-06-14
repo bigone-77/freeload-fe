@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
 import DetailRestInfo from '@/app/(mainPage)/select/[roadName]/_components/BottomModal/DetailRestInfo';
-import { getLikeRestData } from '@/lib/getLikeRestData';
+import { getLikeRestData } from '@/lib/user/getLikeRestData';
 import { RestResponse } from '@/models/Rest';
 import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
