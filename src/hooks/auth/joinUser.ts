@@ -10,13 +10,10 @@ export const joinUser = () => {
   }) => {
     if (data) {
       try {
-        const response = await axios.post('/api/user/join', data);
-        if ((response.data as any) === '추가입력 성공입니다') {
-          return true;
-        }
-        return false;
+        await axios.post('/api/user/join', data);
+        return true;
       } catch (err) {
-        throw new Error();
+        return false;
       }
     }
     return false;
