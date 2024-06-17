@@ -37,7 +37,7 @@ export default function ButtonGroup({ id, way }: IButtonGroupProps) {
 
       <label
         htmlFor="album"
-        className="flex items-center gap-1 cursor-pointer border p-2 rounded-md"
+        className="flex items-center gap-[2px] cursor-pointer border p-2 rounded-md"
       >
         <IoIosAlbums size={20} />
         <input

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { UpdateSession } from 'next-auth/react';
 
 import getYear from '@/utils/getYear';
@@ -7,9 +7,10 @@ import ImageUpload from './ImageUpload';
 
 interface IEditFormProps {
   updateHandler: UpdateSession;
+  setShowEdit: Dispatch<SetStateAction<boolean>>;
   image: string;
   name: string;
-  gender: 'MALE' | 'FEMALE';
+  gender: string;
   birthYear: number;
   email: string;
   phone: string;
@@ -17,6 +18,7 @@ interface IEditFormProps {
 
 export default function EditForm({
   updateHandler,
+  setShowEdit,
   image,
   name,
   gender,
@@ -24,10 +26,30 @@ export default function EditForm({
   email,
   phone,
 }: IEditFormProps) {
-  console.log(updateHandler);
-
-  // const [enteredName, setEnteredName] = useState(name);
+  const [enteredName, setEnteredName] = useState(name);
+  const [selectedGender, setSelectedGender] = useState(gender);
+  const [selectedBirthYear, setSelectedBirthYear] = useState(birthYear);
+  const [enteredFirstPhone, setEnteredFirstPhone] = useState(phone.slice(3, 7));
+  const [enteredSecondPhone, setEnteredSecondPhone] = useState(
+    phone.slice(7, 11),
+  );
   const [profileImg, setProfileImg] = useState(image);
+
+  const submitHandler = () => {
+    const formData = {
+      username: enteredName,
+      profile_image: profileImg,
+      birthYear: selectedBirthYear,
+      phoneNum: `010${enteredFirstPhone}${enteredSecondPhone}`,
+      gender: selectedGender,
+    };
+    console.log(formData);
+    updateHandler({
+      name: enteredName,
+      image: profileImg,
+    });
+    setShowEdit(false);
+  };
 
   const Years = getYear();
   return (
@@ -53,16 +75,16 @@ export default function EditForm({
         <input
           id="name"
           type="text"
-          value={name}
+          value={enteredName}
+          onChange={(e) => setEnteredName(e.target.value)}
           className="p-3 w-24 bg-gray-50 border-gray-300 border rounded-lg hover:opacity-80 transition-all outline-none"
         />
       </label>
       <div className="flex items-center gap-6 my-4">
         <p className="w-20 font-semibold">성별</p>
         <select
-          value={gender}
-          // value={selectedSex}
-          // onChange={(e) => setSelectedSex(e.target.value)}
+          value={selectedGender}
+          onChange={(e) => setSelectedGender(e.target.value as string)}
           className="w-24 pl-1 pr-0 py-[10px] bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none"
         >
           <option value={gender} disabled>
@@ -78,8 +100,8 @@ export default function EditForm({
       <div className="flex items-center gap-6 my-4">
         <p className="w-20 font-semibold">출생연도</p>
         <select
-          value={birthYear}
-          // onChange={(e) => setSelectedYear(e.target.value)}
+          value={selectedBirthYear}
+          onChange={(e) => setSelectedBirthYear(Number(e.target.value))}
           className="w-32 p-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 outline-none"
         >
           <option value="" disabled>
@@ -101,16 +123,18 @@ export default function EditForm({
           <input
             type="number"
             className="p-3 w-24 bg-gray-50 border-gray-300 border rounded-lg"
-            value={phone.slice(3, 7)}
+            value={enteredFirstPhone}
+            onChange={(e) => setEnteredFirstPhone(e.target.value)}
           />
           <input
             type="number"
             className="p-3 w-24 bg-gray-50 border-gray-300 border rounded-lg"
-            value={phone.slice(7, 11)}
+            value={enteredSecondPhone}
+            onChange={(e) => setEnteredSecondPhone(e.target.value)}
           />
         </div>
       </section>
-      <PrimaryButton onClick={() => {}}>정보 수정 완료</PrimaryButton>
+      <PrimaryButton onClick={submitHandler}>정보 수정 완료</PrimaryButton>
     </>
   );
 }

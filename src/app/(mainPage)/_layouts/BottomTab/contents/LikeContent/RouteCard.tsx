@@ -16,7 +16,7 @@ export default function RouteCard({
 
   return (
     <div
-      className="w-full p-4 flex items-center justify-between"
+      className="w-full p-4 flex items-center justify-between font-semibold"
       onClick={() =>
         router.push(
           `/search/${startAddr}/${endAddr}?originLatLng=${startLatLng}&destLatLng=${endLatLng}`,
@@ -30,7 +30,7 @@ export default function RouteCard({
           width={15}
           height={15}
         />
-        {startAddr}
+        <p>{startAddr}</p>
       </section>
       <FaArrowRightLong />
       <section className="flex items-center">
@@ -40,7 +40,7 @@ export default function RouteCard({
           width={15}
           height={15}
         />
-        {endAddr}
+        <p>{endAddr}</p>
       </section>
     </div>
   );

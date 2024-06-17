@@ -22,9 +22,7 @@ export default function ImageUpload({ onChange, value }: IImageUploadProps) {
       <img
         src={value}
         alt="profile"
-        width={60}
-        height={60}
-        className="rounded-full"
+        className="rounded-full w-[80px] h-[80px]"
       />
       <div>
         <div className="flex items-center gap-2">

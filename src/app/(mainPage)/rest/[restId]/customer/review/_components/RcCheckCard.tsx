@@ -121,6 +121,15 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
         />
       </section>
 
+      <section className="my-10 flex flex-col gap-3 w-full">
+        <p className="text-lg font-semibold mb-2">사진</p>
+        <Image
+          src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718635387/vmheihali7knbqxb1xxh.png"
+          alt="upload"
+          className="w-32 h-32 rounded-md"
+        />
+      </section>
+
       <PrimaryButton
         onClick={() => mutation.mutate(formData)}
         classProps="mt-6"

@@ -73,6 +73,9 @@ export const {
         // Session 정보 업데이트하기
         token.name = session.name;
       }
+      if (trigger === 'update' && session?.image) {
+        token.picture = session.image;
+      }
       return token;
     },
     session: async ({ session }) => session,
