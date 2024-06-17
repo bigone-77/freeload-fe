@@ -19,12 +19,12 @@ export default function PieChart({ data }: PieChartProps) {
   // 같은 이름의 휴게소의 가격을 합치기 위한 로직
   const aggregatedData = data.reduce(
     (acc: Record<string, { price: number; count: number }>, item) => {
-      const { svarCd, price } = item; // item 객체에서 svarCd와 price를 구조 분해 할당
-      if (acc[svarCd]) {
-        acc[svarCd].price += Number(price);
-        acc[svarCd].count += 1;
+      const { restNm, price } = item; // item 객체에서 restNm와 price를 구조 분해 할당
+      if (acc[restNm!]) {
+        acc[restNm!].price += Number(price);
+        acc[restNm!].count += 1;
       } else {
-        acc[svarCd] = { price: Number(price), count: 1 };
+        acc[restNm!] = { price: Number(price), count: 1 };
       }
       return acc;
     },

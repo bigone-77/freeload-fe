@@ -8,7 +8,7 @@ import Category from './Category';
 
 export default function Categories() {
   return (
-    <div className="flex flex-col justify-center gap-6 px-8 mt-6">
+    <div className="flex flex-col justify-center gap-6 px-16 mt-6">
       <Category iconName={ImProfile} name="내 정보 확인" url="edit" />
       <Category iconName={MdFavoriteBorder} name="즐겨찾는 휴게소" />
       <Category

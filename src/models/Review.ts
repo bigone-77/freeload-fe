@@ -7,6 +7,7 @@ export type Review = {
   storeName: string;
   profile_image: string;
   price: string;
+  restNm?: string;
   way: 'receipt' | 'credit';
 };
 

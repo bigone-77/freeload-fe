@@ -1,18 +1,15 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+
+import { IoChevronBack } from '@/constants/Icons';
 
 export default function Header() {
-  const currentUser = useSession().data?.user;
-  const imageUrl = currentUser?.image?.replace('http:', 'https:');
+  const router = useRouter();
   return (
-    <header className="flex flex-col items-center gap-1">
-      <img
-        src={imageUrl}
-        alt="profile"
-        className="w-20 h-20 rounded-full mb-4"
-      />
-      <p className="font-semibold text-lg">{currentUser?.name}님</p>
+    <header className="flex items-center gap-2" onClick={() => router.back()}>
+      <IoChevronBack size={35} />
+      <h1 className="font-semibold text-2xl">돌아가기</h1>
     </header>
   );
 }

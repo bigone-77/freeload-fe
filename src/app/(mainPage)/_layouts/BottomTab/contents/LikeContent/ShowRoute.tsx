@@ -29,8 +29,6 @@ export default function ShowRoute({ email }: IShowRouteProps) {
     return <div>즐겨찾기한 경로가 없어요</div>;
   }
 
-  console.log(LikeRouteData);
-
   return (
     <div className="mt-8">
       {LikeRouteData.data.map((d) => (

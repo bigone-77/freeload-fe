@@ -7,7 +7,7 @@ import { Fade } from 'react-awesome-reveal';
 import { ReviewResponse } from '@/models/Review';
 import { getUserReviewData } from '@/lib/user/getUserReviewData';
 import Loader from '@/Common/Loader';
-import Header from './_components/Header';
+import { getTimeHours } from '@/utils/getTime';
 import PieChart from './_components/PieChart';
 import CreditCard from './_components/CreditCard';
 
@@ -43,28 +43,26 @@ export default function AccountPage() {
         <section className="my-10">
           <PieChart data={ReviewData.data} />
         </section>
-
-        <section className="flex flex-col h-full p-4 border rounded-md gap-4">
-          <div className="overflow-auto h-full">
-            {ReviewData.data.map((d, index) => (
+        <div className="flex flex-col h-full p-2 border rounded-md gap-10 overflow-auto">
+          {ReviewData.data
+            .sort(
+              (a, b) =>
+                getTimeHours(b.visitedDate) - getTimeHours(a.visitedDate),
+            )
+            .map((d, index) => (
               <CreditCard
                 key={index}
-                restNm={d.svarCd}
+                restNm={d.restNm!}
+                storeNm={d.storeName}
                 price={d.price}
                 date={d.visitedDate}
                 way={d.way}
               />
             ))}
-          </div>
-        </section>
+        </div>
       </>
     );
   }
 
-  return (
-    <>
-      <Header />
-      <main className="py-10 px-2">{content}</main>
-    </>
-  );
+  return <main className="py-10 px-5">{content}</main>;
 }
