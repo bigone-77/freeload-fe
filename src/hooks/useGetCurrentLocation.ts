@@ -4,9 +4,31 @@ import { useDispatch } from 'react-redux';
 
 import { setCurrentUserLocation } from '@/shared/store/slices/getCurrentLocationSlice';
 import { setMapCenterLocation } from '@/shared/store/slices/getMapCenterSlice';
+import { getDifferDistance } from '@/utils/getDifferDistance';
+import { requestPermission } from './push/requestPermission';
+import { useSendPush } from './push/useSendPush';
 
-export const useGetCurrentLocation = () => {
+export const useGetCurrentLocation = (restData: any[]) => {
   const dispatch = useDispatch();
+  const sendPush = useSendPush();
+
+  const pushHandler = async (rest: any) => {
+    console.log(`pushHandler called for ${rest.restName}`);
+    const isToken = localStorage.getItem('fcmToken');
+    if (!isToken) {
+      window.alert('토큰이 없어요');
+      requestPermission();
+    } else {
+      sendPush({
+        token: isToken,
+        data: {
+          title: `🚙${rest.restName}이 근처에 있어요!`,
+          body: `잠깐 ${rest.restName}에서 쉬다 가시는건 어때요?`,
+          click_action: `/rest/${rest.restId}`,
+        },
+      });
+    }
+  };
 
   useEffect(() => {
     const handlePermissionDenied = () => {
@@ -54,6 +76,25 @@ export const useGetCurrentLocation = () => {
               latitude: pos.coords.latitude,
               longitude: pos.coords.longitude,
             };
+
+            restData.forEach((rest) => {
+              rest.diffDist = getDifferDistance(
+                currentPos.latitude,
+                currentPos.longitude,
+                Number(rest.latitude),
+                Number(rest.longitude),
+              );
+            });
+            restData.map(async (rest) => {
+              if (
+                rest.latitude &&
+                rest.longitude &&
+                rest.diffDist.endsWith('m') &&
+                !rest.diffDist.endsWith('km')
+              ) {
+                await pushHandler(rest);
+              }
+            });
 
             dispatch(
               setCurrentUserLocation({
