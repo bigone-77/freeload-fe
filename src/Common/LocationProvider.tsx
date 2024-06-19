@@ -9,6 +9,7 @@ import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
 import { useSendPush } from '@/hooks/push/useSendPush';
+import { useEffect } from 'react';
 
 interface ILocationProviderProps {
   children: React.ReactNode;
@@ -24,7 +25,7 @@ export default function LocationProvider({
 
   const sendPush = useSendPush();
 
-  const pushHandler = async () => {
+  const pushHandler = async (rest: any) => {
     // TODO: 일단 로컬스토리지에 fcmToken이 있는지 확인하고,
     const isToken = localStorage.getItem('fcmToken');
     // TODO: 만약에 토큰이 없다면 권한 재요청하기
@@ -36,8 +37,8 @@ export default function LocationProvider({
       sendPush({
         token: isToken,
         data: {
-          title: '테스트',
-          body: '테스트용 바디입니다',
+          title: `🚙${rest.restName}이 근처에 있어요!`,
+          body: `잠깐 ${rest.restName}에서 쉬다 가시는건 어때요?`,
           click_action: '/',
         },
       });
@@ -55,15 +56,20 @@ export default function LocationProvider({
       Number(rest.latitude),
       Number(rest.longitude),
     );
-    if (
-      rest.latitude &&
-      rest.longitude &&
-      rest.diffDist.endsWith('m') &&
-      !rest.diffDist.endsWith('km')
-    ) {
-      pushHandler();
-    }
   });
+
+  useEffect(() => {
+    restData.forEach((rest) => {
+      if (
+        rest.latitude &&
+        rest.longitude &&
+        rest.diffDist.endsWith('m') &&
+        !rest.diffDist.endsWith('km')
+      ) {
+        pushHandler(rest);
+      }
+    });
+  }, []);
 
   console.log(restData);
 
