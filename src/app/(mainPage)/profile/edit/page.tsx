@@ -31,7 +31,7 @@ export default function Page() {
   ) {
     const imageUrl = session.user?.image?.replace('http:', 'https:');
     return (
-      <main className="mx-6 p-6 mt-16 mb-24 border rounded-lg shadow-lg">
+      <main className="mx-6 px-5 py-6 mt-16 mb-24 border rounded-lg shadow-lg">
         {!showEdit ? (
           <>
             <p className="text-2xl font-semibold">기본정보</p>
@@ -73,12 +73,6 @@ export default function Page() {
             phone={UserProfileResponse.data[0].phoneNum}
           />
         )}
-        {/* <p>Signed in as {session.user?.name}</p> */}
-
-        {/* Update the value by sending it to the backend. */}
-        {/* <button type="button" onClick={() => update({ name: '신태일' })}>
-          Edit name
-        </button> */}
       </main>
     );
   }

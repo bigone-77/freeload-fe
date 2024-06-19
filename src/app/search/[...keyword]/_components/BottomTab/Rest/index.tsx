@@ -19,7 +19,7 @@ export default function ShowRest({
   showAllRestHandler,
 }: ShowRestProps) {
   const { data: RestData, isLoading } = useQuery<RestResponse>({
-    queryKey: ['rest', roadName.replace('고속도로', '선'), direction],
+    queryKey: ['rest', roadName?.replace('고속도로', '선'), direction],
     queryFn: getRoadRestData,
   });
 

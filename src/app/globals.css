@@ -32,6 +32,47 @@ select {
   /* 다른 스타일을 필요에 따라 추가 */
 }
 
+.swiper-pagination {
+  text-align: center !important;
+  padding-left: 80px;
+}
+
+.swiper-pagination-bullet {
+  background: white !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ec9d26 !important;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-button-next {
+  background: url('https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717582576/next-button.svg')
+    no-repeat;
+  width: 44px !important;
+  height: 44px !important;
+  right: 0px !important;
+  background-size: cover !important;
+  background-position: center !important;
+  cursor: pointer !important;
+}
+
+.swiper-button-prev {
+  background: url('https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717582576/prev-button.svg')
+    no-repeat;
+  width: 44px !important;
+  height: 44px !important;
+  left: 0px !important;
+  background-size: cover !important;
+  background-position: top !important;
+  cursor: pointer !important;
+}
+
 @keyframes slideIn {
   from {
     transform: translateY(100%);

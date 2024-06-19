@@ -1,10 +1,10 @@
-export async function postReview(formData: any) {
-  const res = await fetch('/api/rest/customer/postReview', {
-    method: 'POST',
+export async function EditProfile(data: any) {
+  const res = await fetch('/api/user/mypage/profile/edit', {
+    method: 'PUT',
     credentials: 'include',
-    body: formData,
+    body: JSON.stringify(data),
     next: {
-      tags: ['rest', 'review'],
+      tags: ['profile'],
     },
     cache: 'no-store',
   });

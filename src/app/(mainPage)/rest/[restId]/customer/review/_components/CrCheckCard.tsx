@@ -16,21 +16,33 @@ interface ICrCheckCardProps {
 
 export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   const currentUser = useSession();
-  const [content, setContent] = useState('');
   const params = useSearchParams();
   const restNm = params.get('restNm');
   const creditData = useSelector((state: RootState) => state.credit);
+  const [content, setContent] = useState('');
+  const [reviewFile, setReviewFile] = useState<File | null>(null);
+  const [reviewImage, setReviewImage] = useState<string | ArrayBuffer | null>(
+    '',
+  );
   const router = useRouter();
 
-  const formData = {
-    email: currentUser.data?.user?.email,
-    profile_image: currentUser.data?.user?.image?.replace('http', 'https'),
-    svarCd: restId,
-    storeName: creditData.storeName,
-    visitedDate: creditData.creditDate,
-    price: creditData.price,
-    content,
-    way,
+  const createFormData = () => {
+    const formData = new FormData();
+
+    const dto = {
+      email: currentUser.data?.user?.email,
+      profile_image: currentUser.data?.user?.image,
+      svarCd: restId,
+      storeName: creditData.storeName,
+      visitedDate: creditData.creditDate,
+      price: creditData.price,
+      content,
+      way,
+    };
+    formData.append('dto', JSON.stringify(dto));
+    formData.append('file', reviewFile || new Blob());
+
+    return formData;
   };
 
   const mutation = useMutation({
@@ -43,8 +55,25 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
     },
   });
 
+  const selectedImageHandler = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setReviewFile(file);
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64Image = reader.result;
+      setReviewImage(base64Image);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center pb-28">
       <section className="flex items-start gap-4 my-4 ">
         <Image
           src={creditData.creditImage!}
@@ -80,6 +109,24 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
           </p>
           <p>은 어떠셨나요?</p>
         </span>
+        <label htmlFor="file" style={{ cursor: 'pointer' }}>
+          <input
+            type="file"
+            id="file"
+            accept="image/*"
+            onChange={selectedImageHandler}
+            style={{ display: 'none' }}
+          />
+          <img
+            src={
+              typeof reviewImage === 'string' && reviewImage
+                ? reviewImage
+                : 'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718635387/vmheihali7knbqxb1xxh.png'
+            }
+            alt="upload"
+            className="w-20 h-20 rounded-md"
+          />
+        </label>
         <textarea
           className="p-4 rounded-md outline-none"
           placeholder="여기에 입력하세요"
@@ -88,17 +135,8 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
         />
       </section>
 
-      <section className="my-10 flex flex-col gap-3 w-full">
-        <p className="text-lg font-semibold mb-2">사진</p>
-        <Image
-          src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718635387/vmheihali7knbqxb1xxh.png"
-          alt="upload"
-          className="w-32 h-32 rounded-md"
-        />
-      </section>
-
       <PrimaryButton
-        onClick={() => mutation.mutate(formData)}
+        onClick={() => mutation.mutate(createFormData())}
         classProps="mt-6"
         short
       >

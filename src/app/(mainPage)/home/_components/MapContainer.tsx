@@ -62,7 +62,7 @@ export default function MapContainer({
       >
         <MapMarker
           image={{
-            src: 'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1715234862/user-addr.svg',
+            src: 'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718688750/baznphyewhsu4qu4waqp.png',
             size: {
               width: 30,
               height: 30,

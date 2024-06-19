@@ -22,7 +22,7 @@ export default function ShowOilStation({
   const { data: Response, isLoading } = useQuery<OilResponse>({
     queryKey: [
       'oil',
-      getRouteCode(roadName.replace('고속도로', '선')),
+      getRouteCode(roadName?.replace('고속도로', '선')),
       direction,
     ],
     queryFn: getRoadOilData,

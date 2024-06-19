@@ -3,6 +3,8 @@ import { UpdateSession } from 'next-auth/react';
 
 import getYear from '@/utils/getYear';
 import PrimaryButton from '@/Common/PrimaryButton';
+import { useMutation } from '@tanstack/react-query';
+import { EditProfile } from '@/lib/user/EditProfile';
 import ImageUpload from './ImageUpload';
 
 interface IEditFormProps {
@@ -35,21 +37,28 @@ export default function EditForm({
   );
   const [profileImg, setProfileImg] = useState(image);
 
-  const submitHandler = () => {
-    const formData = {
-      username: enteredName,
-      profile_image: profileImg,
-      birthYear: selectedBirthYear,
-      phoneNum: `010${enteredFirstPhone}${enteredSecondPhone}`,
-      gender: selectedGender,
-    };
-    console.log(formData);
-    updateHandler({
-      name: enteredName,
-      image: profileImg,
-    });
-    setShowEdit(false);
+  const formData = {
+    email,
+    username: enteredName,
+    profile_image: profileImg,
+    birthYear: selectedBirthYear,
+    phoneNum: `010${enteredFirstPhone}${enteredSecondPhone}`,
+    gender: selectedGender,
   };
+
+  const editMutation = useMutation({
+    mutationFn: EditProfile,
+    onSuccess: () => {
+      updateHandler({
+        name: enteredName,
+        image: profileImg,
+      });
+      setShowEdit(false);
+    },
+    onError: (error) => {
+      console.error('Mutation failed', error);
+    },
+  });
 
   const Years = getYear();
   return (
@@ -134,7 +143,9 @@ export default function EditForm({
           />
         </div>
       </section>
-      <PrimaryButton onClick={submitHandler}>정보 수정 완료</PrimaryButton>
+      <PrimaryButton onClick={() => editMutation.mutate(formData)}>
+        정보 수정 완료
+      </PrimaryButton>
     </>
   );
 }

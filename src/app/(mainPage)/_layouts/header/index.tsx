@@ -20,7 +20,7 @@ export default function HomeHeader() {
         <section className="flex bg-white w-[80%] h-12 rounded-lg shadow-lg items-center justify-start gap-2 pl-4">
           <RxHamburgerMenu size={25} onClick={() => cycleOpen()} />
           <h3
-            className="text-text200 hover:opacity-50 transform-all text-lg font-semibold"
+            className="w-full text-text200 hover:opacity-50 transform-all text-lg font-semibold"
             onClick={() => router.push('/search')}
           >
             어디로 갈까요?

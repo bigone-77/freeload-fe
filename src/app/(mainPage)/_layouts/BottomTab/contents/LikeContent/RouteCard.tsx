@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { FaCar } from 'react-icons/fa';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
 import { Route } from '@/models/Route';
@@ -16,31 +16,22 @@ export default function RouteCard({
 
   return (
     <div
-      className="w-full p-4 flex items-center justify-between font-semibold"
+      className="w-full p-4 flex items-center font-semibold"
       onClick={() =>
         router.push(
           `/search/${startAddr}/${endAddr}?originLatLng=${startLatLng}&destLatLng=${endLatLng}`,
         )
       }
     >
-      <section className="flex items-center">
-        <Image
-          src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/start-area.svg"
-          alt="start"
-          width={15}
-          height={15}
-        />
-        <p>{startAddr}</p>
-      </section>
-      <FaArrowRightLong />
-      <section className="flex items-center">
-        <Image
-          src="https://res.cloudinary.com/dbcvqhjmf/image/upload/v1714471493/end-area.svg"
-          alt="end"
-          width={15}
-          height={15}
-        />
-        <p>{endAddr}</p>
+      <span className="w-12 h-12 rounded-full bg-text200 flex items-center justify-center mr-4">
+        <FaCar size={30} color="#333333" />
+      </span>
+      <section className="inline-block">
+        <div className="flex items-center gap-3">
+          <p>{startAddr}</p>
+          <FaArrowRightLong color="#CCCCCC" />
+        </div>
+        <p className="w-full">{endAddr}</p>
       </section>
     </div>
   );

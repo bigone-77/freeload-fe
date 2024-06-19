@@ -3,9 +3,9 @@
 import { useState } from 'react';
 
 import { IoReceiptOutline, CiCreditCard1 } from '@/constants/Icons';
-import ReviewSlider from './_components/ReviewSlider';
 import ReceiptAlertModal from './_components/ReceiptAlertModal';
 import CreditAlertModal from './_components/CreditAlertModal';
+import ReviewCarousel from './_components/ReviewCarousel';
 
 export default function Page({ params }: { params: { restId: string } }) {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
@@ -38,8 +38,8 @@ export default function Page({ params }: { params: { restId: string } }) {
           결제내역
         </div>
       </section>
-      <section className="mt-20">
-        <ReviewSlider restId={params.restId} />
+      <section className="mt-20 h-96">
+        <ReviewCarousel restId={params.restId} />
       </section>
       {showReceiptModal && (
         <ReceiptAlertModal

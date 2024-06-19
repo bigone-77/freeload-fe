@@ -58,7 +58,8 @@
     "react-spinners": "0.13.8",
     "react-tooltip": "5.26.4",
     "react-uuid": "2.0.0",
-    "redux-persist": "6.0.0"
+    "redux-persist": "6.0.0",
+    "swiper": "11.1.4"
   },
   "devDependencies": {
     "@ducanh2912/next-pwa": "10.2.7",

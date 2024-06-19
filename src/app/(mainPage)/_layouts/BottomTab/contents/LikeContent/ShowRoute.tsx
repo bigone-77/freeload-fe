@@ -31,6 +31,9 @@ export default function ShowRoute({ email }: IShowRouteProps) {
 
   return (
     <div className="mt-8">
+      <p className="font-semibold text-xl">
+        내 경로 {LikeRouteData.data.length}
+      </p>
       {LikeRouteData.data.map((d) => (
         <RouteCard
           key={d.route_id}

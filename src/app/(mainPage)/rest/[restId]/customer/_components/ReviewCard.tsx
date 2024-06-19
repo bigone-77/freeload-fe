@@ -1,5 +1,3 @@
-import { motion } from 'framer-motion';
-
 interface IReviewCardProps {
   email: string;
   imgUrl: string;
@@ -8,6 +6,7 @@ interface IReviewCardProps {
   price: string;
   way: 'receipt' | 'credit';
   contents: string;
+  reviewImage?: string;
 }
 
 export default function ReviewCard({
@@ -18,11 +17,12 @@ export default function ReviewCard({
   price,
   way,
   contents,
+  reviewImage,
 }: IReviewCardProps) {
   return (
-    <motion.div
+    <div
       key={email}
-      className="p-6 border border-gray-300 rounded-lg w-full"
+      className="p-6 border border-gray-300 rounded-lg w-full h-60"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
@@ -33,13 +33,20 @@ export default function ReviewCard({
           {way === 'receipt' ? '영수증' : '결제내역'} 인증
         </p>
       </div>
-      <div className="mt-2 mb-10 flex flex-col gap-1 text-sm text-text500">
+      <div className="mt-2 mb-4 flex flex-col gap-1 text-sm text-text500">
         <p>{storeNm}</p>
         <p>
           {date} 방문함, {price}원 결제
         </p>
       </div>
+      {reviewImage !== 'null' && (
+        <img
+          src={reviewImage}
+          alt="review"
+          className="object-cover w-12 h-12 rounded-md"
+        />
+      )}
       <p className="text-lg text-gray-600">{contents}</p>
-    </motion.div>
+    </div>
   );
 }
