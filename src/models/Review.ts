@@ -9,7 +9,7 @@ export type Review = {
   price: string;
   restNm?: string;
   way: 'receipt' | 'credit';
-  filePath?: string;
+  filePath: string;
 };
 
 export type ReviewResponse = {

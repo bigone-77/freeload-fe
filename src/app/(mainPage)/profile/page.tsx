@@ -8,6 +8,7 @@ import SubMenu from './_components/SubMenu';
 
 export default function ProfilePage() {
   const currentUser = useSession().data?.user;
+  const imageUrl = currentUser?.image?.replace('http:', 'https:');
 
   return (
     <div className="flex flex-col gap-8">
@@ -15,13 +16,13 @@ export default function ProfilePage() {
         <>
           <header className="flex flex-col items-center gap-1">
             <img
-              src={currentUser.image!}
+              src={imageUrl}
               alt="profile"
               className="w-20 h-20 rounded-full mb-4"
             />
             <p className="font-semibold text-lg">{currentUser?.name}님</p>
           </header>
-          <SubMenu />
+          <SubMenu userEmail={currentUser.email!} />
           <Categories />
         </>
       ) : (

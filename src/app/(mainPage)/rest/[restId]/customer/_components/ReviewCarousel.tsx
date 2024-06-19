@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { ReviewResponse } from '@/models/Review';
 import { getRestReviewData } from '@/lib/rest/getRestReviewData';
 import Loader from '@/Common/Loader';
+import { changeDomain } from '@/utils/changeDomain';
 import ReviewCard from './ReviewCard';
 
 interface IReviewCarouselProps {
@@ -36,13 +37,13 @@ export default function ReviewCarousel({ restId }: IReviewCarouselProps) {
             <div className="flex justify-center items-center w-full h-full">
               <ReviewCard
                 email={review.email}
-                imgUrl={review.profile_image.replace('http:', 'https:')}
+                imgUrl={changeDomain(review.profile_image)}
                 date={review.visitedDate}
                 storeNm={review.storeName}
                 price={review.price}
                 way={review.way}
                 contents={review.content}
-                reviewImage={review.filePath}
+                reviewImage={changeDomain(review.filePath)}
               />
             </div>
           </SwiperSlide>

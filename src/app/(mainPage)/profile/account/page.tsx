@@ -64,5 +64,5 @@ export default function AccountPage() {
     );
   }
 
-  return <main className="py-10 px-5">{content}</main>;
+  return <main className="pt-10 pb-24 px-5">{content}</main>;
 }

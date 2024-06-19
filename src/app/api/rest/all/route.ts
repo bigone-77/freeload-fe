@@ -14,7 +14,6 @@ export async function GET() {
       { status: response.status },
     );
   } catch (error) {
-    console.warn('Error sending SMS:', error);
     return NextResponse.json(
       { message: 'Failed to send SMS', error },
       { status: 500 },

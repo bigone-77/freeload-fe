@@ -39,7 +39,7 @@ export default function ButtonGroup({ id, way }: IButtonGroupProps) {
         htmlFor="album"
         className="flex items-center gap-[2px] cursor-pointer border p-2 rounded-md"
       >
-        <IoIosAlbums size={20} />
+        <IoIosAlbums size={18} />
         <input
           type="file"
           id="album"

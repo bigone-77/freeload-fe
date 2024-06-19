@@ -7,6 +7,7 @@ import { MSWComponent } from '@/Common/MSWComponent';
 import RQProvider from '@/Common/RQProvider';
 import AuthSession from '@/Common/AuthSession';
 import ReduxProvider from '@/Common/ReduxProvider';
+import { getRestData } from '@/lib/rest/all/getRestData';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 
@@ -29,13 +30,16 @@ export const viewport: Viewport = {
   themeColor: '#FFFFFF',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   modal,
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
+  const AllRestData = await getRestData();
+  console.log(AllRestData);
+
   return (
     <html lang="en">
       <body className={notoSansKr.className}>

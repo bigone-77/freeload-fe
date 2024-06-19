@@ -31,7 +31,7 @@ export default function RouteCard({
           <p>{startAddr}</p>
           <FaArrowRightLong color="#CCCCCC" />
         </div>
-        <p className="w-full">{endAddr}</p>
+        <p className="w-full mt-3">{endAddr}</p>
       </section>
     </div>
   );

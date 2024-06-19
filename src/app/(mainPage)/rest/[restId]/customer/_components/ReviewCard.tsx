@@ -1,3 +1,5 @@
+import { truncate } from '@/utils/getTruncate';
+
 interface IReviewCardProps {
   email: string;
   imgUrl: string;
@@ -46,7 +48,7 @@ export default function ReviewCard({
           className="object-cover w-12 h-12 rounded-md"
         />
       )}
-      <p className="text-lg text-gray-600">{contents}</p>
+      <p className="text-lg text-gray-600">{truncate(contents, 35)}</p>
     </div>
   );
 }
