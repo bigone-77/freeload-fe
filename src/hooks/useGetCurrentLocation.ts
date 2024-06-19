@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setCurrentUserLocation } from '@/shared/store/slices/getCurrentLocationSlice';
@@ -11,7 +11,7 @@ import { useSendPush } from './push/useSendPush';
 export const useGetCurrentLocation = (restData: any[]) => {
   const dispatch = useDispatch();
   const sendPush = useSendPush();
-  const notifiedRestaurants = new Set();
+  const notifiedRestaurants = useRef(new Set());
 
   const pushHandler = async (rest: any) => {
     console.log(`pushHandler called for ${rest.restName}`);
@@ -28,7 +28,7 @@ export const useGetCurrentLocation = (restData: any[]) => {
           click_action: `/rest/${rest.restId}`,
         },
       });
-      notifiedRestaurants.add(rest.restId); // Add restaurant ID to notified set
+      notifiedRestaurants.current.add(rest.restId); // Add restaurant ID to notified set
     }
   };
 
@@ -93,7 +93,7 @@ export const useGetCurrentLocation = (restData: any[]) => {
                 rest.longitude &&
                 rest.diffDist.endsWith('m') &&
                 !rest.diffDist.endsWith('km') &&
-                !notifiedRestaurants.has(rest.restId) // Check if notification has already been sent
+                !notifiedRestaurants.current.has(rest.restId)
               ) {
                 await pushHandler(rest);
               }
@@ -126,5 +126,10 @@ export const useGetCurrentLocation = (restData: any[]) => {
     };
 
     checkPermissionAndWatchPosition();
-  }, [dispatch]);
+  }, [dispatch, restData]);
+
+  // Reset notifiedRestaurants when restData changes (optional)
+  useEffect(() => {
+    notifiedRestaurants.current.clear();
+  }, [restData]);
 };
