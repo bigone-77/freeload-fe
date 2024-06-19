@@ -11,6 +11,7 @@ import { useSendPush } from './push/useSendPush';
 export const useGetCurrentLocation = (restData: any[]) => {
   const dispatch = useDispatch();
   const sendPush = useSendPush();
+  const notifiedRestaurants = new Set();
 
   const pushHandler = async (rest: any) => {
     console.log(`pushHandler called for ${rest.restName}`);
@@ -27,6 +28,7 @@ export const useGetCurrentLocation = (restData: any[]) => {
           click_action: `/rest/${rest.restId}`,
         },
       });
+      notifiedRestaurants.add(rest.restId); // Add restaurant ID to notified set
     }
   };
 
@@ -85,12 +87,13 @@ export const useGetCurrentLocation = (restData: any[]) => {
                 Number(rest.longitude),
               );
             });
-            restData.map(async (rest) => {
+            restData.forEach(async (rest) => {
               if (
                 rest.latitude &&
                 rest.longitude &&
                 rest.diffDist.endsWith('m') &&
-                !rest.diffDist.endsWith('km')
+                !rest.diffDist.endsWith('km') &&
+                !notifiedRestaurants.has(rest.restId) // Check if notification has already been sent
               ) {
                 await pushHandler(rest);
               }
