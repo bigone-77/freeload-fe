@@ -3,7 +3,7 @@
 'use client';
 
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { requestPermission } from '@/hooks/push/requestPermission';
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
@@ -25,6 +25,8 @@ export default function LocationProvider({
 
   const sendPush = useSendPush();
 
+  const [notifiedRests, setNotifiedRests] = useState(new Set<string>());
+
   const pushHandler = async (rest: any) => {
     console.log(`pushHandler called for ${rest.restName}`);
     const isToken = localStorage.getItem('fcmToken');
@@ -35,7 +37,7 @@ export default function LocationProvider({
       sendPush({
         token: isToken,
         data: {
-          title: `🚙${rest.restName}가 근처에 있어요!`,
+          title: `🚙${rest.restName}이 근처에 있어요!`,
           body: `잠깐 ${rest.restName}에서 쉬다 가시는건 어때요?`,
           click_action: `/rest/${rest.restId}`,
         },
@@ -64,16 +66,18 @@ export default function LocationProvider({
             rest.latitude &&
             rest.longitude &&
             rest.diffDist.endsWith('m') &&
-            !rest.diffDist.endsWith('km')
+            !rest.diffDist.endsWith('km') &&
+            !notifiedRests.has(rest.restName) // 알림이 이미 전송된 경우 제외
           ) {
             await pushHandler(rest);
+            setNotifiedRests((prev) => new Set(prev).add(rest.restName));
           }
         }),
       );
     };
 
     handlePushNotifications();
-  }, [restData]);
+  }, [currentLocation, restData, notifiedRests]);
 
   console.log(restData);
 
