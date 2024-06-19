@@ -1,5 +1,5 @@
 export async function getRestData() {
-  const res = await fetch(`${window?.location?.origin}/api/rest/all`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_PROD_URL}/api/rest/all`, {
     next: {
       tags: ['all', 'rests'],
     },
