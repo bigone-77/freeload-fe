@@ -1,5 +1,5 @@
-import Link from 'next/link';
+import Onboarding from './_components/onboarding';
 
-export default async function SplashScreen() {
-  return <Link href="/home">추후 스플래시 스크린</Link>;
+export default function Page() {
+  return <Onboarding />;
 }

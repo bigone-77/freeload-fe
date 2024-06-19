@@ -33,17 +33,23 @@ select {
 }
 
 .swiper-pagination {
+  margin-top: 30% !important;
   text-align: center !important;
-  padding-left: 80px;
 }
 
 .swiper-pagination-bullet {
-  background: white !important;
+  background-color: rgba(217, 217, 217, 1) !important;
+  width: 15px !important;
+  height: 6px !important;
   opacity: 1 !important;
+  border-radius: 8px !important;
 }
 
 .swiper-pagination-bullet-active {
-  background-color: #ec9d26 !important;
+  background-color: rgba(39, 113, 255, 1) !important;
+  width: 61px !important;
+  height: 6px !important;
+  border-radius: 8px !important;
 }
 
 .swiper-button-next::after,
