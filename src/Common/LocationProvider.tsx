@@ -3,13 +3,13 @@
 'use client';
 
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import { requestPermission } from '@/hooks/push/requestPermission';
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { RootState } from '@/shared/store';
 import { getDifferDistance } from '@/utils/getDifferDistance';
 import { useSendPush } from '@/hooks/push/useSendPush';
-import { useEffect } from 'react';
 
 interface ILocationProviderProps {
   children: React.ReactNode;
@@ -26,14 +26,12 @@ export default function LocationProvider({
   const sendPush = useSendPush();
 
   const pushHandler = async (rest: any) => {
-    // TODO: 일단 로컬스토리지에 fcmToken이 있는지 확인하고,
+    console.log(`pushHandler called for ${rest.restName}`);
     const isToken = localStorage.getItem('fcmToken');
-    // TODO: 만약에 토큰이 없다면 권한 재요청하기
     if (!isToken) {
       window.alert('토큰이 없어요');
-      requestPermission();
+      await requestPermission();
     } else {
-      // TODO: 토큰이 있다면 sendPush
       sendPush({
         token: isToken,
         data: {
@@ -59,17 +57,23 @@ export default function LocationProvider({
   });
 
   useEffect(() => {
-    restData.forEach((rest) => {
-      if (
-        rest.latitude &&
-        rest.longitude &&
-        rest.diffDist.endsWith('m') &&
-        !rest.diffDist.endsWith('km')
-      ) {
-        pushHandler(rest);
-      }
-    });
-  }, []);
+    const handlePushNotifications = async () => {
+      await Promise.all(
+        restData.map(async (rest) => {
+          if (
+            rest.latitude &&
+            rest.longitude &&
+            rest.diffDist.endsWith('m') &&
+            !rest.diffDist.endsWith('km')
+          ) {
+            await pushHandler(rest);
+          }
+        }),
+      );
+    };
+
+    handlePushNotifications();
+  }, [currentLocation, restData]);
 
   console.log(restData);
 
