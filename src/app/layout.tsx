@@ -8,6 +8,7 @@ import RQProvider from '@/Common/RQProvider';
 import AuthSession from '@/Common/AuthSession';
 import ReduxProvider from '@/Common/ReduxProvider';
 import { getRestData } from '@/lib/rest/all/getRestData';
+import LocationProvider from '@/Common/LocationProvider';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 
@@ -38,7 +39,6 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }) {
   const AllRestData = await getRestData();
-  console.log(AllRestData);
 
   return (
     <html lang="en">
@@ -47,8 +47,10 @@ export default async function RootLayout({
         <AuthSession>
           <RQProvider>
             <ReduxProvider>
-              {children}
-              {modal}
+              <LocationProvider restData={AllRestData.data}>
+                {children}
+                {modal}
+              </LocationProvider>
             </ReduxProvider>
           </RQProvider>
         </AuthSession>
