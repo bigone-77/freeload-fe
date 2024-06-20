@@ -1,15 +1,14 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { A11y, Pagination, Scrollbar } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import PrimaryButton from '@/Common/PrimaryButton';
-import { useRouter } from 'next/navigation';
 
 export default function Onboarding() {
-  const router = useRouter();
   const OnboardingImage = [
     {
       id: 1,
@@ -60,16 +59,16 @@ export default function Onboarding() {
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788712/fifth-phone.png',
     },
   ];
+  const router = useRouter();
 
   return (
     <Swiper
       modules={[Pagination, Scrollbar, A11y]}
-      loop
       pagination={{ clickable: true }}
     >
       {OnboardingImage.map((d) => (
-        <SwiperSlide key={d.id} className="overflow-hidden">
-          <div className="flex flex-col items-center justify-center gap-4 mt-10 text-center">
+        <SwiperSlide className="h-full" key={d.id}>
+          <div className="flex flex-col items-center justify-center gap-4 text-center relative h-screen">
             <img src={d.icon} alt="icon" />
             <section className="flex flex-col items-center font-semibold">
               <span className="flex items-center">
@@ -78,10 +77,16 @@ export default function Onboarding() {
               </span>
               <p>{d.black}</p>
             </section>
-            <img src={d.image} alt="img" />
-            <PrimaryButton short onClick={() => router.push('/home')}>
-              {d.buttonText}
-            </PrimaryButton>
+            <img src={d.image} alt="img" className="w-44 h-96" />
+            {d.id === 5 && (
+              <PrimaryButton
+                classProps="absolute bottom-8 z-30"
+                middle
+                onClick={() => router.replace('/home')}
+              >
+                자유도 시작하기
+              </PrimaryButton>
+            )}
           </div>
         </SwiperSlide>
       ))}
