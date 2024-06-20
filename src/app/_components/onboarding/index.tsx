@@ -5,8 +5,11 @@ import { A11y, Pagination, Scrollbar } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import PrimaryButton from '@/Common/PrimaryButton';
+import { useRouter } from 'next/navigation';
 
 export default function Onboarding() {
+  const router = useRouter();
   const OnboardingImage = [
     {
       id: 1,
@@ -14,6 +17,7 @@ export default function Onboarding() {
       blue: '반경 설정으로',
       point: 5,
       black: '내 주변 휴게소 검색',
+      buttonText: '다음',
       image:
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788712/first-phone.png',
     },
@@ -23,6 +27,7 @@ export default function Onboarding() {
       blue: '저장, 원하는',
       point: 2,
       black: '휴게소만 골라보기',
+      buttonText: '다음',
       image:
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788713/second-phone.png',
     },
@@ -32,6 +37,7 @@ export default function Onboarding() {
       blue: '선택, 사용예정인 ',
       point: 2,
       black: '고속도로 위 휴게소 검색',
+      buttonText: '다음',
       image:
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788712/third-phone.png',
     },
@@ -40,6 +46,7 @@ export default function Onboarding() {
       icon: 'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788714/fourth-icon.svg',
       blue: '도착지 검색',
       black: '만나볼 휴게소, 주유소 확인',
+      buttonText: '다음',
       image:
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788712/fourth-phone.png',
     },
@@ -48,6 +55,7 @@ export default function Onboarding() {
       icon: 'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788713/fifth-icon.svg',
       blue: '영수증, 구매내역 인증',
       black: '해당 휴게소 평가하기',
+      buttonText: '홈으로',
       image:
         'https://res.cloudinary.com/dbcvqhjmf/image/upload/v1718788712/fifth-phone.png',
     },
@@ -62,7 +70,7 @@ export default function Onboarding() {
       {OnboardingImage.map((d) => (
         <SwiperSlide key={d.id} className="overflow-hidden">
           <div className="flex flex-col items-center justify-center gap-4 mt-10 text-center">
-            <img src={d.icon} alt="icon" className="mb-8" />
+            <img src={d.icon} alt="icon" />
             <section className="flex flex-col items-center font-semibold">
               <span className="flex items-center">
                 <p className="text-primary">{d.blue.slice(0, d.point)}</p>
@@ -71,6 +79,9 @@ export default function Onboarding() {
               <p>{d.black}</p>
             </section>
             <img src={d.image} alt="img" />
+            <PrimaryButton short onClick={() => router.push('/home')}>
+              {d.buttonText}
+            </PrimaryButton>
           </div>
         </SwiperSlide>
       ))}
