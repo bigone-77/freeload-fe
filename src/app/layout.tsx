@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_KR } from 'next/font/google';
-import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import 'react-tooltip/dist/react-tooltip.css';
 import './globals.css';
 import { MSWComponent } from '@/Common/MSWComponent';
@@ -19,17 +19,25 @@ export const metadata: Metadata = {
   icons: {
     icon: '/logo-favicon.png',
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    startupImage: '/splash-screen.png',
-    title: '자유도',
-  },
 };
 
 export const viewport: Viewport = {
   themeColor: '#FFFFFF',
 };
+
+// Dynamic imports for scripts
+const KakaoMapScript = dynamic(
+  () => import('next/script').then((mod) => mod.default),
+  {
+    ssr: false,
+  },
+);
+const KakaoSdkScript = dynamic(
+  () => import('next/script').then((mod) => mod.default),
+  {
+    ssr: false,
+  },
+);
 
 export default async function RootLayout({
   children,
@@ -54,13 +62,14 @@ export default async function RootLayout({
             </ReduxProvider>
           </RQProvider>
         </AuthSession>
-        <Script
+        <KakaoMapScript
           src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_KEY}&libraries=services,clusterer&autoload=false`}
           strategy="beforeInteractive"
         />
-        <Script
+        <KakaoSdkScript
           src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
           integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4"
+          strategy="beforeInteractive"
           crossOrigin="anonymous"
         />
       </body>

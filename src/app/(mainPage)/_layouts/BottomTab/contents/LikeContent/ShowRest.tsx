@@ -41,6 +41,9 @@ export default function ShowRest({ email }: IShowRestProps) {
 
   return (
     <div className="mt-8">
+      <p className="font-semibold text-xl">
+        내 휴게소 {LikeRestData.data.length}
+      </p>
       {LikeRestData.data.map((d, index) => (
         <DetailRestInfo
           like

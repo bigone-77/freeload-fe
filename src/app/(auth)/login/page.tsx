@@ -25,7 +25,7 @@ export default async function LoginPage() {
         <LoginButton origin="kakao" />
         <LoginButton origin="google" />
         <Link href="/home">
-          <p className="border rounded-lg bg-primary shadow-lg p-3 text-text50 text-lg text-center">
+          <p className="rounded-lg bg-primary shadow-lg p-3 text-text50 text-lg text-center">
             로그인 없이 할래요
           </p>
         </Link>

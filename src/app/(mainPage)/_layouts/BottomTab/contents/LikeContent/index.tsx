@@ -22,10 +22,6 @@ export default function LikeContent() {
 
   return (
     <div className="w-full px-4">
-      {/* 찜컨텐츠
-      <button type="button" onClick={pushHandler}>
-        푸시 알림 테스트 버튼
-      </button> */}
       <SelectType clickedRest={clickedRest} setClickedRest={setClickedRest} />
       {content}
     </div>
