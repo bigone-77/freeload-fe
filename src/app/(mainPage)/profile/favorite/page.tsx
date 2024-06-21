@@ -1,3 +1,5 @@
+import Loader from '@/Common/Loader';
+
 export default function FavoritePage() {
-  return <p>즐찾 나와랏</p>;
+  return <Loader message="메세지 어떻게 나오나?" />;
 }

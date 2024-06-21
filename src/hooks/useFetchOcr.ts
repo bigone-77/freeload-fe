@@ -6,8 +6,13 @@ import {
   setReceipt,
   setReceiptImage,
 } from '@/shared/store/slices/getReceiptSlice';
+import { toast } from 'react-toastify';
 
-export const useFetchOcr = (id: string, way: string) => {
+export const useFetchOcr = (
+  id: string,
+  way: string,
+  setLoading: (loading: boolean) => void,
+) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const params = useSearchParams();
@@ -22,6 +27,7 @@ export const useFetchOcr = (id: string, way: string) => {
       const fileFormat = file.type.split('/')[1];
       const fileName = file.name;
 
+      setLoading(true);
       try {
         const response = await axios.post('/api/ocr', {
           imageBase64: base64Image,
@@ -41,7 +47,9 @@ export const useFetchOcr = (id: string, way: string) => {
           `/rest/${id}/customer/review?restNm=${params.get('restNm')}&way=${way}`,
         );
       } catch (error) {
-        console.error('Error processing OCR', error);
+        toast.error('영수증 인식에 실패했어요.');
+      } finally {
+        setLoading(false);
       }
     };
 

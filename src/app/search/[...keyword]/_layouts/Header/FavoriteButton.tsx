@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import { FaRegStar } from 'react-icons/fa6';
+import { toast } from 'react-toastify';
 
 interface IFavoriteButtonProps {
   startAddr: string;
@@ -32,7 +33,7 @@ export default function FavoriteButton({
   const mutation = useMutation({
     mutationFn: postFavorite,
     onSuccess() {
-      alert('경로가 저장되었습니다!');
+      toast.success('나의 경로에 추가됐어요.');
     },
   });
 

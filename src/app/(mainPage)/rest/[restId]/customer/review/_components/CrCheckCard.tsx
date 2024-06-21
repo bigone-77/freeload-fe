@@ -8,6 +8,7 @@ import PrimaryButton from '@/Common/PrimaryButton';
 import { RootState } from '@/shared/store';
 import { useMutation } from '@tanstack/react-query';
 import { postReview } from '@/lib/user/postReview';
+import { toast } from 'react-toastify';
 
 interface ICrCheckCardProps {
   restId: string;
@@ -48,6 +49,7 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   const mutation = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
+      toast.success('리뷰가 등록되었습니다.');
       router.push(`/rest/${restId}/customer?restNm=${restNm}`);
     },
     onError: (error) => {

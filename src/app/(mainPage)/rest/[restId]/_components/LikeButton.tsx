@@ -8,6 +8,7 @@ import { FaStar } from 'react-icons/fa';
 import { CiStar } from 'react-icons/ci';
 import { postLike } from '@/lib/user/postLike';
 import { deleteLike } from '@/lib/user/deleteLike';
+import { toast } from 'react-toastify';
 
 interface ILikeButtonProps {
   restId: string;
@@ -28,6 +29,7 @@ export default function LikeButton({ restId, isLiked }: ILikeButtonProps) {
       queryClient.invalidateQueries({
         queryKey: ['rest', 'detail'],
       });
+      toast.success('나의 휴게소에 추가됐어요.');
     },
   });
 
@@ -37,6 +39,7 @@ export default function LikeButton({ restId, isLiked }: ILikeButtonProps) {
       queryClient.invalidateQueries({
         queryKey: ['rest', 'detail'],
       });
+      toast.success('나의 휴게소를 취소했어요.');
     },
   });
 

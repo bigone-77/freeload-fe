@@ -11,6 +11,7 @@ import { RootState } from '@/shared/store';
 import { formatTime } from '@/utils/getTime';
 import { postReview } from '@/lib/user/postReview';
 import PrimaryButton from '@/Common/PrimaryButton';
+import { toast } from 'react-toastify';
 import ItemCard from './ItemCard';
 
 interface IRcCheckCardProps {
@@ -23,12 +24,15 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
   const params = useSearchParams();
   const restNm = params.get('restNm');
   const receiptData = useSelector((state: RootState) => state.receipt);
+  const [date, setDate] = useState('');
   const [prices, setPrices] = useState<string[]>([]);
   const [content, setContent] = useState('');
   const [reviewFile, setReviewFile] = useState<File | null>(null);
   const [reviewImage, setReviewImage] = useState<string | ArrayBuffer | null>(
     '',
   );
+
+  console.log(formatTime(date, 'YYYY년 M월 D일'));
 
   const router = useRouter();
 
@@ -42,7 +46,10 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
       profile_image: currentUser.data?.user?.image,
       svarCd: restId,
       storeName: receiptData.storeName,
-      visitedDate: formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),
+      visitedDate:
+        receiptData.creditDate.length > 3
+          ? formatTime(receiptData.creditDate, 'YYYY년 M월 D일')
+          : '',
       price: calculateTotalPrice(prices), // 가격 합계
       content,
       way,
@@ -57,6 +64,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
   const mutation = useMutation({
     mutationFn: (data: any) => postReview(data),
     onSuccess: () => {
+      toast.success('리뷰가 등록되었습니다.');
       router.push(`/rest/${restId}/customer?restNm=${restNm}`);
     },
     onError: (error) => {
@@ -109,9 +117,18 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
             {restNm}, {receiptData.storeName}
           </h2>
           <span className="inline-block">
-            <h2 className="text-xl font-semibold mb-2">
-              {formatTime(receiptData.creditDate, 'YYYY년 M월 D일')}
-            </h2>
+            {receiptData.creditDate.length < 3 ? (
+              <input
+                className="p-2 border rounded-lg"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            ) : (
+              <h2 className="text-xl font-semibold mb-2">
+                {formatTime(receiptData.creditDate, 'YYYY년 M월 D일')}
+              </h2>
+            )}
             <h2>에 방문하셨군요!</h2>
           </span>
         </div>

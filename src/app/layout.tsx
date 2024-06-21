@@ -9,6 +9,7 @@ import AuthSession from '@/Common/AuthSession';
 import ReduxProvider from '@/Common/ReduxProvider';
 import { getRestData } from '@/lib/rest/all/getRestData';
 import LocationProvider from '@/Common/LocationProvider';
+import ToastProvider from '@/Common/ToastProvider';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
 
@@ -42,6 +43,7 @@ export default async function RootLayout({
           <RQProvider>
             <ReduxProvider>
               <LocationProvider restData={AllRestData.data}>
+                <ToastProvider />
                 {children}
                 {modal}
               </LocationProvider>

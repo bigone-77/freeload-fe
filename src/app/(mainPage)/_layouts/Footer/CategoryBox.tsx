@@ -15,7 +15,9 @@ export default function CategoryBox({
   selected,
 }: ICategoryBoxProps) {
   return (
-    <section className={`p-5 ${selected && 'border-t-4 border-t-primary'}`}>
+    <section
+      className={`p-5 ${selected && 'border-t-4 border-t-primary'} hover:opacity-80 transition-all`}
+    >
       <Link
         href={`/${url}`}
         className="flex flex-col items-center justify-center"

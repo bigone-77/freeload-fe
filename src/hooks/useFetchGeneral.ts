@@ -7,8 +7,13 @@ import {
   setCredit,
   setCreditImage,
 } from '@/shared/store/slices/getCreditSlice';
+import { toast } from 'react-toastify';
 
-export const useFetchGeneral = (id: string, way: string) => {
+export const useFetchGeneral = (
+  id: string,
+  way: string,
+  setLoading: (loading: boolean) => void,
+) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const params = useSearchParams();
@@ -24,6 +29,8 @@ export const useFetchGeneral = (id: string, way: string) => {
       const base64Image = reader.result as string; // Cast to string
       const fileFormat = file.type.split('/')[1];
       const fileName = file.name;
+
+      setLoading(true);
 
       try {
         const response = await axios.post('/api/ocr/general', {
@@ -66,7 +73,9 @@ export const useFetchGeneral = (id: string, way: string) => {
           `/rest/${id}/customer/review?restNm=${params.get('restNm')}&way=${way}`,
         );
       } catch (error) {
-        console.error('Error processing OCR', error);
+        toast.error('결제내역 인식에 실패했어요');
+      } finally {
+        setLoading(false);
       }
     };
 
