@@ -17,8 +17,9 @@ export const useGetCurrentLocation = (restData: any[]) => {
     console.log(`pushHandler called for ${rest.restName}`);
     const isToken = localStorage.getItem('fcmToken');
     if (!isToken) {
-      window.alert('토큰이 없어요');
-      requestPermission();
+      if ('Notification' in window) {
+        requestPermission();
+      }
     } else {
       sendPush({
         token: isToken,
