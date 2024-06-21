@@ -2,7 +2,7 @@
 
 'use client';
 
-import { requestPermission } from '@/hooks/push/requestPermission';
+// import { requestPermission } from '@/hooks/push/requestPermission';
 import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 
 interface ILocationProviderProps {
@@ -15,7 +15,7 @@ export default function LocationProvider({
   restData,
 }: ILocationProviderProps) {
   useGetCurrentLocation(restData);
-  requestPermission();
+  // requestPermission();
 
   return <>{children}</>;
 }

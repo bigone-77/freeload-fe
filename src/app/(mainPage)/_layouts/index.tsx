@@ -1,21 +1,18 @@
 'use client';
 
-import { useSelector } from 'react-redux';
-
-import Footer from '@/app/(mainPage)/_layouts/Footer';
 import Loader from '@/Common/Loader';
+import { requestPermission } from '@/hooks/push/requestPermission';
+import { useGetCurrentLocation } from '@/hooks/useGetCurrentLocation';
 import { RootState } from '@/shared/store';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { requestPermission } from '@/hooks/push/requestPermission';
-import BottomTab from './_layouts/BottomTab';
-import HomeHeader from './_layouts/header';
+import { useSelector } from 'react-redux';
+import HomeHeader from './header';
+import BottomTab from './BottomTab';
 
-interface IHomeLayoutProps {
-  children: React.ReactNode;
-}
-
-export default function HomeLayout({ children }: IHomeLayoutProps) {
+export default function Action(data: any, children: React.ReactNode) {
+  useGetCurrentLocation(data);
   requestPermission();
+
   const segment = useSelectedLayoutSegment();
 
   const currentLocation = useSelector(
@@ -30,7 +27,6 @@ export default function HomeLayout({ children }: IHomeLayoutProps) {
       {segment === 'home' && <HomeHeader />}
       {children}
       {segment === 'home' && <BottomTab />}
-      <Footer />
     </>
   );
 }
