@@ -21,7 +21,7 @@ export default function Category({
   const router = useRouter();
   return (
     <div
-      className={`flex items-center justify-between pb-5 ${!none && 'border-b'} `}
+      className={`flex items-center justify-between pb-5 ${!none && 'border-b'} hover:opacity-80 transition-all`}
       onClick={
         none
           ? async () => signOut({ callbackUrl: '/' })

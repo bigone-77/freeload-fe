@@ -32,8 +32,6 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
     '',
   );
 
-  console.log(formatTime(date, 'YYYY년 M월 D일'));
-
   const router = useRouter();
 
   const calculateTotalPrice = (pricesArray: string[]) =>
@@ -49,7 +47,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
       visitedDate:
         receiptData.creditDate.length > 3
           ? formatTime(receiptData.creditDate, 'YYYY년 M월 D일')
-          : '',
+          : formatTime(date, 'YYYY년 M월 D일'),
       price: calculateTotalPrice(prices), // 가격 합계
       content,
       way,

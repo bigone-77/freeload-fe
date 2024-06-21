@@ -1,7 +1,6 @@
 'use client';
 
-import { CldUploadWidget } from 'next-cloudinary';
-import React from 'react';
+import React, { useRef } from 'react';
 import { CiCamera } from 'react-icons/ci';
 
 interface IImageUploadProps {
@@ -10,12 +9,32 @@ interface IImageUploadProps {
 }
 
 export default function ImageUpload({ onChange, value }: IImageUploadProps) {
-  const handleUpload = (result: any) => {
-    // console.log('result', result);
-    onChange(result.info.secure_url);
-  };
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const uploadPreset = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append(
+        'upload_preset',
+        process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!,
+      );
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        },
+      );
+
+      const data = await response.json();
+      onChange(data.secure_url);
+    }
+  };
 
   return (
     <section className="flex items-center gap-4 my-10">
@@ -29,23 +48,18 @@ export default function ImageUpload({ onChange, value }: IImageUploadProps) {
           <CiCamera size={25} />
           <p className="text-text600 text-sm">프로필 사진 업로드</p>
         </div>
-        <CldUploadWidget
-          onUpload={handleUpload}
-          uploadPreset={uploadPreset}
-          options={{
-            maxFiles: 1,
-            sources: ['local'],
-          }}
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        <div
+          onClick={() => fileInputRef.current?.click()}
+          className="text-center p-2 border rounded-lg text-text400 mt-3 hover:opacity-80 transition-all cursor-pointer"
         >
-          {({ open }) => (
-            <div
-              onClick={() => open()}
-              className="text-center p-2 border rounded-lg text-text400 mt-3"
-            >
-              앨범선택...
-            </div>
-          )}
-        </CldUploadWidget>
+          앨범선택...
+        </div>
       </div>
     </section>
   );

@@ -1,5 +1,16 @@
-import Loader from '@/Common/Loader';
+'use client';
+
+import { useSession } from 'next-auth/react';
+import LikeContent from '../../_layouts/BottomTab/contents/LikeContent';
 
 export default function FavoritePage() {
-  return <Loader message="메세지 어떻게 나오나?" />;
+  const userEmail = useSession().data?.user?.email;
+
+  if (userEmail) {
+    return (
+      <div className="mt-10">
+        <LikeContent />
+      </div>
+    );
+  }
 }

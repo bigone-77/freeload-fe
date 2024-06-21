@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { RxAvatar } from '@/constants/Icons';
 import { ProfileResponse } from '@/models/Profile';
 import { getUserProfileData } from '@/lib/user/getUserProfileData';
+import { useRouter } from 'next/navigation';
 
 interface ISideContentsProps {
   user: User | undefined;
@@ -18,6 +19,7 @@ const profileVariants = {
 };
 
 export default function SideProfile({ user }: ISideContentsProps) {
+  const router = useRouter();
   const { data: UserProfileResponse } = useQuery<ProfileResponse>({
     queryKey: [user?.email],
     queryFn: () => getUserProfileData(user?.email!),
@@ -45,12 +47,15 @@ export default function SideProfile({ user }: ISideContentsProps) {
           </motion.div>
         </>
       ) : (
-        <>
+        <motion.div
+          className="hover:opacity-90 transition-all flex flex-col gap-2 items-center justify-center"
+          onClick={() => router.push('/login')}
+        >
           <RxAvatar size={36} />
           <motion.p className="font-semibold" variants={profileVariants}>
             로그인해주세요.
           </motion.p>
-        </>
+        </motion.div>
       )}
     </motion.div>
   );

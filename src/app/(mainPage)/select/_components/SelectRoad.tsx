@@ -19,7 +19,7 @@ export default function SelectRoad() {
     content = <Loader />;
   } else if (Response) {
     content = (
-      <section className="flex flex-col gap-5 mt-10">
+      <section className="flex flex-col gap-5 mt-10 hover:opacity-80 transition-all">
         {Response.data.map((d, index) => (
           <RoadCard key={index} name={d.routeNm} />
         ))}
