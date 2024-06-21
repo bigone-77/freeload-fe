@@ -7,8 +7,7 @@ import { MSWComponent } from '@/Common/MSWComponent';
 import RQProvider from '@/Common/RQProvider';
 import AuthSession from '@/Common/AuthSession';
 import ReduxProvider from '@/Common/ReduxProvider';
-// import { getRestData } from '@/lib/rest/all/getRestData';
-// import LocationProvider from '@/Common/LocationProvider';
+import LocationProvider from '@/Common/LocationProvider';
 import ToastProvider from '@/Common/ToastProvider';
 
 const notoSansKr = Noto_Sans_KR({ subsets: ['latin'] });
@@ -33,7 +32,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  // const AllRestData = await getRestData();
+  const { getRestData } = await import('@/lib/rest/all/getRestData');
+  const AllRestData = await getRestData();
 
   return (
     <html lang="en">
@@ -42,11 +42,11 @@ export default async function RootLayout({
         <AuthSession>
           <RQProvider>
             <ReduxProvider>
-              {/* <LocationProvider restData={AllRestData.data}> */}
-              <ToastProvider />
-              {children}
-              {modal}
-              {/* </LocationProvider> */}
+              <LocationProvider restData={AllRestData.data}>
+                <ToastProvider />
+                {children}
+                {modal}
+              </LocationProvider>
             </ReduxProvider>
           </RQProvider>
         </AuthSession>
