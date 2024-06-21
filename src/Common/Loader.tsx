@@ -7,7 +7,7 @@ interface ILoaderProps {
 export default function Loader({ message }: ILoaderProps) {
   return (
     <div
-      className={`w-full ${message ? 'h-full' : 'h-screen pb-10'} flex flex-col items-center justify-start text-center gap-[2px]`}
+      className={`w-full ${!message ? 'h-full pb-10' : 'h-screen'} flex flex-col items-center justify-start text-center gap-[2px]`}
     >
       <BounceLoader color="#158EFF" size={60} />
       <p className="font-semibold text-text600">{message}</p>

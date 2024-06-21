@@ -42,11 +42,13 @@ export default async function RootLayout({
         <AuthSession>
           <RQProvider>
             <ReduxProvider>
-              <LocationProvider restData={AllRestData.data}>
-                <ToastProvider />
-                {children}
-                {modal}
-              </LocationProvider>
+              {AllRestData && (
+                <LocationProvider restData={AllRestData.data}>
+                  <ToastProvider />
+                  {children}
+                  {modal}
+                </LocationProvider>
+              )}
             </ReduxProvider>
           </RQProvider>
         </AuthSession>
