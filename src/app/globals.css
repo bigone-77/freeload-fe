@@ -107,9 +107,7 @@ select {
   }
 
   p,
-  button,
-  div,
-  section {
+  button {
     @apply hover:opacity-80 transition-all;
   }
 }
