@@ -3,7 +3,7 @@ import { UpdateSession } from 'next-auth/react';
 
 import getYear from '@/utils/getYear';
 import PrimaryButton from '@/Common/PrimaryButton';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EditProfile } from '@/lib/user/EditProfile';
 import { toast } from 'react-toastify';
 import ImageUpload from './ImageUpload';
@@ -46,6 +46,7 @@ export default function EditForm({
     phoneNum: `010${enteredFirstPhone}${enteredSecondPhone}`,
     gender: selectedGender,
   };
+  const queryClient = useQueryClient();
 
   const editMutation = useMutation({
     mutationFn: EditProfile,
@@ -53,6 +54,9 @@ export default function EditForm({
       updateHandler({
         name: enteredName,
         image: profileImg,
+      });
+      queryClient.invalidateQueries({
+        queryKey: [email],
       });
       toast.success('프로필이 변경되었습니다.');
       setShowEdit(false);
