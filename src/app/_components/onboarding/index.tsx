@@ -68,7 +68,7 @@ export default function Onboarding() {
     >
       {OnboardingImage.map((d) => (
         <SwiperSlide className="h-full" key={d.id}>
-          <div className="flex flex-col items-center justify-start gap-4 text-center relative h-screen">
+          <div className="flex flex-col items-center justify-start gap-4 text-center h-screen mt-[10%]">
             <img src={d.icon} alt="icon" />
             <section className="flex flex-col items-center font-semibold">
               <span className="flex items-center">
@@ -77,10 +77,10 @@ export default function Onboarding() {
               </span>
               <p>{d.black}</p>
             </section>
-            <img src={d.image} alt="img" className="w-44 h-96" />
+            <img src={d.image} alt="img" className="w-48 h-[400px]" />
             {d.id === 5 && (
               <PrimaryButton
-                classProps="absolute bottom-8 z-30"
+                classProps="mt-10"
                 middle
                 onClick={() => router.replace('/home')}
               >

@@ -35,7 +35,7 @@ export default async function RootLayout({
   const { getRestData } = await import('@/lib/rest/all/getRestData');
   const AllRestData = await getRestData();
 
-  console.log(AllRestData.data.slice(-3));
+  console.log(AllRestData.data.slice(-4));
 
   return (
     <html lang="en">
