@@ -73,6 +73,7 @@ export default function SecondJoin() {
       <div className="grid grid-cols-4 items-center gap-4">
         {enteredAuthNums.map((authNum, index) => (
           <input
+            type="number"
             key={index}
             ref={inputRefs[index]}
             className="w-[60px] h-[73px] border text-center text-3xl bg-text100 bg-opacity-50 border-primary focus:bg-blue-100 outline-none"
