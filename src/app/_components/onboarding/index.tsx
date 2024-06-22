@@ -68,7 +68,7 @@ export default function Onboarding() {
     >
       {OnboardingImage.map((d) => (
         <SwiperSlide className="h-full" key={d.id}>
-          <div className="flex flex-col items-center justify-center gap-4 text-center relative h-screen">
+          <div className="flex flex-col items-center justify-start gap-4 text-center relative h-screen">
             <img src={d.icon} alt="icon" />
             <section className="flex flex-col items-center font-semibold">
               <span className="flex items-center">

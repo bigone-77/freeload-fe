@@ -1,13 +1,15 @@
 export async function getRestData() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_PROD_URL}/api/rest/all`, {
-    next: {
-      tags: ['all', 'rests'],
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_PROD_URL}/api/rest/all?timestamp=${new Date().getTime()}`,
+    {
+      next: {
+        tags: [String(new Date().getTime())],
+      },
+      credentials: 'include',
+      cache: 'no-store',
     },
-    credentials: 'include',
-    cache: 'no-store',
-  });
+  );
   if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
     throw new Error('Failed to fetch data');
   }
 

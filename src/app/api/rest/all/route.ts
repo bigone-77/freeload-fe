@@ -1,9 +1,14 @@
 import axios from 'axios';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+
+  const timeStamp = searchParams.get('timestamp');
   try {
-    const response = await axios(`${process.env.NEXT_PUBLIC_BE_URL}/rest/all`);
+    const response = await axios(
+      `${process.env.NEXT_PUBLIC_BE_URL}/rest/all?timestamp=${timeStamp}`,
+    );
 
     if (response.status === 200) {
       return NextResponse.json(response.data, { status: 200 });

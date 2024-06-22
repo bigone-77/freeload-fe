@@ -24,7 +24,7 @@ export const useGetCurrentLocation = (restData: any[]) => {
       sendPush({
         token: isToken,
         data: {
-          title: `🚙${rest.restName}이 근처에 있어요!`,
+          title: `🚙${rest.restName}가 근처에 있어요!`,
           body: `잠깐 ${rest.restName}에서 쉬다 가시는건 어때요?`,
           click_action: `/rest/${rest.restId}`,
         },
