@@ -125,6 +125,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
+                data-placeholder="YYYY-MM-DD"
               />
             ) : (
               <h2 className="text-xl font-semibold mb-2">
