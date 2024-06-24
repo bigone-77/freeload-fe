@@ -32,7 +32,7 @@ export default function ReviewCarousel({ restId }: IReviewCarouselProps) {
   if (ReviewData && ReviewData.data) {
     content = (
       <Swiper navigation modules={[Navigation]} speed={1000} spaceBetween={2}>
-        {ReviewData.data.map((review, index) => (
+        {ReviewData.data.reverse().map((review, index) => (
           <SwiperSlide key={index}>
             <div className="flex justify-center items-center w-full h-full">
               <ReviewCard
