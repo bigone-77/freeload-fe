@@ -17,8 +17,8 @@ export default function RoadPathPage() {
   const { data: RestData } = useQuery<RestResponse>({
     queryKey: [
       'rest',
-      selectedRoadDirection.roadName,
-      selectedRoadDirection.direction,
+      selectedRoadDirection.roadName || '경부선',
+      selectedRoadDirection.direction || 'up',
     ],
     queryFn: getRoadRestData,
   });
