@@ -17,7 +17,7 @@ export default function LoginButton({ origin }: ILoginButtonProps) {
       <img
         src={`https://res.cloudinary.com/dbcvqhjmf/image/upload/v1717977113/social-${origin}-button.svg`}
         alt="loginBtn"
-        width={300}
+        width="100%"
         height={45}
       />
     </button>
