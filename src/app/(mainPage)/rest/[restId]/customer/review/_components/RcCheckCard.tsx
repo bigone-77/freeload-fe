@@ -121,7 +121,7 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
             {receiptData.creditDate.length < 3 ||
             receiptData.creditDate.split('/')[0].length !== 4 ? (
               <input
-                className="p-2 border rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none transition duration-200 ease-in-out hover:shadow-md"
+                className="p-2 border-2 rounded-lg shadow-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none transition duration-200 ease-in-out hover:shadow-md"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
