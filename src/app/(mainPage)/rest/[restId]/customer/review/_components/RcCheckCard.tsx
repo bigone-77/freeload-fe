@@ -47,9 +47,10 @@ export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
       svarCd: restId,
       storeName: receiptData.storeName,
       visitedDate:
-        receiptData.creditDate.length > 3
-          ? formatTime(receiptData.creditDate, 'YYYY년 M월 D일')
-          : formatTime(date, 'YYYY년 M월 D일'),
+        receiptData.creditDate.length < 3 ||
+        receiptData.creditDate.split('/')[0].length !== 4
+          ? formatTime(date, 'YYYY년 M월 D일')
+          : formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),
       price: calculateTotalPrice(prices), // 가격 합계
       content,
       way,

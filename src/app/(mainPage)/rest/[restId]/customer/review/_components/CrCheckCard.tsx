@@ -1,45 +1,62 @@
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useSelector } from 'react-redux';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/indent */
 
-import PrimaryButton from '@/Common/PrimaryButton';
-import { RootState } from '@/shared/store';
+'use client';
+
 import { useMutation } from '@tanstack/react-query';
-import { postReview } from '@/lib/user/postReview';
-import { toast } from 'react-toastify';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 
-interface ICrCheckCardProps {
+import { RootState } from '@/shared/store';
+import { formatTime } from '@/utils/getTime';
+import { postReview } from '@/lib/user/postReview';
+import PrimaryButton from '@/Common/PrimaryButton';
+import { toast } from 'react-toastify';
+import ItemCard from './ItemCard';
+
+interface IRcCheckCardProps {
   restId: string;
   way: string;
 }
 
-export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
+export default function RcCheckCard({ restId, way }: IRcCheckCardProps) {
   const currentUser = useSession();
   const params = useSearchParams();
   const restNm = params.get('restNm');
-  const creditData = useSelector((state: RootState) => state.credit);
+  const receiptData = useSelector((state: RootState) => state.receipt);
+  const [date, setDate] = useState('');
+  const [prices, setPrices] = useState<string[]>([]);
   const [content, setContent] = useState('');
   const [reviewFile, setReviewFile] = useState<File | null>(null);
   const [reviewImage, setReviewImage] = useState<string | ArrayBuffer | null>(
     '',
   );
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
+
+  const calculateTotalPrice = (pricesArray: string[]) =>
+    pricesArray.map((p) => Number(p)).reduce((a, b) => a + b, 0);
 
   const createFormData = () => {
     const formData = new FormData();
-
     const dto = {
       email: currentUser.data?.user?.email,
       profile_image: currentUser.data?.user?.image,
       svarCd: restId,
-      storeName: creditData.storeName,
-      visitedDate: creditData.creditDate,
-      price: creditData.price,
+      storeName: receiptData.storeName,
+      visitedDate:
+        receiptData.creditDate.length < 3 ||
+        receiptData.creditDate.split('/')[0].length !== 4
+          ? formatTime(date, 'YYYY년 M월 D일')
+          : formatTime(receiptData.creditDate, 'YYYY년 M월 D일'),
+      price: calculateTotalPrice(prices), // 가격 합계
       content,
       way,
     };
+
     formData.append('dto', JSON.stringify(dto));
     formData.append('file', reviewFile || new Blob());
 
@@ -47,15 +64,33 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
   };
 
   const mutation = useMutation({
-    mutationFn: postReview,
+    mutationFn: (data: any) => postReview(data),
+    onMutate: () => {
+      setLoading(true);
+    },
     onSuccess: () => {
+      setLoading(false);
       toast.success('리뷰가 등록되었습니다.');
       router.push(`/rest/${restId}/customer?restNm=${restNm}`);
     },
     onError: (error) => {
+      setLoading(false);
       console.error('Mutation failed', error);
     },
   });
+
+  useEffect(() => {
+    if (receiptData.items && receiptData.items.length > 0) {
+      const updatedPrices = receiptData.items.map((item) => item.price || '0');
+      setPrices(updatedPrices);
+    }
+  }, [receiptData.items]);
+
+  const handlePriceChange = (index: number, newPrice: string) => {
+    const updatedPrices = [...prices];
+    updatedPrices[index] = newPrice;
+    setPrices(updatedPrices);
+  };
 
   const selectedImageHandler = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -78,7 +113,7 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
     <div className="flex flex-col items-center justify-center pb-28">
       <section className="flex items-start gap-4 my-4 ">
         <Image
-          src={creditData.creditImage!}
+          src={receiptData.receiptImage!}
           alt="receipt"
           width={70}
           height={80}
@@ -86,28 +121,49 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
         />
         <div className="flex flex-col gap-6">
           <h2 className="text-xl font-semibold">
-            {restNm}, {creditData.storeName}
+            {restNm}, {receiptData.storeName}
           </h2>
           <span className="inline-block">
-            <h2 className="text-xl font-semibold mb-2">
-              {creditData.creditDate}
-            </h2>
+            {receiptData.creditDate.length < 3 ||
+            receiptData.creditDate.split('/')[0].length !== 4 ? (
+              <input
+                className="p-2 border rounded-lg border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:outline-none transition duration-200 ease-in-out hover:shadow-md"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                placeholder="방문일을 선택해주세요"
+              />
+            ) : (
+              <h2 className="text-xl font-semibold mb-2">
+                {formatTime(receiptData.creditDate, 'YYYY년 M월 D일')}
+              </h2>
+            )}
             <h2>에 방문하셨군요!</h2>
           </span>
         </div>
       </section>
 
-      <section className="gap-2 border rounded-md bg-white shadow-lg p-4 w-full mt-6">
+      <section className="flex flex-col gap-2 border rounded-md bg-white shadow-lg p-4 w-full mt-6">
+        {receiptData.items.map((item, index) => (
+          <ItemCard
+            key={index}
+            name={item.name}
+            count={item.count}
+            price={prices[index] ? prices[index] : ''}
+            onPriceChange={(newPrice) => handlePriceChange(index, newPrice)}
+          />
+        ))}
+        <hr className="w-full my-4" />
         <div className="flex items-center justify-between">
           <h3>총금액</h3>
-          <h3>{creditData.price}원</h3>
+          <h3>{calculateTotalPrice(prices)}원</h3>
         </div>
       </section>
 
       <section className="mt-10 flex flex-col gap-3 w-full">
         <span className="inline-block">
           <p className="text-lg font-semibold mb-2">
-            {restNm}, {creditData.storeName}
+            {restNm}, {receiptData.storeName}
           </p>
           <p>은 어떠셨나요?</p>
         </span>
@@ -140,9 +196,10 @@ export default function CrCheckCard({ restId, way }: ICrCheckCardProps) {
       <PrimaryButton
         onClick={() => mutation.mutate(createFormData())}
         classProps="mt-6"
+        passed={loading}
         short
       >
-        리뷰 남기기
+        {loading ? '로딩 중...' : '리뷰 남기기'}
       </PrimaryButton>
     </div>
   );

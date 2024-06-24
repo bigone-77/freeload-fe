@@ -29,7 +29,7 @@ export default function ReviewCard({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <img src={imgUrl} alt="Profile" className="w-12 h-12 rounded-full" />
-          <p className="font-semibold">{email.split('@')[0]}</p>
+          <p className="font-semibold">{truncate(email.split('@')[0], 11)}</p>
         </div>
         <p className="text-primary font-semibold">
           {way === 'receipt' ? '영수증' : '결제내역'} 인증
@@ -48,7 +48,7 @@ export default function ReviewCard({
           className="object-cover w-12 h-12 rounded-md"
         />
       )}
-      <p className="text-lg text-gray-600">{truncate(contents, 35)}</p>
+      <p className="text-lg text-gray-600">{truncate(contents, 30)}</p>
     </div>
   );
 }
