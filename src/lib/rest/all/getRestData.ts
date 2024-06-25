@@ -10,7 +10,7 @@ export async function getRestData() {
     },
   );
   if (!res.ok) {
-    throw new Error('Failed to fetch data');
+    throw new Error('Failed to fetching data');
   }
 
   return res.json();
