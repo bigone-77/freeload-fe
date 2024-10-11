@@ -42,6 +42,10 @@
 
 <br />
 
+## 🏡 Service Architecture
+<img width="2244" alt="자유도_설계도 240617" src="https://github.com/user-attachments/assets/edd76363-37e7-4d96-b157-44d66b13e3fc">
+<br><br>
+
 ## 시작 가이드
 
 ### Requirements
@@ -101,17 +105,20 @@ $ cd freeload-fe
 
 ## 화면구성 **📺**
 
-| 온보딩 페이지 | 홈페이지 |
-|:------:|:------:|
-| <img width="222" alt="스크린샷 2024-10-11 오후 8 03 36" src="https://github.com/user-attachments/assets/5009572f-5296-4a3a-85de-8c7db9795731"><br> | <img width="294" alt="스크린샷 2024-06-07 오후 2 58 42" src="https://github.com/user-attachments/assets/405b3282-3141-4226-8972-4b7b997e2ec3"><br> | 
-| · 어플 사용에 대한 간략한 설명 온보딩 <br> · 사용자 쿠키로 저장하여 한 번만 확인하면 한 달 뒤 재출현 | · 현재 위치에 대한 주변 장소들 확인 <br> · 하단 탭을 이용하여 사용자 주변 휴게소 및 주유소 정보 확인 및 도로뷰 확인 가능 <br> · 도착지 검색 기능 |
-| [시연 영상](https://drive.google.com/drive/folders/1xYLHrOpf27_CeaaYok-AfjbpVuiwqpk9?dmr=1&ec=wgc-drive-hero-goto) | [시연 영상](https://drive.google.com/drive/my-drive?dmr=1&ec=wgc-drive-globalnav-goto) | 
+| 온보딩 페이지 | 홈페이지 | 인증과정 |
+|:------:|:------:|:------:|
+| <img width="222" alt="스크린샷 2024-10-11 오후 8 03 36" src="https://github.com/user-attachments/assets/5009572f-5296-4a3a-85de-8c7db9795731"><br> | <img width="294" alt="스크린샷 2024-06-07 오후 2 58 42" src="https://github.com/user-attachments/assets/405b3282-3141-4226-8972-4b7b997e2ec3"><br> | <img width="291" alt="스크린샷 2024-06-07 오후 4 16 28" src="https://github.com/user-attachments/assets/8845adae-ccd3-46bf-bd38-c6a604683c0b">
+<br> |
+| · 어플 사용에 대한 간략한 설명 온보딩 <br> · 사용자 쿠키로 저장하여 한 번만 확인하면 한 달 뒤 재출현 | · 현재 위치에 대한 주변 장소들 확인 <br> · 하단 탭으로 사용자 주변 휴게소, 주유소 정보 확인 <br> · 도착지 검색 기능 | · 소셜 로그인 <br> · 회원가입 절차(OTP api 활용) |
+| [시연 영상](https://drive.google.com/file/d/1qIjjpW7M0MrDMLg8GvrXRaBq4_bOrPlp/view?usp=drive_link) | [시연 영상](https://drive.google.com/file/d/1JFUho0vN1vnt3yxwMZp3CqLTGfsNO-z6/view?usp=drive_link) | [시연 영상](https://drive.google.com/file/d/1-QP3Sb5qrvWcIBFya-Ez0dz5jpe8XBmH/view?usp=drive_link) |
 
-| 검색 페이지 | 상세페이지 |
-|:------:|:------:|
-| <img width="285" alt="스크린샷 2024-06-07 오후 4 02 14" src="https://github.com/user-attachments/assets/fad35600-2f42-41d4-8cf5-09844646c439"><br> | <img width="292" alt="스크린샷 2024-06-07 오후 4 06 33" src="https://github.com/user-attachments/assets/797a51d5-c2f8-43d2-becb-d6b138ac03fc"><br> | 
-| · 출발지, 도착지 선정 후 반경에 있는 고속도로 확인 <br> · 고속도로 위에 있는 휴게소, 주유소 정보 확인 <br> · 각 주유소, 휴게소 필터링 기능 <br> | · 현재 위치에 대한 주변 장소들 확인 <br> · 해당 휴게소에 대한 전반적인 정보 확인(식당, 주유소, ...) <br> · 리뷰 기능(영수증, 결제 내역) |
-| [시연 영상](https://drive.google.com/drive/folders/1xYLHrOpf27_CeaaYok-AfjbpVuiwqpk9?dmr=1&ec=wgc-drive-globalnav-goto) | [시연 영상](https://drive.google.com/drive/folders/1xYLHrOpf27_CeaaYok-AfjbpVuiwqpk9?dmr=1&ec=wgc-drive-globalnav-goto) | 
+
+| 검색 페이지 | 상세페이지 | 선택 페이지 |
+|:------:|:------:|:------:|
+| <img width="285" alt="스크린샷 2024-06-07 오후 4 02 14" src="https://github.com/user-attachments/assets/fad35600-2f42-41d4-8cf5-09844646c439"><br> | <img width="292" alt="스크린샷 2024-06-07 오후 4 06 33" src="https://github.com/user-attachments/assets/797a51d5-c2f8-43d2-becb-d6b138ac03fc"><br> | <img width="292" alt="추가 페이지 스크린샷" src="https://via.placeholder.com/150"><br> |
+| · 출발지, 도착지 선정 후 반경에 있는 고속도로 확인 <br> · 고속도로 위에 있는 휴게소, 주유소 정보 확인 <br> · 각 주유소, 휴게소 필터링 기능 <br> | · 현재 위치에 대한 주변 장소들 확인 <br> · 해당 휴게소에 대한 전반적인 정보 확인(식당, 주유소, ...) <br> · 리뷰 기능(영수증, 결제 내역) | · 고속도로, 방향을 선택 <br> · 선택된 경로에 있는 모든 휴게소, 주유소 정보 <br> · 공유 기능(URL 복사 및 카카오톡 공유) |
+| [시연 영상](https://drive.google.com/file/d/1gfVTx-gc-E9U3hqESDHUc1QakG5OBK6T/view?usp=drive_link) | [시연 영상](https://drive.google.com/file/d/1aZvdzWc292svgfkC4ydjB_VdxSVUUvbe/view?usp=drive_link) | [시연 영상](https://drive.google.com/file/d/1XDuakmL52c-QCTL9nUI3KptwhtdMph9d/view?usp=drive_link) |
+
 
 <br />
 
